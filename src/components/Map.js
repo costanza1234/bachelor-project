@@ -1,35 +1,56 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactComponent as LineSVG } from '../assets/line.svg';
 
 import '../styles/Map.css';
 import MapIsland from './MapIsland';
 
 export default function Map() {
-    const pathRef = useRef(null);
     const [ positions, setPositions ] = useState([]);
 
     useEffect(() => {
-        // Query the SVG element with class "mapSVG"
-        const svgElement = document.querySelector('.mapSVG');
+        const svgElement = document.querySelector('.lineSVG');
         if (!svgElement) return;
 
-        // Query the first <path> element within the SVG
         const path = svgElement.querySelector('path');
-        if (!path) return;
-        pathRef.current = path;
+        if (!path) {
+            console.log('no path, returning')
+            return;
+        }
 
-        // Get the total length of the path
         const totalLength = path.getTotalLength();
 
-        // Decide distances (fractions of totalLength) where you want each island
+        // The fractions of the path length where you want islands
         const fractions = [ 0.1, 0.25, 0.4, 0.55, 0.7, 0.85, 0.95 ];
+
+        // Grab the container rect, so we can offset from container's top-left
+        const container = document.querySelector('.mapContainer');
+        const containerRect = container.getBoundingClientRect();
+
+        // We'll use an SVGPoint to transform local coordinates to screen coords
+        const svgPoint = svgElement.createSVGPoint();
+        const ctm = path.getScreenCTM(); // Current Transformation Matrix from the path to screen
+
         const newPositions = fractions.map((fraction) => {
             const distance = fraction * totalLength;
-            const point = path.getPointAtLength(distance); // { x, y }
-            return { x: point.x, y: point.y };
+            const localPt = path.getPointAtLength(distance);
+
+            // Put the local path coordinates into our SVGPoint
+            svgPoint.x = localPt.x;
+            svgPoint.y = localPt.y;
+
+            // Transform that point into screen/browser coordinates
+            const screenPt = svgPoint.matrixTransform(ctm);
+
+            // Now convert screen coordinates to container-relative coordinates
+            return {
+                x: screenPt.x - containerRect.left,
+                y: screenPt.y - containerRect.top,
+            };
         });
 
         setPositions(newPositions);
+
+        console.log('newPositions', newPositions);
     }, []);
 
     const handleIslandClick = (index) => {
@@ -43,7 +64,6 @@ export default function Map() {
                 <LineSVG />
             </svg>
 
-            {/* Render each island pinned to a point on the path */}
             {positions.map((pos, i) => (
                 <MapIsland
                     key={i}
@@ -51,9 +71,12 @@ export default function Map() {
                     alt={`Island ${i + 1}`}
                     className="mapIsland"
                     style={{
-                        position: 'absolute',
-                        left: pos.x - 30, // Adjust to center the island (assumes ~60px width)
-                        top: pos.y - 30,  // Adjust to center the island (assumes ~60px height)
+                        position: 'relative',
+                        left: pos.x,
+                        top: pos.y,
+                        transition: 'transform 0.1s',
+                        cursor: 'pointer',
+                        width: '10%',
                     }}
                     onClick={() => handleIslandClick(i + 1)}
                 />
