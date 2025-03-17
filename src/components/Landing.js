@@ -9,7 +9,7 @@ export default function Landing() {
         <div className='landing'>
 
             <p className='welcomeMessage'>
-                Benvenuto in Isole della Conoscenza, un gioco educativo per imparare divertendosi!
+                Benvenuto in Isole della Conoscenza! <br />
             </p>
 
             <button
