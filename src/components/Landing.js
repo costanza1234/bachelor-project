@@ -9,7 +9,8 @@ export default function Landing() {
         <div className='landing'>
 
             <p className='welcomeMessage'>
-                Benvenuto in Isole della Conoscenza! <br />
+                Benvenuto! <br />
+                Aspetta che la maestra ti dica di iniziare prima di cliccare sul bottone 😉
             </p>
 
             <button
