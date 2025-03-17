@@ -1,5 +1,4 @@
-/* Make sure to include the Orbitron font in your index.html or CSS */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
 
 .header {
   background: transparent;
@@ -11,7 +10,7 @@
 .header h1 {
   margin: 0;
   font-size: 5vw;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Bungee', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   color: #ffffff;
@@ -32,7 +31,7 @@
   height: 100vh; /* Full height */
   text-align: center;
   padding: 20px;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Bungee', sans-serif;
   font-size: 1.5rem;
 }
 
@@ -46,7 +45,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.3s;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Bungee', sans-serif;
   text-transform: uppercase;
 }
 
