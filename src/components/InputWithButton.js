@@ -7,7 +7,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 
-export function InputWithButton(props: TextInputProps) {
+export function InputWithButton(TextInputProps) {
   const theme = useMantineTheme();
 
   return (
@@ -27,7 +27,7 @@ export function InputWithButton(props: TextInputProps) {
           <IconArrowRight size={18} stroke={1.5} />
         </ActionIcon>
       }
-      {...props}
+      {...TextInputProps}
     />
   );
 }

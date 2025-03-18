@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import '../styles/styles.css';
-import { buildSmoothPath } from '../utils/helpers';
+import { buildSmoothPath, mapOnClickRedirect } from '../utils/helpers';
 import { useWindowDimensions, useShuffledIslands, useAutoScale } from '../utils/hooks/useMapHooks';
 
 export default function Map() {
@@ -50,7 +50,7 @@ export default function Map() {
                             height: islandSize,
                             cursor: 'pointer'
                         }}
-                        onClick={() => console.log(`Island ${index + 1} clicked`)}
+                        onClick={() => mapOnClickRedirect(islandNames[ index ])}
                     />
                 ))}
             </div>
