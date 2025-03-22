@@ -6,6 +6,7 @@ import { useWindowDimensions, useShuffledIslands, useAutoScale } from '../utils/
 export default function Map() {
     const dimensions = useWindowDimensions();
     const islandNames = useShuffledIslands();
+    console.log(islandNames);
 
     const mapContainerRef = useRef(null);
     const mapContentRef = useRef(null);
@@ -40,7 +41,7 @@ export default function Map() {
                     <img
                         key={index}
                         src={`/${islandNames[ index ]}`}
-                        alt={`Island ${index + 1}`}
+                        alt={`Island ${index}`}
                         className="mapIsland"
                         style={{
                             position: 'absolute',

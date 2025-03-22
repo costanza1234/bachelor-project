@@ -4,12 +4,17 @@ import '../styles/styles.css';
 import { InputWithButton } from '../components/InputWithButton';
 import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
+import Answer from '../components/Answer';
+import Results from '../components/Results';
 
 export default function Question() {
 
     const { questionId } = useParams();
+    console.log('questionId:', questionId);
 
-    const question = questions[ questionId ]
+    const question = questions[ questionId - 1 ]
+
+    console.log('question:', question);
 
     const isAI = question.isAI;
 
@@ -21,8 +26,10 @@ export default function Question() {
             </div>
             <InputWithButton />
             <div className='resultsContainer'>
+                <Results question={question} />
             </div>
             <div className='answerContainer'>
+                <Answer />
             </div>
         </div>
     );

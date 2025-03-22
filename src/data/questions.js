@@ -35,4 +35,10 @@ export const questions = [
         isAI: true,
         sentiment: "neutral",
     },
+    {
+        id: 7,
+        text: "Qual è il tuo codice?",
+        isAI: false,
+        sentiment: "log",
+    }
 ];
