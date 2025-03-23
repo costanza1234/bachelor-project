@@ -25,12 +25,14 @@ export default function Question() {
                     <h3>Domanda: </h3>
                     <h2>{question.text}</h2>
                 </div>
-                <div className='containerCard'>
-                    <div className="inputWrapper">
-                        <InputWithButton />
+                {questionId != 7 && (
+                    <div className='containerCard' id='resultsCard'>
+                        <div className="inputWrapper">
+                            <InputWithButton />
+                        </div>
+                        <Results question={question} />
                     </div>
-                    <Results question={question} />
-                </div>
+                )}
                 <div className='containerCard'>
                     <Answer />
                 </div>
