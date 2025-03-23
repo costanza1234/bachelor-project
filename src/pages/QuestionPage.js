@@ -21,16 +21,17 @@ export default function Question() {
         <div className='mainContainer'>
             <Header />
             <div className='questionWrapper'>
-                <div className='questionContainer'>
+                <div className='containerCard'>
+                    <h3>{"Domanda: "}</h3>
                     <h2>{question.text}</h2>
                 </div>
-                <div className="inputWrapper">
-                    <InputWithButton />
-                </div>
-                <div className='resultsContainer'>
+                <div className='containerCard'>
+                    <div className="inputWrapper">
+                        <InputWithButton />
+                    </div>
                     <Results question={question} />
                 </div>
-                <div className='answerContainer'>
+                <div className='containerCard'>
                     <Answer />
                 </div>
             </div>

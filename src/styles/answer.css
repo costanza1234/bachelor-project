@@ -31,3 +31,22 @@
   color: #1a1a1a;
   line-height: 1.4;
 }
+
+.answer-submit-button {
+  margin-top: 12px;
+  align-self: flex-end;
+  background-color: #466ad7;
+  color: white;
+  font-size: 1rem;
+  font-family: 'Bungee', sans-serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.answer-submit-button:hover {
+  background-color: #3754b6;
+  transform: scale(1.05);
+}
