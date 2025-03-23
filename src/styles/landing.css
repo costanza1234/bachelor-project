@@ -11,7 +11,7 @@
 
 .startButton {
   color: white;
-  background-color: rgb(70, 106, 215);
+  background-color: rgba(90, 90, 90, 0.581);
   font-size: 2rem;
   font-weight: bold;
   padding: 12px 24px;
@@ -24,4 +24,15 @@
 
 .startButton:hover {
   transform: scale(1.1);
+}
+
+.welcomeMessage {
+  margin: 0;
+  font-size: 4vw;
+  font-family: 'Bungee', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #ffffff;
+  -webkit-text-stroke: 1px #0000006d;
+  padding-bottom: 3vh;
 }

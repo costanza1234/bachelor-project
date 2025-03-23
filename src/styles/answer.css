@@ -19,7 +19,7 @@
 
 /* Textarea with input-wrapper-like styling */
 .textarea-wrapper {
-  background-color: #cddbf9;
+  background-color: #f4f4f5;
   border-radius: 30px;
   padding: 12px 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -44,7 +44,7 @@
 .answer-submit-button {
   margin-top: 12px;
   align-self: flex-end;
-  background-color: #466ad7;
+  background-color: #6f6f6f;
   color: white;
   font-size: 1rem;
   font-family: 'Bungee', sans-serif;
@@ -56,6 +56,6 @@
 }
 
 .answer-submit-button:hover {
-  background-color: #3754b6;
+  background-color: #3d8594;
   transform: scale(1.05);
 }

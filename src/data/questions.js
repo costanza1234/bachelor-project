@@ -19,7 +19,7 @@ export const questions = [
     },
     {
         id: 4,
-        text: "Dove si trova l’isola di plastica??",
+        text: "Dove si trova l’isola di plastica?",
         isAI: true,
         sentiment: "negative",
     },

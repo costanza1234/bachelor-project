@@ -11,7 +11,7 @@ export default function Answer({ value, onChange, onSubmit }) {
                 <textarea
                     id="answer-textarea"
                     className="text-area"
-                    placeholder="Scrivi qui..."
+                    placeholder="Scrivi qui la risposta alla domanda..."
                     value={value}
                     onChange={onChange}
                     rows={4}

@@ -15,7 +15,7 @@
 }
 
 .containerCard {
-  background: linear-gradient(to bottom right, #e9f0ff, #cddbf9);
+  background: linear-gradient(to bottom right, #ffffffca, #898989ca);
   border-radius: 30px;
   padding: 1.5rem 1.75rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
