@@ -10,7 +10,7 @@ export default function App() {
   return (
     <>
       <video autoPlay muted loop id="bgVideo">
-        <source src="./background.mp4" type="video/mp4" />
+        <source src="/background.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 

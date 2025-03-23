@@ -14,7 +14,7 @@
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 2vh;
-  backdrop-filter: blur(90px);
+  backdrop-filter: blur(20px);
 }
 
 .header h1 {
@@ -24,5 +24,5 @@
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   color: #ffffff;
-  -webkit-text-stroke: 1px #0000006d;
+  -webkit-text-stroke: 2px #0000006d;
 }
