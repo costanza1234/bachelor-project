@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import MapPage from "./pages/MapPage";
 import QuestionPage from "./pages/QuestionPage";
 import { MantineProvider } from "@mantine/core";
+import './index.css';
 
 
 export default function App() {

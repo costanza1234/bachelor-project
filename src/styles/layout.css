@@ -1,0 +1,26 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: stretch;
+}
+
+.questionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.questionWrapper > * > * {
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+}
+
+.questionWrapper > * {
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+}

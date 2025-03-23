@@ -1,0 +1,20 @@
+.header {
+  background: transparent;
+  text-align: center;
+  padding: 2rem 1rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.523);
+  border-radius: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 4vh;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 5vw;
+  font-family: 'Bungee', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #ffffff;
+  -webkit-text-stroke: 1px #0000006d;
+}

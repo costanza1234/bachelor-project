@@ -1,0 +1,27 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.5rem;
+}
+
+.startButton {
+  color: white;
+  background-color: rgb(70, 106, 215);
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  text-transform: uppercase;
+}
+
+.startButton:hover {
+  transform: scale(1.1);
+}

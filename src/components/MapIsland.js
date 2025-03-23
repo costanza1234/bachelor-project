@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/styles.css';
 
 export default function MapIsland({ key, src, alt, className, style, onClick }) {
     return (

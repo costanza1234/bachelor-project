@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header';
-import '../styles/styles.css';
 import { InputWithButton } from '../components/InputWithButton';
 import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
@@ -21,15 +20,19 @@ export default function Question() {
     return (
         <div className='mainContainer'>
             <Header />
-            <div className='questionContainer'>
-                <h2>{question.text}</h2>
-            </div>
-            <InputWithButton />
-            <div className='resultsContainer'>
-                <Results question={question} />
-            </div>
-            <div className='answerContainer'>
-                <Answer />
+            <div className='questionWrapper'>
+                <div className='questionContainer'>
+                    <h2>{question.text}</h2>
+                </div>
+                <div className="inputWrapper">
+                    <InputWithButton />
+                </div>
+                <div className='resultsContainer'>
+                    <Results question={question} />
+                </div>
+                <div className='answerContainer'>
+                    <Answer />
+                </div>
             </div>
         </div>
     );

@@ -1,33 +1,22 @@
 import React from 'react';
-import { IconArrowRight, IconSearch } from '@tabler/icons-react';
-import {
-  ActionIcon,
-  TextInput,
-  TextInputProps,
-  useMantineTheme,
-} from '@mantine/core';
+import { IconSearch, IconArrowRight } from '@tabler/icons-react';
 
-export function InputWithButton(TextInputProps) {
-  const theme = useMantineTheme();
-
+export function InputWithButton({ value, onChange, onSubmit }) {
   return (
-    <TextInput
-      radius='xl'
-      size='md'
-      placeholder='Scrivi quello che vuoi cercare...'
-      rightSectionWidth={42}
-      leftSection={<IconSearch size={18} stroke={1.5} />}
-      rightSection={
-        <ActionIcon
-          size={32}
-          radius='xl'
-          color={theme.primaryColor}
-          variant='filled'
-        >
-          <IconArrowRight size={18} stroke={1.5} />
-        </ActionIcon>
-      }
-      {...TextInputProps}
-    />
+    <div className="input-wrapper">
+      <span className="icon search-icon">
+        <IconSearch size={18} stroke={1.5} />
+      </span>
+      <input
+        type="text"
+        className="text-input"
+        placeholder="Scrivi quello che vuoi cercare..."
+        value={value}
+        onChange={onChange}
+      />
+      <button className="submit-button" onClick={onSubmit}>
+        <IconArrowRight size={18} stroke={1.5} />
+      </button>
+    </div>
   );
 }

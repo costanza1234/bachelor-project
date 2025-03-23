@@ -1,5 +1,4 @@
 import React, { useRef, useMemo } from 'react';
-import '../styles/styles.css';
 import { buildSmoothPath, mapOnClickRedirect } from '../utils/helpers';
 import { useWindowDimensions, useShuffledIslands, useAutoScale } from '../utils/hooks/useMapHooks';
 
