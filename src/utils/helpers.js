@@ -32,4 +32,16 @@ export function mapOnClickRedirect(name) {
     // Extract island number from image name (islandX.png)
     const islandNumber = name.match(/\d+/)[ 0 ];
     window.location.href = `/MapPage/${islandNumber}`;
-}   
+}
+
+export function performSearch(text) {
+    // Perform search using query
+    console.log('Performing search for: ', text);
+    return [];
+}
+
+export function parseResults(results) {
+    // Parse search results
+    console.log('Parsing results: ', results);
+    return [];
+}

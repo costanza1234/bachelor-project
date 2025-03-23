@@ -1,22 +1,20 @@
-.containerCard {
-  background: linear-gradient(to bottom right, #e9f0ff, #cddbf9);
-  border-radius: 30px;
-  padding: 24px 28px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  margin-bottom: 2vh;
-  font-family: 'Bungee', sans-serif;
-  color: #1a1a1a;
+h3 {
+  font-size: 1.2rem;
+  font-weight: 510;
+}
+
+#questionCard > * {
+  margin-top: 0;
+  padding-top: 0;
+  box-sizing: border-box;
+}
+
+#questionCard {
   text-align: center;
 }
 
-.questionContainer h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 0;
-}
-
-.questionContainer h2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 0;
+#questionCard h2 {
+  margin-bottom: 0;
+  font-size: 2rem;
+  font-weight: 570;
 }

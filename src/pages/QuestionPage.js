@@ -20,9 +20,9 @@ export default function Question() {
     return (
         <div className='mainContainer'>
             <Header />
-            <div className='questionWrapper'>
-                <div className='containerCard'>
-                    <h3>{"Domanda: "}</h3>
+            <div id='questionWrapper'>
+                <div className='containerCard' id='questionCard'>
+                    <h3>Domanda: </h3>
                     <h2>{question.text}</h2>
                 </div>
                 <div className='containerCard'>

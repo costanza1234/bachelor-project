@@ -4,7 +4,7 @@ export default function Answer({ value, onChange, onSubmit }) {
     return (
         <div className="answer-wrapper">
             <label className="answer-label" htmlFor="answer-textarea">
-                <h3>Risposta</h3>
+                <h3>Risposta: </h3>
             </label>
 
             <div className="textarea-wrapper">
