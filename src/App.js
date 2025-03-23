@@ -3,13 +3,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import MapPage from "./pages/MapPage";
 import QuestionPage from "./pages/QuestionPage";
-import { MantineProvider } from "@mantine/core";
 import './index.css';
 
 
 export default function App() {
   return (
-    <MantineProvider>
+    <>
+      <video autoPlay muted loop id="bgVideo">
+        <source src="./background.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -17,6 +21,7 @@ export default function App() {
           <Route path="/MapPage/:questionId" element={<QuestionPage />} />
         </Routes>
       </Router>
-    </MantineProvider>
+    </>
   );
+
 }
