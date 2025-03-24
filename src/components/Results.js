@@ -1,59 +1,51 @@
 import React from 'react';
-import { questions } from '../data/questions';
-import { useParams } from 'react-router-dom';
-import { performSearch, parseResults, generateResponse } from '../utils/helpers';
 
-export default function Results({ question }) {
+export default function Results({ isAI, result }) {
 
-    const isAI = question.isAI;
+    if (!result || (Array.isArray(result) && result.length === 0)) {
+        return null;
+    }
 
     if (isAI) {
-
-        const AIresponse = generateResponse(question.text);
-
         return (
-            <div className="AI-response">
-                <p>
-                    {AIresponse}
-                </p>
+            <div className="response">
+                <div className="AI-response">
+                    <p>{result || "Come posso aiutarti?"}</p>
+                </div>
             </div>
         );
     }
 
-    else {
+    const parsedResults = result || [];
 
-        const results = performSearch(question.text);
-        const parsed_results = parseResults(results);
-        return (
-            <div>
-                {parsed_results.map((r, i) => (
-                    <div className="result-item">
-                        <div className="result-header">
-                            <img
-                                className="result-favicon"
-                                src={`https://www.google.com/s2/favicons?sz=64&domain_url=${r.url}`}
-                                alt="favicon"
-                            />
-                            <div className="result-meta">
-                                <div className="result-site-name">{r.title}</div>
-                                <div className="result-url">{r.url}</div>
-                            </div>
+    return (
+        <div className="response">
+            {parsedResults.map((r, i) => (
+                <div className="result-item" key={i}>
+                    <div className="result-header">
+                        <img
+                            className="result-favicon"
+                            src={`https://www.google.com/s2/favicons?sz=64&domain_url=${r.url}`}
+                            alt="favicon"
+                        />
+                        <div className="result-meta">
+                            <div className="result-site-name">{r.title}</div>
+                            <div className="result-url">{r.url}</div>
                         </div>
-
-                        <a
-                            href={r.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="result-title"
-                        >
-                            {r.title}
-                        </a>
-
-                        <div className="result-snippet">{r.snippet}</div>
                     </div>
-                ))}
-            </div>
-        );
-    }
 
+                    <a
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="result-title"
+                    >
+                        {r.title}
+                    </a>
+
+                    <div className="result-snippet">{r.snippet}</div>
+                </div>
+            ))}
+        </div>
+    );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import { InputWithButton } from '../components/InputWithButton';
 import { questions } from '../data/questions';
@@ -7,15 +7,20 @@ import Answer from '../components/Answer';
 import Results from '../components/Results';
 
 export default function Question() {
-
     const { questionId } = useParams();
-    console.log('questionId:', questionId);
-
-    const question = questions[ questionId - 1 ]
-
-    console.log('question:', question);
-
+    const question = questions[ questionId - 1 ];
     const isAI = question.isAI;
+
+    const [ inputValue, setInputValue ] = useState('');
+    const [ result, setResult ] = useState(null);
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleSubmit = (newResult) => {
+        setResult(newResult); // Store the result from InputWithButton
+    };
 
     return (
         <div className='mainContainer'>
@@ -28,9 +33,14 @@ export default function Question() {
                 {questionId != 7 && (
                     <div className='containerCard' id='resultsCard'>
                         <div className="inputWrapper">
-                            <InputWithButton />
+                            <InputWithButton
+                                isAI={isAI}
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                onSubmit={handleSubmit}
+                            />
                         </div>
-                        <Results question={question} />
+                        <Results isAI={isAI} result={result} />
                     </div>
                 )}
                 <div className='containerCard'>

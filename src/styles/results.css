@@ -59,6 +59,10 @@
   flex-shrink: 0;
 }
 
+.ai-button {
+  background-color: black;
+}
+
 .submit-button:hover {
   background-color: #e6e6e6;
 }

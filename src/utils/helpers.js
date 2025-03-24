@@ -34,11 +34,31 @@ export function mapOnClickRedirect(name) {
     window.location.href = `/MapPage/${islandNumber}`;
 }
 
-export function performSearch(text) {
-    // Perform search using query
-    console.log('Performing search for: ', text);
-    return [];
+export async function performSearch(text) {
+    const apiKey = 'YOUR_BING_API_KEY';
+    const endpoint = 'https://api.bing.microsoft.com/v7.0/search';
+
+    try {
+        const response = await fetch(`${endpoint}?q=${encodeURIComponent(text)}`, {
+            method: 'GET',
+            headers: {
+                'Ocp-Apim-Subscription-Key': apiKey
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Bing Search API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Search results for:', text, data);
+        return data.webPages?.value || [];
+    } catch (error) {
+        console.error('Search error:', error);
+        return [];
+    }
 }
+
 
 export function parseResults(results) {
     // Parse search results

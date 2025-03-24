@@ -1,21 +1,40 @@
 import React from 'react';
-import { IconSearch, IconArrowRight } from '@tabler/icons-react';
+import { IconSearch, IconArrowRight, IconArrowUp } from '@tabler/icons-react';
 
-export function InputWithButton({ value, onChange, onSubmit }) {
+import { performSearch, generateResponse } from '../utils/helpers';
+
+export function InputWithButton({ isAI, value, onChange, onSubmit }) {
+  const handleSubmit = async () => {
+    const result = isAI
+      ? await generateResponse(value)
+      : await performSearch(value);
+
+    onSubmit(result); // Send result to parent (Question)
+  };
+
   return (
     <div className="input-wrapper">
-      <span className="icon search-icon">
-        <IconSearch size={18} stroke={1.5} />
-      </span>
+      {!isAI && (
+        <span className="icon search-icon">
+          <IconSearch size={18} stroke={1.5} />
+        </span>
+      )}
       <input
         type="text"
         className="text-input"
-        placeholder="Scrivi quello che vuoi cercare..."
+        placeholder={isAI ? "Come posso aiutarti?" : "Cerca con Google..."}
         value={value}
         onChange={onChange}
       />
-      <button className="submit-button" onClick={onSubmit}>
-        <IconArrowRight size={18} stroke={1.5} />
+      <button
+        className={`submit-button ${isAI ? 'ai-button' : ''}`}
+        onClick={handleSubmit}
+      >
+        {isAI ? (
+          <IconArrowUp size={18} stroke={1.5} color="white" />
+        ) : (
+          <IconArrowRight size={18} stroke={1.5} />
+        )}
       </button>
     </div>
   );
