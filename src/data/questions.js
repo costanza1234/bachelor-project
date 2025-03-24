@@ -33,7 +33,7 @@ export const questions = [
         id: 6,
         text: "Di cosa si occupa il WWF?",
         isAI: true,
-        sentiment: "neutral",
+        sentiment: "positive",
     },
     {
         id: 7,
