@@ -20,7 +20,7 @@ export default function Map() {
         { x: 0.8 * containerWidth, y: 0.63 * containerHeight },
         { x: 0.6 * containerWidth, y: 0.4 * containerHeight },
         { x: 0.3 * containerWidth, y: 0.3 * containerHeight },
-        { x: 0.7 * containerWidth, y: 0.15 * containerHeight },
+        { x: 0.7 * containerWidth, y: 0.125 * containerHeight },
     ], [ containerWidth, containerHeight ]);
 
     const pathD = buildSmoothPath(points);
@@ -31,7 +31,7 @@ export default function Map() {
             <div className="mapContent" ref={mapContentRef} style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
                 {/* SVG Path */}
                 <svg width={containerWidth} height={containerHeight} className="mapSVG">
-                    <path d={pathD} fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="4" strokeDasharray="12,8" />
+                    <path d={pathD} fill="none" stroke="rgb(90, 90, 90)" strokeWidth="4" strokeDasharray="12,8" />
                 </svg>
 
                 {/* Islands */}

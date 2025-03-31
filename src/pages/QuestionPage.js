@@ -5,6 +5,7 @@ import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
 import Results from '../components/Results';
+import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function Question() {
     const { questionId } = useParams();
@@ -47,6 +48,14 @@ export default function Question() {
                     <Answer />
                 </div>
             </div>
+            <div className='backArrow'>
+
+                <a href='/MapPage' className='tooltip'>
+                    <IconChevronLeft size={60} />
+                    <span className='tooltiptext'>Torna alla mappa</span>
+                </a>
+            </div>
+
         </div>
     );
 }
