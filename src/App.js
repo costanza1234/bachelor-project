@@ -14,7 +14,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/MapPage" element={<MapPage />} />
-          <Route path="/MapPage/:questionId/:isAI" element={<QuestionPage />} />
+          <Route path="/MapPage/:questionId/:AI_flag" element={<QuestionPage />} />
           <Route path="/MapPage/choice/:questionId" element={<ChoicePage />} />
         </Routes>
       </Router>

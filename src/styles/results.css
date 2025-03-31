@@ -130,6 +130,9 @@
   line-height: 1.6;
 }
 
+#resultsCard {
+  background-color: #ffffff;
+}
 .AI-response {
   background-color: #f4f4f5;
   border-left: 4px solid #10a37f;
