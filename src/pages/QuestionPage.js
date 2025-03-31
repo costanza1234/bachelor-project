@@ -6,11 +6,11 @@ import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
 import Results from '../components/Results';
-import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function Question() {
     const { questionId, isAI } = useParams();
     const question = questions[ questionId - 1 ];
+    console.log(isAI);
 
     const [ inputValue, setInputValue ] = useState('');
     const [ result, setResult ] = useState(null);
@@ -31,19 +31,17 @@ export default function Question() {
                     <h3>Domanda: </h3>
                     <h2>{question.text}</h2>
                 </div>
-                {questionId != 7 && (
-                    <div className='containerCard' id='resultsCard'>
-                        <div className="inputWrapper">
-                            <InputWithButton
-                                isAI={isAI}
-                                value={inputValue}
-                                onChange={handleInputChange}
-                                onSubmit={handleSubmit}
-                            />
-                        </div>
-                        <Results isAI={isAI} result={result} />
+                <div className='containerCard' id='resultsCard'>
+                    <div className="inputWrapper">
+                        <InputWithButton
+                            isAI={isAI}
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            onSubmit={handleSubmit}
+                        />
                     </div>
-                )}
+                    <Results isAI={isAI} result={result} />
+                </div>
                 <div className='containerCard'>
                     <Answer />
                 </div>

@@ -12,6 +12,8 @@ export function InputWithButton({ isAI, value, onChange, onSubmit }) {
     onSubmit(result); // Send result to parent (Question)
   };
 
+  console.log('InputWithButton', isAI, value);
+
   return (
     <div className="input-wrapper">
       {!isAI && (

@@ -54,7 +54,7 @@ export async function performSearch(text) {
     }
 }
 
-export function generateResponse(text) {
+export async function generateResponse(text) {
     // Generate AI response
     console.log('Generating response for: ', text);
 
