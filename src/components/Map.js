@@ -11,17 +11,16 @@ export default function Map() {
     const mapContentRef = useRef(null);
 
     const { width: containerWidth, height: containerHeight } = dimensions;
-    const islandSize = 0.14 * containerWidth;
+    const islandSize = 0.15 * containerWidth;
 
     // Memoized island positions based on viewport
     const points = useMemo(() => [
-        { x: 0.1 * containerWidth, y: 0.7 * containerHeight },
-        { x: 0.65 * containerWidth, y: 0.7 * containerHeight },
-        { x: 0.35 * containerWidth, y: 0.55 * containerHeight },
-        { x: 0.8 * containerWidth, y: 0.45 * containerHeight },
-        { x: 0.2 * containerWidth, y: 0.35 * containerHeight },
-        { x: 0.7 * containerWidth, y: 0.2 * containerHeight },
-        { x: 0.4 * containerWidth, y: 0.13 * containerHeight }
+        { x: 0.2 * containerWidth, y: 0.65 * containerHeight },
+        { x: 0.5 * containerWidth, y: 0.65 * containerHeight },
+        { x: 0.8 * containerWidth, y: 0.63 * containerHeight },
+        { x: 0.6 * containerWidth, y: 0.4 * containerHeight },
+        { x: 0.3 * containerWidth, y: 0.3 * containerHeight },
+        { x: 0.7 * containerWidth, y: 0.15 * containerHeight },
     ], [ containerWidth, containerHeight ]);
 
     const pathD = buildSmoothPath(points);

@@ -32,7 +32,6 @@ export const useShuffledIslands = () => {
             "island5.png",
             "island6.png",
         ]);
-        shuffledNames.push("island7.png"); // Always add the 7th island
         setIslandNames(shuffledNames);
     }, []);
 

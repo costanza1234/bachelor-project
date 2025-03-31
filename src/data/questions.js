@@ -35,10 +35,4 @@ export const questions = [
         isAI: true,
         sentiment: "positive",
     },
-    {
-        id: 7,
-        text: "Qual è il tuo codice?",
-        isAI: false,
-        sentiment: "log",
-    }
 ];
