@@ -6,6 +6,7 @@
 @import './styles/question.css';
 @import './styles/responsive.css';
 @import './styles/results.css';
+@import './styles/choiceButton.css';
 
 body,
 html {

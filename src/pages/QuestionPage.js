@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import { InputWithButton } from '../components/InputWithButton';
+import BackArrow from '../components/backArrow';
 import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
@@ -8,9 +9,8 @@ import Results from '../components/Results';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function Question() {
-    const { questionId } = useParams();
+    const { questionId, isAI } = useParams();
     const question = questions[ questionId - 1 ];
-    const isAI = question.isAI;
 
     const [ inputValue, setInputValue ] = useState('');
     const [ result, setResult ] = useState(null);
@@ -48,13 +48,7 @@ export default function Question() {
                     <Answer />
                 </div>
             </div>
-            <div className='backArrow'>
-
-                <a href='/MapPage' className='tooltip'>
-                    <IconChevronLeft size={60} />
-                    <span className='tooltiptext'>Torna alla mappa</span>
-                </a>
-            </div>
+            <BackArrow />
 
         </div>
     );

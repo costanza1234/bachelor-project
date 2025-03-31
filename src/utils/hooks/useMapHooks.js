@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import { shuffle } from "../helpers";
 
 // Hook for tracking window dimensions
 export const useWindowDimensions = () => {
@@ -19,24 +18,6 @@ export const useWindowDimensions = () => {
     return dimensions;
 };
 
-// Hook to shuffle island names on mount
-export const useShuffledIslands = () => {
-    const [ islandNames, setIslandNames ] = useState([]);
-
-    useEffect(() => {
-        const shuffledNames = shuffle([
-            "island1.png",
-            "island2.png",
-            "island3.png",
-            "island4.png",
-            "island5.png",
-            "island6.png",
-        ]);
-        setIslandNames(shuffledNames);
-    }, []);
-
-    return islandNames;
-};
 
 // Hook for auto-scaling map content
 export const useAutoScale = (containerRef, contentRef, dependencies) => {
