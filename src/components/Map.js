@@ -34,7 +34,7 @@ export default function Map() {
             <div className="mapContent" ref={mapContentRef} style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
                 {/* SVG Path */}
                 <svg width={containerWidth} height={containerHeight} className="mapSVG">
-                    <path d={pathD} fill="none" stroke="rgb(90, 90, 90)" strokeWidth="4" strokeDasharray="12,8" />
+                    <path d={pathD} fill="none" stroke="rgba(153, 153, 153, 0.37)" strokeWidth="4" strokeDasharray="12,8" />
                 </svg>
 
                 {/* Islands */}

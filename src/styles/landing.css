@@ -24,6 +24,7 @@
 
 .startButton:hover {
   transform: scale(1.1);
+  background-color: rgba(27, 27, 27, 0.787);
 }
 
 .welcomeMessage {
@@ -32,7 +33,7 @@
   font-family: 'Bungee', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  color: #ffffff;
-  -webkit-text-stroke: 1px #0000006d;
+  color: #0505059b;
+  -webkit-text-stroke: 1px #050505d9;
   padding-bottom: 3vh;
 }

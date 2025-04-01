@@ -6,10 +6,20 @@ import QuestionPage from "./pages/QuestionPage";
 import ChoicePage from "./pages/ChoicePage";
 import './index.css';
 
-
 export default function App() {
   return (
-    <>
+    <div id="app-container">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        id="background-video"
+      >
+        <source src="/bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -18,7 +28,6 @@ export default function App() {
           <Route path="/MapPage/choice/:questionId" element={<ChoicePage />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
-
 }
