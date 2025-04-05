@@ -15,7 +15,7 @@ export default function Landing() {
     return (
         <div className='landing'>
             <p className='welcomeMessage'>
-                Benvenuto! <br />
+                Ciao! <br />
                 Aspetta che la maestra ti dica di iniziare prima di cliccare sul bottone 😉
             </p>
 
