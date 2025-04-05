@@ -19,14 +19,3 @@
 .mapIsland:hover {
   transform: scale(1.1);
 }
-
-.st0 {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-}
-
-.st1 {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-  fill: transparent;
-}

@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import { InputWithButton } from '../components/InputWithButton';
-import BackButton from '../components/BackButton';
-import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
 import Results from '../components/Results';

@@ -1,7 +1,7 @@
 // components/QuestionLayout.jsx
 import React from 'react';
 import Header from './Header';
-import BackButton from './BackButton';
+import Footer from './Footer';
 import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ export default function QuestionLayout({ children }) {
                 </div>
                 {children}
             </div>
-            <BackButton />
+            <Footer />
         </div>
     );
 }
