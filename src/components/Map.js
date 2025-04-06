@@ -1,13 +1,11 @@
 import React, { useRef, useMemo } from 'react';
-import { buildSmoothPath, mapOnClickRedirect } from '../utils/helpers';
+import { mapOnClickRedirect } from '../utils/helpers';
 import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
 import { getIslands } from '../utils/islandState';
 
 export default function Map() {
 
     const islandNames = getIslands();
-    console.log(islandNames);
-
     const dimensions = useWindowDimensions();
 
     const mapContainerRef = useRef(null);

@@ -12,15 +12,19 @@ export default function Question() {
 
     const [ inputValue, setInputValue ] = useState('');
     const [ result, setResult ] = useState(null);
+    const [ isLoading, setIsLoading ] = useState(false);
+
+
+    const handleSubmit = async (newResultPromise) => {
+        setIsLoading(true);
+        const result = await newResultPromise;
+        setResult(result);
+        setIsLoading(false);
+    };
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
     };
-
-    const handleSubmit = (newResult) => {
-        setResult(newResult); // Store the result from InputWithButton
-    };
-
 
     return (
         <QuestionLayout>
@@ -41,7 +45,9 @@ export default function Question() {
                         value={inputValue}
                         onChange={handleInputChange}
                         onSubmit={handleSubmit}
+                        isLoading={isLoading}
                     />
+
                 </div>
                 <Results isAI={isAI} result={result} />
             </div>

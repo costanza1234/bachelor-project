@@ -1,7 +1,7 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 export default function Results({ isAI, result }) {
-
     if (!result || (Array.isArray(result) && result.length === 0)) {
         return null;
     }
@@ -10,17 +10,15 @@ export default function Results({ isAI, result }) {
         return (
             <div className="response">
                 <div className="AI-response">
-                    <p>{result || "Come posso aiutarti?"}</p>
+                    <ReactMarkdown>{result || "Come posso aiutarti?"}</ReactMarkdown>
                 </div>
             </div>
         );
     }
 
-    const parsedResults = result || [];
-
     return (
         <div className="response">
-            {parsedResults.map((r, i) => (
+            {result.map((r, i) => (
                 <div className="result-item" key={i}>
                     <div className="result-header">
                         <img
