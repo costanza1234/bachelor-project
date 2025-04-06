@@ -16,7 +16,9 @@ export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) 
       {isLoading ? (
         <div className="loading-placeholder">
           <span className="loader" />
-          <span className="loading-text">Sto generando una risposta...</span>
+          <span className="loading-text">
+            {isAI ? "Sto generando una risposta..." : ""}
+          </span>
         </div>
       ) : (
         <>
@@ -47,6 +49,5 @@ export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) 
         </>
       )}
     </div>
-
   );
 }
