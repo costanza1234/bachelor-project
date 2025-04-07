@@ -1,6 +1,6 @@
 
 const tracker = {
-    userCode: null,
+    userCode: localStorage.userCode,
     totalSessionClicks: [],
     islandClickOrder: [],
     islandCompletionOrder: [],
@@ -58,8 +58,8 @@ const tracker = {
 
     exportData() {
         return {
-            promptCode: this.promptCode,
-            clicks: this.clicks,
+            userCode: this.userCode,
+            clicks: this.totalSessionClicks,
             islandClickOrder: this.islandClickOrder,
             islandCompletionOrder: this.islandCompletionOrder,
             queriesPerTask: this.queriesPerTask,
