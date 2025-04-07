@@ -1,27 +1,81 @@
-// Landing.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Modal, TextInput, Button, Group } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { shuffleIslands } from "../utils/islandState";
 
 export default function Landing() {
     const navigate = useNavigate();
+    const [ userCode, setUserCode ] = useState("");
+    const [ opened, { open, close } ] = useDisclosure(false);
 
     const handleStart = () => {
+        open();
+    };
+
+    const handleCodeSubmit = () => {
+        if (!isValidCode(userCode)) return;
+
+        localStorage.setItem("userCode", userCode.trim());
         localStorage.removeItem("shuffledIslands");
-        shuffleIslands();        // Shuffle only ONCE here
+        shuffleIslands();
         navigate("/MapPage");
     };
 
+    const isValidCode = (code) => {
+        return /^\d{3,}$/.test(code.trim()); // at least 3 digits
+    };
+
     return (
-        <div className='landing'>
-            <p className='welcomeMessage'>
+        <div className="landing">
+            <p className="welcomeMessage">
                 Ciao! <br />
                 Aspetta che la maestra ti dica di iniziare prima di cliccare sul bottone 😉
             </p>
 
-            <button className='startButton' onClick={handleStart}>
+            <Button
+                className="startButton"
+                size="lg"
+                radius="md"
+                onClick={handleStart}
+            >
                 INIZIA A GIOCARE
-            </button>
+            </Button>
+
+            <Modal
+                opened={opened}
+                onClose={close}
+                title="Inserisci il tuo codice"
+                centered
+                size="sm"
+                radius="md"
+                overlayProps={{
+                    blur: 4,
+                    backgroundOpacity: 0.55,
+                }}
+            >
+                <TextInput
+                    label="Codice"
+                    placeholder="Inserisci codice (minimo 3 cifre)"
+                    value={userCode}
+                    onChange={(e) => setUserCode(e.currentTarget.value)}
+                    withAsterisk
+                    error={
+                        userCode && !isValidCode(userCode)
+                            ? "Attento: Il codice deve avere almeno 3 cifre"
+                            : null
+                    }
+                />
+
+                <Group justify="center" mt="md">
+                    <Button onClick={handleCodeSubmit} disabled={!isValidCode(userCode)}>
+                        Gioca!
+                    </Button>
+                    <Button variant="default" onClick={close}>
+                        Annulla
+                    </Button>
+                </Group>
+            </Modal>
         </div>
     );
 }
