@@ -33,15 +33,19 @@ export default function Landing() {
                 Aspetta che la maestra ti dica di iniziare prima di cliccare sul bottone 😉
             </p>
 
-            <Button
-                className="startButton"
-                size="lg"
-                radius="md"
-                onClick={handleStart}
-            >
-                INIZIA A GIOCARE
-            </Button>
+            <Group justify="center">
+                <Button
+                    className="answer-submit-button"
+                    radius='lg'
+                    size="xl"
+                    variant="filled"
+                    color='#6f6f6f'
+                    onClick={handleStart}
+                >
+                    INIZIA A GIOCARE
+                </Button>
 
+            </Group>
             <Modal
                 opened={opened}
                 onClose={close}
@@ -68,7 +72,11 @@ export default function Landing() {
                 />
 
                 <Group justify="center" mt="md">
-                    <Button onClick={handleCodeSubmit} disabled={!isValidCode(userCode)}>
+                    <Button
+                        onClick={handleCodeSubmit}
+                        disabled={!isValidCode(userCode)}
+                        color="rgb(71, 159, 203)"
+                    >
                         Gioca!
                     </Button>
                     <Button variant="default" onClick={close}>

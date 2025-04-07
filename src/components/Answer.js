@@ -1,6 +1,16 @@
 import React from 'react';
+import { Button } from '@mantine/core';
 
-export default function Answer({ value, onChange, onSubmit }) {
+
+export default function Answer({ value, onChange }) {
+
+    // Function to handle the submission of the answer
+
+    const onSubmit = () => {
+        // Logic to handle the answer submission
+        console.log("Answer submitted:", value);
+    }
+
     return (
         <div className="answer-wrapper">
             <label className="answer-label" htmlFor="answer-textarea">
@@ -18,9 +28,16 @@ export default function Answer({ value, onChange, onSubmit }) {
                 />
             </div>
 
-            <button className="answer-submit-button" onClick={onSubmit}>
+            <Button
+                className="answer-submit-button"
+                onClick={onSubmit}
+                radius='lg'
+                variant="filled"
+                color="rgb(71, 159, 203)"
+
+            >
                 Invia
-            </button>
-        </div>
+            </Button>
+        </div >
     );
 }

@@ -11,7 +11,9 @@ export default function BackArrow() {
                 onClick={() => navigate(-1)}
                 radius="xl"
                 size="md"
-                className="back-arrow-button"
+                variant="subtle"
+                color='#6f6f6f'
+
             >
                 <div className="back-content">
                     <IconChevronLeft size={18} stroke={2} />
