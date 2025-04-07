@@ -16,12 +16,12 @@ export default function Map() {
 
     // Memoized island positions based on viewport
     const points = useMemo(() => [
-        { x: 0.2 * containerWidth, y: 0.6 * containerHeight },
-        { x: 0.5 * containerWidth, y: 0.6 * containerHeight },
-        { x: 0.8 * containerWidth, y: 0.6 * containerHeight },
-        { x: 0.2 * containerWidth, y: 0.2 * containerHeight },
-        { x: 0.5 * containerWidth, y: 0.2 * containerHeight },
-        { x: 0.8 * containerWidth, y: 0.2 * containerHeight },
+        { x: 0.2 * containerWidth, y: 0.55 * containerHeight },
+        { x: 0.5 * containerWidth, y: 0.55 * containerHeight },
+        { x: 0.8 * containerWidth, y: 0.55 * containerHeight },
+        { x: 0.2 * containerWidth, y: 0.18 * containerHeight },
+        { x: 0.5 * containerWidth, y: 0.18 * containerHeight },
+        { x: 0.8 * containerWidth, y: 0.18 * containerHeight },
     ], [ containerWidth, containerHeight ]);
 
     const scale = useAutoScale(mapContainerRef, mapContentRef, [ dimensions, points ]);
