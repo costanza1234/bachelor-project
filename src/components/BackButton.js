@@ -6,20 +6,15 @@ export default function BackArrow() {
     const navigate = useNavigate();
 
     return (
-        <div className="back-button">
-            <Button
-                onClick={() => navigate(-1)}
-                radius="xl"
-                size="md"
-                variant="subtle"
-                color='#6f6f6f'
-
-            >
-                <div className="back-content">
-                    <IconChevronLeft size={18} stroke={2} />
-                    <span>Torna indietro</span>
-                </div>
-            </Button>
-        </div>
+        <Button
+            onClick={() => navigate(-1)}
+            radius="xl"
+            size="md"
+            variant="subtle"
+            color='#6f6f6f'
+        >
+            <IconChevronLeft size={18} stroke={2} />
+            <span>Torna indietro</span>
+        </Button>
     );
 }
