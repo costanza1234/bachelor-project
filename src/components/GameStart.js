@@ -17,6 +17,7 @@ export default function GameStart() {
         if (!isValidCode(userCode)) return;
 
         localStorage.setItem("userCode", userCode.trim());
+        localStorage.setItem("sessionStart", Date.now());
         localStorage.removeItem("shuffledIslands");
         shuffleIslands();
         navigate("/MapPage");

@@ -14,24 +14,38 @@ export function mapOnClickRedirect(name) {
     window.location.href = `/MapPage/choice/${islandNumber}`;
 }
 
-export async function performSearch(text) {
+export async function performSearch(query) {
     const apiKey = process.env.REACT_APP_API_KEY;
     const searchEngineId = process.env.REACT_APP_SEARCH_ENGINE_ID;
-    const endpoint = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(text)}&key=${apiKey}&cx=${searchEngineId}`;
+    const perPage = 10;               // max results per request
+    const totalResults = 30;               // how many you want overall
+    const pages = Math.ceil(totalResults / perPage);
+    const allItems = [];
 
-    try {
-        const response = await fetch(endpoint);
-        if (!response.ok) {
-            throw new Error(`Google Search API error: ${response.status}`);
+    for (let page = 0; page < pages; page++) {
+        const start = page * perPage + 1;      // 1, 11, 21…
+        const url = new URL('https://www.googleapis.com/customsearch/v1');
+        url.searchParams.set('key', apiKey);
+        url.searchParams.set('cx', searchEngineId);
+        url.searchParams.set('q', query);
+        url.searchParams.set('start', String(start));
+        url.searchParams.set('num', String(perPage));
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`Status ${res.status}`);
+            const { items = [] } = await res.json();
+            allItems.push(...items);
+        } catch (err) {
+            console.error(`Page ${page + 1} failed:`, err);
+            // you could choose to break here if you want to bail early
         }
-
-        const data = await response.json();
-        return data.items || [];
-    } catch (error) {
-        console.error('Search error:', error);
-        return [];
     }
+
+    // just in case some page returned fewer results
+    return allItems.slice(0, totalResults);
 }
+
 
 
 export async function generateResponse(prompt) {

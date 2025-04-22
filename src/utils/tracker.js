@@ -1,107 +1,131 @@
 const tracker = {
-    userCode: localStorage.userCode,
-    sessionStart: Date.now(),
-    sessionEnd: null,
+    userCode: null,
+    startTime: null,
+    islandOrder: [],
+    totalClicksInSession: 0,
+    timeBeforeFirstClickSeconds: null,
+    finishTime: null,
     sessionLength: null,
-    totalSessionClicks: 0,
-    islandClickOrder: [],
-    islandCompletionOrder: [],
-    queriesPerIsland: {}, // { islandId: number }
-    queryTermsPerIsland: {}, // { islandId: number of terms }
-    serpResultsPerIsland: [],
-    // { islandId, title, snippet, position, clicked, clickOrder, timeSpent }
-    serpClickOrderCounter: 0,
-    firstClickTime: null,
-    totalResultsClicked: 0,
-    islandsMetadata: {},
-    // { [islandId]: { question, answer, answeredWithAI, openTime, submitTime } }
+    islands: [ {
+        islandID: null,
+        islandData: {
+            openTime: null,
+            submitTime: null,
+            answeredWithAI: null,
+            numberOfQueries: null,
+            queryTerms: null,
+            AIAnswer: null,
+            SERPAnswer: {
+                title: null,
+                snippet: null,
+                position: null,
+                clicked: false,
+                clickOrder: null,
+                timeSpentOnPage: null,
+            },
+            userAnswer: null,
+        },
+    } ],
 
-    // --- Session tracking ---
-    recordSessionClick() {
-        this.totalSessionClicks += 1;
+    // setters
+    setUserCode(userCode) {
+        this.userCode = userCode;
+    },
+    setStartTime(startTime) {
+        this.startTime = startTime;
+    },
+    setFinishTime(finishTime) {
+        this.finishTime = finishTime;
+    },
+    setSessionLength(sessionLength) {
+        this.sessionLength = sessionLength;
+    },
+    setIslandOrder(islandOrder) {
+        this.islandOrder = islandOrder;
+    },
+    setTotalClicksInSession(totalClicksInSession) {
+        this.totalClicksInSession = totalClicksInSession;
+    },
+    setTimeBeforeFirstClickSeconds(timeBeforeFirstClickSeconds) {
+        this.timeBeforeFirstClickSeconds = timeBeforeFirstClickSeconds;
     },
 
-    recordSessionEnd() {
-        const now = Date.now();
-        if (!this.sessionEnd) this.sessionEnd = now;
-        this.sessionLength = Math.round((now - this.sessionStart) / 1000); // seconds
+    setIsland(island) {
+        // check if islandID is already in the islands array
+        const islandIndex = this.islands.findIndex((i) => i.islandID === island.islandID);
+        if (islandIndex !== -1) {
+            // if it is, update the island data
+            this.islands[ islandIndex ].islandData = island.islandData;
+            return;
+        }
+        // if it is not, add the island to the islands array
+        this.islands.append(island);
     },
 
-    // --- Island metadata tracking ---
-    recordIslandOpened(islandId, question) {
-        this.islandsMetadata[ islandId ] = {
-            ...(this.islandsMetadata[ islandId ] || {}),
-            question,
-            openTime: Date.now(),
-        };
+    setOpenTime(islandID, openTime) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.openTime = openTime;
+        }
     },
-
-    recordIslandSubmitted(islandId, answeredWithAI, userAnswer) {
-        if (!this.islandsMetadata[ islandId ]) return;
-        this.islandsMetadata[ islandId ].answeredWithAI = answeredWithAI;
-        this.islandsMetadata[ islandId ].answer = userAnswer;
-        this.islandsMetadata[ islandId ].submitTime = Date.now();
+    setSubmitTime(islandID, submitTime) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.submitTime = submitTime;
+        }
     },
-
-    // --- Island navigation ---
-    recordIslandClick(id) {
-        this.islandClickOrder.push(id);
+    setAnsweredWithAI(islandID, answeredWithAI) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.answeredWithAI = answeredWithAI;
+        }
     },
-
-    recordIslandCompletion(id) {
-        this.islandCompletionOrder.push(id);
+    setNumberOfQueries(islandID, numberOfQueries) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.numberOfQueries = numberOfQueries;
+        }
     },
-
-    // --- Queries ---
-    recordQuery(islandId, query) {
-        this.queriesPerIsland[ islandId ] = (this.queriesPerIsland[ islandId ] || 0) + 1;
-        const terms = query.trim().split(/\s+/).length;
-        this.queryTermsPerIsland[ islandId ] = (this.queryTermsPerIsland[ islandId ] || 0) + terms;
+    setQueryTerms(islandID, queryTerms) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.queryTerms = queryTerms;
+        }
     },
-
-    // --- SERP Results Tracking ---
-    recordSearchResult({ islandId, title, snippet, position }) {
-        this.serpResultsPerIsland.push({
-            islandId,
-            title,
-            snippet,
-            position,
-            clicked: false,
-            clickOrder: null,
-            timeSpent: null,
-        });
+    setAIAnswer(islandID, AIAnswer) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.AIAnswer = AIAnswer;
+        }
     },
-
-    recordSERPClick(position, timeSpent) {
-        const result = this.serpResultsPerIsland.find(r => r.position === position && !r.clicked);
-        if (result) {
-            result.clicked = true;
-            result.clickOrder = ++this.serpClickOrderCounter;
-            result.timeSpent = timeSpent;
-            this.totalResultsClicked += 1;
+    setSERPAnswer(islandID, SERPAnswer) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.SERPAnswer = SERPAnswer;
+        }
+    },
+    setUserAnswer(islandID, userAnswer) {
+        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
+        if (islandIndex !== -1) {
+            this.islands[ islandIndex ].islandData.userAnswer = userAnswer;
         }
     },
 
-    getTimeBeforeFirstClick() {
-        return this.firstClickTime ? Math.round((this.firstClickTime - this.sessionStart) / 1000) : null;
-    },
 
-    // --- Final export ---
+
+
+
+    // Export
     exportData() {
         return {
             userCode: this.userCode,
-            sessionStart: this.sessionStart,
-            sessionEnd: this.sessionEnd,
+            startTime: this.startTime,
+            finishTime: this.finishTime,
             sessionLength: this.sessionLength,
-            totalSessionClicks: this.totalSessionClicks,
-            islandClickOrder: this.islandClickOrder,
-            islandCompletionOrder: this.islandCompletionOrder,
-            queriesPerIsland: this.queriesPerIsland,
-            queryTermsPerIsland: this.queryTermsPerIsland,
-            serpResultsPerIsland: this.serpResultsPerIsland,
-            totalResultsClicked: this.totalResultsClicked,
-            timeBeforeFirstClickSeconds: this.getTimeBeforeFirstClick(),
-            islandsMetadata: this.islandsMetadata,
+            islandOrder: this.islandOrder,
+            totalClicksInSession: this.totalClicksInSession,
+            timeBeforeFirstClickSeconds: this.timeBeforeFirstClickSeconds,
+            islands: this.islands,
         };
     },
 };
