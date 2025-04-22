@@ -15,7 +15,7 @@ const tracker = {
             numberOfQueries: null,
             queryTerms: null,
             AIAnswer: null,
-            SERPAnswer: {
+            SERPAnswers: {
                 title: null,
                 snippet: null,
                 position: null,
@@ -98,10 +98,10 @@ const tracker = {
             this.islands[ islandIndex ].islandData.AIAnswer = AIAnswer;
         }
     },
-    setSERPAnswer(islandID, SERPAnswer) {
+    setSERPAnswers(islandID, SERPAnswers) {
         const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
         if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.SERPAnswer = SERPAnswer;
+            this.islands[ islandIndex ].islandData.SERPAnswers = SERPAnswers;
         }
     },
     setUserAnswer(islandID, userAnswer) {
