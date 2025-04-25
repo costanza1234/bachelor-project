@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, TextInput, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { shuffleIslands } from "../utils/islandState";
+import tracker from "../utils/tracker";
+import { IslandContext } from "../utils/IslandContext";
 
 export default function GameStart() {
     const navigate = useNavigate();
+    const { setActiveIdx } = useContext(IslandContext);
     const [ userCode, setUserCode ] = useState("");
     const [ opened, { open, close } ] = useDisclosure(false);
 
@@ -14,12 +17,22 @@ export default function GameStart() {
     };
 
     const handleCodeSubmit = () => {
+        console.log("User code submitted:", userCode);
         if (!isValidCode(userCode)) return;
 
-        localStorage.setItem("userCode", userCode.trim());
-        localStorage.setItem("sessionStart", Date.now());
+        tracker.userCode = userCode.trim();
+        tracker.startTime = Date.now();
+
+        // Reset game state
+        console.log("Resetting game state...");
         localStorage.removeItem("shuffledIslands");
+        // localStorage.removeItem("activeIslandIdx");
+        setActiveIdx(0);
+
+        // Shuffle and store new order
         shuffleIslands();
+        tracker.islandOrder = JSON.parse(localStorage.getItem("shuffledIslands"));
+
         navigate("/MapPage");
     };
 
@@ -37,16 +50,16 @@ export default function GameStart() {
             <Group justify="center">
                 <Button
                     className="answer-submit-button"
-                    radius='lg'
+                    radius="lg"
                     size="xl"
                     variant="filled"
-                    color='#6f6f6f'
+                    color="#6f6f6f"
                     onClick={handleStart}
                 >
                     INIZIA A GIOCARE
                 </Button>
-
             </Group>
+
             <Modal
                 opened={opened}
                 onClose={close}
@@ -54,10 +67,7 @@ export default function GameStart() {
                 centered
                 size="sm"
                 radius="md"
-                overlayProps={{
-                    blur: 4,
-                    backgroundOpacity: 0.55,
-                }}
+                overlayProps={{ blur: 4, backgroundOpacity: 0.55 }}
             >
                 <TextInput
                     label="Codice"
@@ -65,19 +75,11 @@ export default function GameStart() {
                     value={userCode}
                     onChange={(e) => setUserCode(e.currentTarget.value)}
                     withAsterisk
-                    error={
-                        userCode && !isValidCode(userCode)
-                            ? "Attento: Il codice deve avere almeno 3 cifre"
-                            : null
-                    }
+                    error={userCode && !isValidCode(userCode) ? "Attenzione: Il codice deve avere almeno 3 cifre" : null}
                 />
 
                 <Group justify="center" mt="md">
-                    <Button
-                        onClick={handleCodeSubmit}
-                        disabled={!isValidCode(userCode)}
-                        color="rgb(71, 159, 203)"
-                    >
+                    <Button onClick={handleCodeSubmit} disabled={!isValidCode(userCode)} color="rgb(71, 159, 203)">
                         Gioca!
                     </Button>
                     <Button variant="default" onClick={close}>

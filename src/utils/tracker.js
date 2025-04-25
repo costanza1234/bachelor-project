@@ -1,5 +1,7 @@
 const tracker = {
+    // userCode is handled in the GameStart component
     userCode: null,
+    // startTime is handled in the GameStart component
     startTime: null,
     islandOrder: [],
     totalClicksInSession: 0,
@@ -40,16 +42,12 @@ const tracker = {
     setSessionLength(sessionLength) {
         this.sessionLength = sessionLength;
     },
-    setIslandOrder(islandOrder) {
-        this.islandOrder = islandOrder;
-    },
     setTotalClicksInSession(totalClicksInSession) {
         this.totalClicksInSession = totalClicksInSession;
     },
     setTimeBeforeFirstClickSeconds(timeBeforeFirstClickSeconds) {
         this.timeBeforeFirstClickSeconds = timeBeforeFirstClickSeconds;
     },
-
     setIsland(island) {
         // check if islandID is already in the islands array
         const islandIndex = this.islands.findIndex((i) => i.islandID === island.islandID);
@@ -110,9 +108,6 @@ const tracker = {
             this.islands[ islandIndex ].islandData.userAnswer = userAnswer;
         }
     },
-
-
-
 
 
     // Export

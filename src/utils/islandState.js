@@ -1,4 +1,6 @@
+// src/utils/islandState.js
 import { shuffle } from "./helpers";
+import tracker from "./tracker";
 
 const ISLAND_STORAGE_KEY = "shuffledIslands";
 
@@ -12,6 +14,8 @@ export const shuffleIslands = () => {
         "island6.png",
     ]);
     localStorage.setItem(ISLAND_STORAGE_KEY, JSON.stringify(shuffled));
+    tracker.islandOrder = shuffled;
+
 };
 
 export const getIslands = () => {

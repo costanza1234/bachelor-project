@@ -1,12 +1,12 @@
 import React from "react";
-import Landing from "./components/Landing";
+import GameStart from "./components/GameStart";
 import Header from "./components/Header";
 
 export default function HomePage() {
     return (
         <div className="mainContainer">
             <Header />
-            <Landing />
+            <GameStart />
         </div>
     );
 }
