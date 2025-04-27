@@ -4,14 +4,18 @@ import './index.css';
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import App from './App';
+import { TrackerProvider } from './utils/TrackerContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+
 root.render(
   <React.StrictMode>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <App />
-    </MantineProvider>
+    <TrackerProvider>
+      <MantineProvider withGlobalStyles withNormalizeCSS>
+        <App />
+      </MantineProvider>
+    </TrackerProvider>
   </React.StrictMode>
 );
 

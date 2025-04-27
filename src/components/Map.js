@@ -4,6 +4,7 @@ import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
 import { getIslands } from '../utils/islandState';
 import { IslandContext } from '../utils/IslandContext';
 import { useContext } from 'react';
+import tracker from '../utils/tracker';
 
 
 export default function Map() {

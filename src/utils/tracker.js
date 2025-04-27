@@ -56,8 +56,10 @@ const tracker = {
             this.islands[ islandIndex ].islandData = island.islandData;
             return;
         }
+
+        console.log("island not found, adding new island");
         // if it is not, add the island to the islands array
-        this.islands.append(island);
+        this.islands.push(island);
     },
 
     setOpenTime(islandID, openTime) {

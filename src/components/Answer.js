@@ -1,19 +1,23 @@
 // src/components/Answer.js
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from '@mantine/core';
 import { IslandContext } from '../utils/IslandContext';
 import { useNavigate } from 'react-router-dom';
+import tracker from '../utils/tracker';
 
-export default function Answer({ value, onChange }) {
+export default function Answer() {
+    const [ text, setText ] = useState("");
     const navigate = useNavigate();
     const { setActiveIdx } = useContext(IslandContext);
 
     const handleSubmit = () => {
-        console.log("Answer submitted:", value);
-        // **unlock next island**
-        setActiveIdx(idx => idx + 1);
-        // redirect to /MapPage
-        navigate("/MapPage");
+        console.log("Answer submitted:", text);
+
+        if (text) {
+
+            setActiveIdx(i => i + 1);
+            navigate("/MapPage");
+        }
     };
 
     return (
@@ -23,12 +27,11 @@ export default function Answer({ value, onChange }) {
                 id="answer-textarea"
                 className="text-area"
                 placeholder="Scrivi qui la risposta alla domanda..."
-                value={value}
-                onChange={onChange}
+                value={text}
+                onChange={e => setText(e.target.value)}
                 rows={4}
             />
             <Button
-                className="answer-submit-button"
                 onClick={handleSubmit}
                 radius="lg"
                 variant="filled"
