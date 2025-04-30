@@ -2,23 +2,26 @@
 import React, { useState, useContext } from 'react';
 import { Button } from '@mantine/core';
 import { IslandContext } from '../utils/IslandContext';
-import { useNavigate } from 'react-router-dom';
-import tracker from '../utils/tracker';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Answer() {
     const [ text, setText ] = useState("");
     const navigate = useNavigate();
-    const { setActiveIdx } = useContext(IslandContext);
+    const { completeIsland } = useContext(IslandContext);
 
-    const handleSubmit = () => {
-        console.log("Answer submitted:", text);
+    // this param is the index in the shuffled array
+    const { questionId } = useParams();
+    const idx = parseInt(questionId, 10);
 
-        if (text) {
+    function handleSubmit() {
+        if (!text) return;
+        console.log('questionId ', questionId);
+        console.log('idx ', idx);
 
-            setActiveIdx(i => i + 1);
-            navigate("/MapPage");
-        }
-    };
+        completeIsland(idx);
+
+        navigate("/MapPage");
+    }
 
     return (
         <div className="answer-wrapper">

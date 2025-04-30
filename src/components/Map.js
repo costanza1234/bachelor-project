@@ -1,15 +1,16 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { mapOnClickRedirect } from '../utils/helpers';
 import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
 import { getIslands } from '../utils/islandState';
+import tracker from '../utils/tracker';
 import { IslandContext } from '../utils/IslandContext';
 import { useContext } from 'react';
-import tracker from '../utils/tracker';
+import { useNavigate, } from 'react-router-dom';
 
 
 export default function Map() {
+
+    const navigate = useNavigate();
     const islandNames = getIslands();
-    const { activeIdx } = useContext(IslandContext);
 
     const dimensions = useWindowDimensions();
 
@@ -33,11 +34,20 @@ export default function Map() {
 
     const scale = useAutoScale(mapContainerRef, mapContentRef, [ dimensions, points ]);
 
-    // Only redirect when active
-    const handleClick = idx => {
-        if (idx === activeIdx) {
-            mapOnClickRedirect(islandNames[ idx ]);
-        }
+    // Get the completed islands from the context
+    const { completed } = useContext(IslandContext);
+    console.log('completed islands:', completed);
+
+
+    const handleClick = (idx, islandNumber) => {
+
+        tracker.recordIslandClick(islandNumber, idx);
+
+        console.log('tracker:', tracker.islandClickOrder);
+
+        // navigate to the choice page
+        navigate(`/MapPage/choice/${islandNumber}`);
+
     };
     return (
         <div className="mapContainer" ref={mapContainerRef}>
@@ -49,8 +59,12 @@ export default function Map() {
                 <svg width={containerWidth} height={containerHeight} className="mapSVG" />
 
                 {points.map((point, idx) => {
-                    const isLocked = idx > activeIdx;
-                    const isActive = idx === activeIdx;
+
+                    const islandName = islandNames[ idx ];
+                    const islandNumber = islandName.match(/\d+/)[ 0 ];
+
+                    const isCompleted = completed.includes(parseInt(islandNumber, 10));
+
 
                     return (
                         <img
@@ -64,11 +78,11 @@ export default function Map() {
                                 top: point.y - islandSize / 2,
                                 width: islandSize,
                                 height: islandSize,
-                                cursor: isActive ? 'pointer' : 'default',
-                                filter: isLocked ? 'grayscale(100%) opacity(0.5)' : undefined,
-                                pointerEvents: isActive ? 'auto' : 'none'
+                                cursor: 'pointer',
+                                // If the island is completed, make it not clickable
+                                pointerEvents: isCompleted ? 'none' : 'auto'
                             }}
-                            onClick={() => handleClick(idx)}
+                            onClick={() => handleClick(idx, islandNumber)}
                         />
                     );
                 })}

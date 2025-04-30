@@ -27,7 +27,7 @@ export default function GameStart() {
         console.log("Resetting game state...");
         localStorage.removeItem("shuffledIslands");
         // localStorage.removeItem("activeIslandIdx");
-        setActiveIdx(0);
+        // setActiveIdx(0);
 
         // Shuffle and store new order
         shuffleIslands();

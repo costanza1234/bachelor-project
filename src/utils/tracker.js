@@ -3,7 +3,10 @@ const tracker = {
     userCode: null,
     // startTime is handled in the GameStart component
     startTime: null,
-    islandOrder: [],
+    // island order of completion
+    islandCompletion: [],
+    // island order of click {islandID, islandPositionInMap}
+    islandClickOrder: [],
     totalClicksInSession: 0,
     timeBeforeFirstClickSeconds: null,
     finishTime: null,
@@ -16,7 +19,8 @@ const tracker = {
             answeredWithAI: null,
             numberOfQueries: null,
             queryTerms: null,
-            AIAnswer: null,
+            // AIAnswer: null,
+            // todo tenere conto se l'utente prova a usare sia AI che SE e anche in che ordine (lista di numeri)
             SERPAnswers: {
                 title: null,
                 snippet: null,
@@ -28,6 +32,11 @@ const tracker = {
             userAnswer: null,
         },
     } ],
+
+    recordIslandClick(islandID, islandPosition) {
+        this.islandClickOrder.push({ islandID, islandPosition });
+        this.totalClicksInSession++;
+    },
 
     // setters
     setUserCode(userCode) {

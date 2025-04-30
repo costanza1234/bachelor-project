@@ -6,7 +6,7 @@ import MapPage from "./pages/MapPage";
 import QuestionPage from "./pages/QuestionPage";
 import ChoicePage from "./pages/ChoicePage";
 import './index.css';
-import { IslandContext } from "./utils/IslandContext";
+import { IslandProvider } from "./utils/IslandContext";
 
 export default function App() {
   // 1 Load last unlocked index or start at 0
@@ -28,7 +28,7 @@ export default function App() {
       </video>
 
       {/* 3 Provide activeIdx & setter to all pages */}
-      <IslandContext.Provider value={{ activeIdx, setActiveIdx }}>
+      <IslandProvider>
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -43,7 +43,7 @@ export default function App() {
             />
           </Routes>
         </Router>
-      </IslandContext.Provider>
+      </IslandProvider>
     </div>
   );
 }

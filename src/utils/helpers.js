@@ -8,11 +8,6 @@ export function shuffle(array) {
     return array;
 }
 
-export function mapOnClickRedirect(name) {
-    // Extract island number from image name (islandX.png)
-    const islandNumber = name.match(/\d+/)[ 0 ];
-    window.location.href = `/MapPage/choice/${islandNumber}`;
-}
 
 export async function performSearch(query) {
     const apiKey = process.env.REACT_APP_API_KEY;
