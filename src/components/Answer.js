@@ -1,13 +1,15 @@
 // src/components/Answer.js
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button } from '@mantine/core';
 import { IslandContext } from '../utils/IslandContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import tracker from '../utils/tracker';
+
+
 export default function Answer() {
     const [ text, setText ] = useState("");
     const navigate = useNavigate();
-    const { completeIsland } = useContext(IslandContext);
+    const { completed, completeIsland } = useContext(IslandContext);
 
     // this param is the index in the shuffled array
     const { questionId } = useParams();
@@ -15,19 +17,25 @@ export default function Answer() {
 
     function handleSubmit() {
         if (!text) return;
+
         console.log('submitting answer:', text);
-
         completeIsland(idx);
+        tracker.incrementScore(10);
 
-        // if the number of completed islands is 6, navigate to the finish page
-        if (tracker.islandCompletion.length === 6) {
-            console.log("All islands completed, navigating to finish page");
-            navigate("/FinishPage");
-            return;
-        }
-
-        navigate("/MapPage");
+        navigate("/MapPage"); // temporary navigation
     }
+
+    useEffect(() => {
+        if (completed.length === 6) {
+            console.log("All islands completed, navigating to finish page");
+            tracker.setFinishTime(new Date().toISOString());
+            tracker.setSessionLength(
+                (new Date(tracker.finishTime) - new Date(tracker.startTime)) / 1000
+            );
+            navigate("/FinishPage");
+        }
+    }, [ completed, navigate ]);
+
 
     return (
         <div className="answer-wrapper">

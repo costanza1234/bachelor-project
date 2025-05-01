@@ -18,7 +18,7 @@ export default function Map() {
     const mapContentRef = useRef(null);
 
     const { width: containerWidth, height: containerHeight } = dimensions;
-    const islandSize = 0.2 * containerWidth;
+    const islandSize = 0.18 * containerWidth;
 
     // Memoized island positions based on viewport
     const points = useMemo(() => [

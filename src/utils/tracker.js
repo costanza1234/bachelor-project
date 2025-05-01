@@ -11,8 +11,12 @@ const tracker = {
     totalClicksInSession: 0,
     // timeBeforeFirstClickSeconds is handled in App.js
     timeBeforeFirstClickSeconds: null,
+    // finishTime is handled in the Answer component
     finishTime: null,
+    // sessionLength is handled in the Answer component
     sessionLength: null,
+    // score is handled in the Answer component
+    score: 0,
     islands: [ {
         islandID: null,
         islandData: {
@@ -33,14 +37,15 @@ const tracker = {
             },
             userAnswer: null,
         },
-        score: 0,
     } ],
 
     recordIslandClick(islandID, islandPosition) {
         this.islandClickOrder.push({ islandID, islandPosition });
         this.totalClicksInSession++;
     },
-
+    incrementScore(points) {
+        this.score += points;
+    },
     // setters
     setUserCode(userCode) {
         this.userCode = userCode;
