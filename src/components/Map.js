@@ -36,14 +36,16 @@ export default function Map() {
 
     // Get the completed islands from the context
     const { completed } = useContext(IslandContext);
-    console.log('completed islands:', completed);
+
+    console.log('tracker:', tracker);
 
 
     const handleClick = (idx, islandNumber) => {
 
         tracker.recordIslandClick(islandNumber, idx);
 
-        console.log('tracker:', tracker.islandClickOrder);
+        // log to check the tracker update
+        console.log("tracker updated:", tracker);
 
         // navigate to the choice page
         navigate(`/MapPage/choice/${islandNumber}`);

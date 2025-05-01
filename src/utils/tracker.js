@@ -3,11 +3,13 @@ const tracker = {
     userCode: null,
     // startTime is handled in the GameStart component
     startTime: null,
-    // island order of completion
+    // islandCompletion is handled in the IslandContext and Answer component
     islandCompletion: [],
-    // island order of click {islandID, islandPositionInMap}
+    // island order of click {islandID, islandPositionInMap} is handled in the Map component
     islandClickOrder: [],
+    // totalClicksInSession is handled in App.js
     totalClicksInSession: 0,
+    // timeBeforeFirstClickSeconds is handled in App.js
     timeBeforeFirstClickSeconds: null,
     finishTime: null,
     sessionLength: null,
@@ -31,6 +33,7 @@ const tracker = {
             },
             userAnswer: null,
         },
+        score: 0,
     } ],
 
     recordIslandClick(islandID, islandPosition) {
@@ -50,9 +53,6 @@ const tracker = {
     },
     setSessionLength(sessionLength) {
         this.sessionLength = sessionLength;
-    },
-    setTotalClicksInSession(totalClicksInSession) {
-        this.totalClicksInSession = totalClicksInSession;
     },
     setTimeBeforeFirstClickSeconds(timeBeforeFirstClickSeconds) {
         this.timeBeforeFirstClickSeconds = timeBeforeFirstClickSeconds;

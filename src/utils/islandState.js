@@ -14,7 +14,11 @@ export const shuffleIslands = () => {
         "island6.png",
     ]);
     localStorage.setItem(ISLAND_STORAGE_KEY, JSON.stringify(shuffled));
+
     tracker.islandOrder = shuffled;
+
+    // log to check the tracker update
+    console.log("tracker updated:", tracker);
 
 };
 

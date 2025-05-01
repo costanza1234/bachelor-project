@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import { Button } from '@mantine/core';
 import { IslandContext } from '../utils/IslandContext';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import tracker from '../utils/tracker';
 export default function Answer() {
     const [ text, setText ] = useState("");
     const navigate = useNavigate();
@@ -15,10 +15,16 @@ export default function Answer() {
 
     function handleSubmit() {
         if (!text) return;
-        console.log('questionId ', questionId);
-        console.log('idx ', idx);
+        console.log('submitting answer:', text);
 
         completeIsland(idx);
+
+        // if the number of completed islands is 6, navigate to the finish page
+        if (tracker.islandCompletion.length === 6) {
+            console.log("All islands completed, navigating to finish page");
+            navigate("/FinishPage");
+            return;
+        }
 
         navigate("/MapPage");
     }

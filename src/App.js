@@ -5,20 +5,35 @@ import HomePage from "./HomePage";
 import MapPage from "./pages/MapPage";
 import QuestionPage from "./pages/QuestionPage";
 import ChoicePage from "./pages/ChoicePage";
+import FinishPage from "./pages/FinishPage";
 import './index.css';
 import { IslandProvider } from "./utils/IslandContext";
+import tracker from "./utils/tracker";
 
 export default function App() {
-  // 1 Load last unlocked index or start at 0
-  const [ activeIdx, setActiveIdx ] = useState(() => {
-    const stored = localStorage.getItem('activeIslandIdx');
-    return stored ? Number(stored) : 0;
-  });
 
-  // 2 Persist whenever it changes
   useEffect(() => {
-    localStorage.setItem('activeIslandIdx', activeIdx);
-  }, [ activeIdx ]);
+    const handleClick = () => {
+
+      if (tracker.startTime) {
+
+        if (tracker.totalClicksInSession === 0) {
+          const currentTime = new Date();
+          const timeBeforeFirstClick = Math.floor((currentTime - tracker.startTime) / 1000);
+          tracker.setTimeBeforeFirstClickSeconds(timeBeforeFirstClick);
+        }
+
+        tracker.totalClicksInSession += 1;
+      }
+    };
+
+    window.addEventListener('click', handleClick);
+
+    return () => {
+      window.removeEventListener('click', handleClick);
+    };
+  }, []);
+
 
   return (
     <div id="app-container">
@@ -41,6 +56,7 @@ export default function App() {
               path="/MapPage/choice/:questionId"
               element={<ChoicePage />}
             />
+            <Route path="/FinishPage" element={<FinishPage />} />
           </Routes>
         </Router>
       </IslandProvider>

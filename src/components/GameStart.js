@@ -20,8 +20,12 @@ export default function GameStart() {
         console.log("User code submitted:", userCode);
         if (!isValidCode(userCode)) return;
 
-        tracker.userCode = userCode.trim();
-        tracker.startTime = Date.now();
+        tracker.setUserCode(userCode);
+
+        tracker.setStartTime(new Date().toISOString());
+
+        // log to check the tracker update
+        console.log("tracker updated:", tracker);
 
         // Reset game state
         console.log("Resetting game state...");
@@ -32,6 +36,9 @@ export default function GameStart() {
         // Shuffle and store new order
         shuffleIslands();
         tracker.islandOrder = JSON.parse(localStorage.getItem("shuffledIslands"));
+
+        // log to check the tracker update
+        console.log("tracker updated:", tracker);
 
         navigate("/MapPage");
     };
