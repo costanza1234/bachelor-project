@@ -1,11 +1,21 @@
 .mapIsland {
   position: relative;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .mapIsland:hover {
   transform: scale(1.1);
+}
+
+.mapIsland.completed {
+  cursor: auto;
+  pointer-events: auto; /* important: still allow click */
+}
+
+/* ✅ Prevent hover effect on completed islands */
+.mapIsland.completed:hover {
+  transform: none;
 }
 
 .mapContainer {

@@ -5,6 +5,7 @@ import tracker from '../utils/tracker';
 import { IslandContext } from '../utils/IslandContext';
 import { useContext } from 'react';
 import { useNavigate, } from 'react-router-dom';
+import { Alert } from '@mantine/core';
 
 
 export default function Map() {
@@ -39,8 +40,16 @@ export default function Map() {
 
     console.log('tracker:', tracker);
 
+    const [ errorMessage, setErrorMessage ] = useState("");
 
-    const handleClick = (idx, islandNumber) => {
+
+    const handleClick = (idx, islandNumber, isCompleted) => {
+
+        if (isCompleted) {
+            setErrorMessage(`L'isola ${islandNumber} è già stata completata!`);
+            setTimeout(() => setErrorMessage(""), 2500); // Hide after 2.5s
+            return;
+        }
 
         tracker.recordIslandClick(islandNumber, idx);
 
@@ -51,8 +60,15 @@ export default function Map() {
         navigate(`/MapPage/choice/${islandNumber}`);
 
     };
+
     return (
         <div className="mapContainer" ref={mapContainerRef}>
+            {errorMessage && (
+                <Alert color="red" style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+                    {errorMessage}
+                </Alert>
+            )}
+
             <div
                 className="mapContent"
                 ref={mapContentRef}
@@ -73,7 +89,7 @@ export default function Map() {
                             key={idx}
                             src={`/${islandNames[ idx ]}`}
                             alt={`Island ${idx}`}
-                            className="mapIsland"
+                            className={`mapIsland ${isCompleted ? 'completed' : ''}`}
                             style={{
                                 position: 'absolute',
                                 left: point.x - islandSize / 2,
@@ -81,11 +97,21 @@ export default function Map() {
                                 width: islandSize,
                                 height: islandSize,
                                 cursor: 'pointer',
-                                // If the island is completed, make it not clickable
-                                pointerEvents: isCompleted ? 'none' : 'auto'
+                                transition: isCompleted ? 'none' : 'transform 0.2s ease',
                             }}
-                            onClick={() => handleClick(idx, islandNumber)}
+                            onMouseEnter={(e) => {
+                                if (!isCompleted) {
+                                    e.currentTarget.style.transform = 'scale(1.05)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (!isCompleted) {
+                                    e.currentTarget.style.transform = 'scale(1)';
+                                }
+                            }}
+                            onClick={() => handleClick(idx, islandNumber, isCompleted)}
                         />
+
                     );
                 })}
             </div>
