@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
 import { getIslands } from '../utils/islandState';
 import tracker from '../utils/tracker';
@@ -38,26 +38,34 @@ export default function Map() {
     // Get the completed islands from the context
     const { completed } = useContext(IslandContext);
 
-    console.log('tracker:', tracker);
-
     const [ errorMessage, setErrorMessage ] = useState("");
 
 
-    const handleClick = (idx, islandNumber, isCompleted) => {
+    const handleClick = (idx, islandID, isCompleted) => {
 
         if (isCompleted) {
-            setErrorMessage(`L'isola ${islandNumber} è già stata completata!`);
+            setErrorMessage(`L'isola ${islandID} è già stata completata!`);
             setTimeout(() => setErrorMessage(""), 2500); // Hide after 2.5s
             return;
         }
 
-        tracker.recordIslandClick(islandNumber, idx);
+        const openTime = new Date().toISOString();
+
+
+        // find the island in tracker.islands based on the islandID. islands is an array of objects
+        const island = tracker.islands.find(island => island.islandID === Number(islandID));
+
+        // set the open time for the island
+        island.islandData.openTime = openTime;
+
+        // record the order of the island that are clicked
+        tracker.recordIslandClick(islandID, idx);
 
         // log to check the tracker update
         console.log("tracker updated:", tracker);
 
         // navigate to the choice page
-        navigate(`/MapPage/choice/${islandNumber}`);
+        navigate(`/MapPage/choice/${islandID}`);
 
     };
 

@@ -18,16 +18,29 @@ export default function Answer() {
     function handleSubmit() {
         if (!text) return;
 
-        console.log('submitting answer:', text);
+        const submitTime = new Date().toISOString();
+
+
+        const island = tracker.islands.find(island => island.islandID === `island${idx}`);
+        if (!island) {
+            console.error(`Island ${idx} not found in tracker`);
+            return;
+        }
+        // record the submit time
+        island.islandData.submitTime = submitTime;
+        // record the answer
+        island.islandData.userAnswer = text;
         completeIsland(idx);
         tracker.incrementScore(10);
 
-        navigate("/MapPage"); // temporary navigation
+        // log to check the tracker update
+        console.log("tracker updated:", tracker);
+
+        navigate("/MapPage");
     }
 
     useEffect(() => {
         if (completed.length === 6) {
-            console.log("All islands completed, navigating to finish page");
             tracker.setFinishTime(new Date().toISOString());
             tracker.setSessionLength(
                 (new Date(tracker.finishTime) - new Date(tracker.startTime)) / 1000

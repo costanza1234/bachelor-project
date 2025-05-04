@@ -1,10 +1,12 @@
+import questions from "../data/questions.js";
+
 const tracker = {
     // userCode is handled in the GameStart component
     userCode: null,
     // startTime is handled in the GameStart component
     startTime: null,
-    // islandCompletion is handled in the IslandContext and Answer component
-    islandCompletion: [],
+    // islandCompletionOrder is handled in the IslandContext and Answer component
+    islandCompletionOrder: [],
     // island order of click {islandID, islandPositionInMap} is handled in the Map component
     islandClickOrder: [],
     // totalClicksInSession is handled in App.js
@@ -21,17 +23,20 @@ const tracker = {
     islands: [ {
         islandID: null,
         islandData: {
+            // question is handled in the initializeIslands function called in the GameStart component
+            question: null,
+            // sentiment is handled in the initializeIslands function called in the GameStart component
+            sentiment: null,
+            // openTime is handled in the Map component in the handleClick function
             openTime: null,
+            // submitTime is handled in the Answer component
             submitTime: null,
-            answeredWithAI: null,
-            numberOfQueries: null,
-            queryTerms: null,
-
             // choiceForAnswer is a list of 0 or 1. 
             // If the user performs a search using Google, a 0 is pushed in the array, similarly a 1 is pushed when the user prompts AI. 
             // The length of the array is equal to the number of queries / prompts made by the user.
             // The array is used to understand if the user has used AI or Google to or both and how many times they performes the switch in order to answer the given question.
             choiceForAnswer: [],
+            numberOfQueryTermsPerQuery: null, //  [{AI: 0 or 1, numberOfQueryTerms: numberOfQueryTerms}, ...], this means that the length of the array is equal to the number of queries made by the user, the flag AI is 0 if the user used Google and 1 if the user used AI. The numberOfQueryTerms is the number of terms used in the query/prompt.
             SERPAnswers: {
                 title: null,
                 snippet: null,
@@ -43,6 +48,37 @@ const tracker = {
             userAnswer: null,
         },
     } ],
+
+    // for each of the six islands, initialize the islandID and islandData
+    initializeIslands(islands) {
+
+        for (let i = 0; i < islands.length; i++) {
+            var islandID = islands[ i ];
+            this.islands[ i ] = {
+                islandID: islandID,
+                islandData: {
+                    question: questions[ islandID - 1 ].text,
+                    sentiment: questions[ islandID - 1 ].sentiment,
+                    openTime: null,
+                    submitTime: null,
+                    answeredWithAI: null,
+                    numberOfQueries: null,
+                    queryTerms: null,
+                    choiceForAnswer: [],
+                    SERPAnswers: {
+                        title: null,
+                        snippet: null,
+                        position: null,
+                        clicked: false,
+                        clickOrder: null,
+                        timeSpentOnPage: null,
+                    },
+                    userAnswer: null,
+                },
+            };
+        }
+
+    },
 
     recordIslandClick(islandID, islandPosition) {
         this.islandClickOrder.push({ islandID, islandPosition });
@@ -75,8 +111,6 @@ const tracker = {
             this.islands[ islandIndex ].islandData = island.islandData;
             return;
         }
-
-        console.log("island not found, adding new island");
         // if it is not, add the island to the islands array
         this.islands.push(island);
     },
@@ -136,12 +170,32 @@ const tracker = {
         return {
             userCode: this.userCode,
             startTime: this.startTime,
-            finishTime: this.finishTime,
-            sessionLength: this.sessionLength,
-            islandOrder: this.islandOrder,
+            islandCompletionOrder: this.islandCompletionOrder,
+            islandClickOrder: this.islandClickOrder,
             totalClicksInSession: this.totalClicksInSession,
             timeBeforeFirstClickSeconds: this.timeBeforeFirstClickSeconds,
-            islands: this.islands,
+            finishTime: this.finishTime,
+            sessionLength: this.sessionLength,
+            score: this.score,
+            islands: this.islands.map((island) => ({
+                islandID: island.islandID,
+                islandData: {
+                    openTime: island.islandData.openTime,
+                    submitTime: island.islandData.submitTime,
+                    numberOfQueries: island.islandData.numberOfQueries,
+                    queryTerms: island.islandData.queryTerms,
+                    choiceForAnswer: island.islandData.choiceForAnswer,
+                    SERPAnswers: {
+                        title: island.islandData.SERPAnswers.title,
+                        snippet: island.islandData.SERPAnswers.snippet,
+                        position: island.islandData.SERPAnswers.position,
+                        clicked: island.islandData.SERPAnswers.clicked,
+                        clickOrder: island.islandData.SERPAnswers.clickOrder,
+                        timeSpentOnPage: island.islandData.SERPAnswers.timeSpentOnPage,
+                    },
+                    userAnswer: island.islandData.userAnswer,
+                },
+            })),
         };
     },
 };

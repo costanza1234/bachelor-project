@@ -15,11 +15,6 @@ export const shuffleIslands = () => {
     ]);
     localStorage.setItem(ISLAND_STORAGE_KEY, JSON.stringify(shuffled));
 
-    tracker.islandOrder = shuffled;
-
-    // log to check the tracker update
-    console.log("tracker updated:", tracker);
-
 };
 
 export const getIslands = () => {

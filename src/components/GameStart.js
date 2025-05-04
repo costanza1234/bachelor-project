@@ -8,7 +8,6 @@ import { IslandContext } from "../utils/IslandContext";
 
 export default function GameStart() {
     const navigate = useNavigate();
-    const { setActiveIdx } = useContext(IslandContext);
     const [ userCode, setUserCode ] = useState("");
     const [ opened, { open, close } ] = useDisclosure(false);
 
@@ -17,15 +16,12 @@ export default function GameStart() {
     };
 
     const handleCodeSubmit = () => {
-        console.log("User code submitted:", userCode);
+
         if (!isValidCode(userCode)) return;
 
         tracker.setUserCode(userCode);
 
         tracker.setStartTime(new Date().toISOString());
-
-        // log to check the tracker update
-        console.log("tracker updated:", tracker);
 
         // Reset game state
         console.log("Resetting game state...");
@@ -35,7 +31,13 @@ export default function GameStart() {
 
         // Shuffle and store new order
         shuffleIslands();
-        tracker.islandOrder = JSON.parse(localStorage.getItem("shuffledIslands"));
+
+        const islands = JSON.parse(localStorage.getItem("shuffledIslands")).map((name) => {
+            const match = name.match(/\d+/); // Extract the integer part
+            return match ? parseInt(match[ 0 ], 10) : null; // Parse to integer
+        });
+
+        tracker.initializeIslands(islands);
 
         // log to check the tracker update
         console.log("tracker updated:", tracker);

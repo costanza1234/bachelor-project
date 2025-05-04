@@ -16,12 +16,10 @@ export function IslandProvider({ children }) {
     }
 
     useEffect(() => {
-        tracker.islandCompletion = completed;
+        tracker.islandCompletionOrder = completed;
 
         // log to check the tracker update
-        console.log("tracker updated:", tracker);
-
-        console.log('IslandContext → completed:', completed);
+        console.log("island completed, tracker updated:", tracker);
 
     }, [ completed ]);
 

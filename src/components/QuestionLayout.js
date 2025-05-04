@@ -2,8 +2,8 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { questions } from '../data/questions';
 import { useParams } from 'react-router-dom';
+import questions from '../data/questions';
 
 export default function QuestionLayout({ children }) {
     const { questionId } = useParams();

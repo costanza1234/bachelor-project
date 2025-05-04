@@ -1,4 +1,4 @@
-export const questions = [
+const questions = [
     {
         id: 1,
         text: "Qual è la montagna più alta del mondo?",
@@ -30,3 +30,5 @@ export const questions = [
         sentiment: "positive",
     },
 ];
+
+export default questions;
