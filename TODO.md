@@ -8,6 +8,8 @@
             clickOrder: null,
             timeSpentOnPage: null
 
+        fix download
+
 [ ] **The game does not restart if the web page is refreshed** This probably requires a game state, which could be merged with the tracker.
 
 [ ] **Improve the download of the data for the researcher and the UI**
