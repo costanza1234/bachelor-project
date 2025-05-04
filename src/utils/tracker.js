@@ -17,6 +17,7 @@ const tracker = {
     sessionLength: null,
     // score is handled in the Answer component
     score: 0,
+
     islands: [ {
         islandID: null,
         islandData: {
@@ -25,8 +26,12 @@ const tracker = {
             answeredWithAI: null,
             numberOfQueries: null,
             queryTerms: null,
-            // AIAnswer: null,
-            // todo tenere conto se l'utente prova a usare sia AI che SE e anche in che ordine (lista di numeri)
+
+            // choiceForAnswer is a list of 0 or 1. 
+            // If the user performs a search using Google, a 0 is pushed in the array, similarly a 1 is pushed when the user prompts AI. 
+            // The length of the array is equal to the number of queries / prompts made by the user.
+            // The array is used to understand if the user has used AI or Google to or both and how many times they performes the switch in order to answer the given question.
+            choiceForAnswer: [],
             SERPAnswers: {
                 title: null,
                 snippet: null,
