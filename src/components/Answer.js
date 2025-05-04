@@ -41,10 +41,11 @@ export default function Answer() {
 
     useEffect(() => {
         if (completed.length === 6) {
-            tracker.setFinishTime(new Date().toISOString());
-            tracker.setSessionLength(
-                (new Date(tracker.finishTime) - new Date(tracker.startTime)) / 1000
-            );
+
+            tracker.finishTime = new Date().toISOString();
+
+            tracker.sessionLength = (new Date(tracker.finishTime) - new Date(tracker.startTime)) / 1000;
+
             navigate("/FinishPage");
         }
     }, [ completed, navigate ]);

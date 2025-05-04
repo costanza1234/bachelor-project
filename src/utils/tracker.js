@@ -36,15 +36,18 @@ const tracker = {
             // The length of the array is equal to the number of queries / prompts made by the user.
             // The array is used to understand if the user has used AI or Google to or both and how many times they performes the switch in order to answer the given question.
             choiceForAnswer: [],
-            numberOfQueryTermsPerQuery: null, //  [{AI: 0 or 1, numberOfQueryTerms: numberOfQueryTerms}, ...], this means that the length of the array is equal to the number of queries made by the user, the flag AI is 0 if the user used Google and 1 if the user used AI. The numberOfQueryTerms is the number of terms used in the query/prompt.
-            SERPAnswers: {
+            //  [{AI: 0 or 1, numberOfQueryTerms: numberOfQueryTerms}, ...], this means that the length of the array is equal to the number of queries made by the user, the flag AI is 0 if the user used Google and 1 if the user used AI. The numberOfQueryTerms is the number of terms used in the query/prompt. This is handled in the QuestionPage component.
+            numberOfQueryTermsPerQuery: [],
+            // AIAnswers is a list of answers given by the AI. The length of the array is equal to the number of prompts made by the user. This is handled in the QuestionPage component.
+            AIAnswers: [],
+            SERPAnswers: [ {
                 title: null,
                 snippet: null,
                 position: null,
                 clicked: false,
                 clickOrder: null,
                 timeSpentOnPage: null,
-            },
+            } ],
             userAnswer: null,
         },
     } ],
@@ -61,10 +64,9 @@ const tracker = {
                     sentiment: questions[ islandID - 1 ].sentiment,
                     openTime: null,
                     submitTime: null,
-                    answeredWithAI: null,
-                    numberOfQueries: null,
-                    queryTerms: null,
                     choiceForAnswer: [],
+                    numberOfQueryTermsPerQuery: [],
+                    AIAnswers: [],
                     SERPAnswers: {
                         title: null,
                         snippet: null,
@@ -84,86 +86,10 @@ const tracker = {
         this.islandClickOrder.push({ islandID, islandPosition });
         this.totalClicksInSession++;
     },
+
     incrementScore(points) {
         this.score += points;
     },
-    // setters
-    setUserCode(userCode) {
-        this.userCode = userCode;
-    },
-    setStartTime(startTime) {
-        this.startTime = startTime;
-    },
-    setFinishTime(finishTime) {
-        this.finishTime = finishTime;
-    },
-    setSessionLength(sessionLength) {
-        this.sessionLength = sessionLength;
-    },
-    setTimeBeforeFirstClickSeconds(timeBeforeFirstClickSeconds) {
-        this.timeBeforeFirstClickSeconds = timeBeforeFirstClickSeconds;
-    },
-    setIsland(island) {
-        // check if islandID is already in the islands array
-        const islandIndex = this.islands.findIndex((i) => i.islandID === island.islandID);
-        if (islandIndex !== -1) {
-            // if it is, update the island data
-            this.islands[ islandIndex ].islandData = island.islandData;
-            return;
-        }
-        // if it is not, add the island to the islands array
-        this.islands.push(island);
-    },
-
-    setOpenTime(islandID, openTime) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.openTime = openTime;
-        }
-    },
-    setSubmitTime(islandID, submitTime) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.submitTime = submitTime;
-        }
-    },
-    setAnsweredWithAI(islandID, answeredWithAI) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.answeredWithAI = answeredWithAI;
-        }
-    },
-    setNumberOfQueries(islandID, numberOfQueries) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.numberOfQueries = numberOfQueries;
-        }
-    },
-    setQueryTerms(islandID, queryTerms) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.queryTerms = queryTerms;
-        }
-    },
-    setAIAnswer(islandID, AIAnswer) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.AIAnswer = AIAnswer;
-        }
-    },
-    setSERPAnswers(islandID, SERPAnswers) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.SERPAnswers = SERPAnswers;
-        }
-    },
-    setUserAnswer(islandID, userAnswer) {
-        const islandIndex = this.islands.findIndex((i) => i.islandID === islandID);
-        if (islandIndex !== -1) {
-            this.islands[ islandIndex ].islandData.userAnswer = userAnswer;
-        }
-    },
-
 
     // Export
     exportData() {
@@ -185,14 +111,14 @@ const tracker = {
                     numberOfQueries: island.islandData.numberOfQueries,
                     queryTerms: island.islandData.queryTerms,
                     choiceForAnswer: island.islandData.choiceForAnswer,
-                    SERPAnswers: {
+                    SERPAnswers: [ {
                         title: island.islandData.SERPAnswers.title,
                         snippet: island.islandData.SERPAnswers.snippet,
                         position: island.islandData.SERPAnswers.position,
                         clicked: island.islandData.SERPAnswers.clicked,
                         clickOrder: island.islandData.SERPAnswers.clickOrder,
                         timeSpentOnPage: island.islandData.SERPAnswers.timeSpentOnPage,
-                    },
+                    } ],
                     userAnswer: island.islandData.userAnswer,
                 },
             })),

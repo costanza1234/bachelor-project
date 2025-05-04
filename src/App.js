@@ -20,7 +20,8 @@ export default function App() {
         if (tracker.totalClicksInSession === 0) {
           const currentTime = new Date();
           const timeBeforeFirstClick = Math.floor((currentTime - tracker.startTime) / 1000);
-          tracker.setTimeBeforeFirstClickSeconds(timeBeforeFirstClick);
+
+          tracker.timeBeforeFirstClick = timeBeforeFirstClick;
         }
 
         tracker.totalClicksInSession += 1;

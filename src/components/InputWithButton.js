@@ -5,10 +5,9 @@ import { performSearch, generateResponse } from '../utils/helpers';
 
 export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) {
 
-  const handleSubmit = () => {
-    return isAI
-      ? generateResponse(value)
-      : performSearch(value);
+  const handleClick = () => {
+    const resultPromise = isAI ? generateResponse(value) : performSearch(value);
+    onSubmit(resultPromise);
   };
 
   return (
@@ -37,7 +36,7 @@ export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) 
           />
           <button
             className={`submit-button ${isAI ? 'ai-button' : ''}`}
-            onClick={() => onSubmit(handleSubmit())}
+            onClick={handleClick}
             disabled={isLoading}
           >
             {isAI ? (

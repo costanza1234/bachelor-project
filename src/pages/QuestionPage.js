@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
 import Results from '../components/Results';
 import QuestionLayout from '../components/QuestionLayout';
+import tracker from '../utils/tracker';
 
 export default function Question() {
     const { questionId, AI_flag } = useParams();
@@ -15,10 +16,45 @@ export default function Question() {
     const [ isLoading, setIsLoading ] = useState(false);
 
 
-    const handleSubmit = async (newResultPromise) => {
+    const handleSubmit = async (newResultPromise, isAI, questionId) => {
+
         setIsLoading(true);
+
+        console.log('isAI:', isAI, 'questionId:', questionId);
+
+        // find the island in tracker.islands based on the islandID. islands is an array of objects
+        const island = tracker.islands.find(island => island.islandID === Number(questionId));
+
+
+        const choice = isAI ? 1 : 0;
+
+        island.islandData.choiceForAnswer.push(choice);
+
+        const query = {
+            AI: isAI,
+            numberOfQueryTerms: inputValue.split(' ').length,
+        }
+
+        island.islandData.numberOfQueryTermsPerQuery.push(query);
+
+        // tracker changed, log it
+        console.log("tracker updated:", tracker);
+
         const result = await newResultPromise;
+        console.log('result:', result);
+        if (isAI) {
+            island.islandData.AIAnswers.push(result);
+        }
+        else {
+            // island.islandData.SERPAnswers.title = result.title;
+            // island.islandData.SERPAnswers.snippet = result.snippet;
+            // island.islandData.SERPAnswers.position = result.position;
+            // island.islandData.SERPAnswers.clicked = true;
+            // island.islandData.SERPAnswers.clickOrder = island.islandData.choiceForAnswer.length;
+        }
+
         setResult(result);
+
         setIsLoading(false);
     };
 
@@ -44,7 +80,9 @@ export default function Question() {
                         isAI={isAI}
                         value={inputValue}
                         onChange={handleInputChange}
-                        onSubmit={handleSubmit}
+                        onSubmit={(newResultPromise) =>
+                            handleSubmit(newResultPromise, isAI, questionId)
+                        }
                         isLoading={isLoading}
                     />
 

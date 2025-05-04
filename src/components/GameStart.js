@@ -4,7 +4,6 @@ import { Modal, TextInput, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { shuffleIslands } from "../utils/islandState";
 import tracker from "../utils/tracker";
-import { IslandContext } from "../utils/IslandContext";
 
 export default function GameStart() {
     const navigate = useNavigate();
@@ -19,9 +18,8 @@ export default function GameStart() {
 
         if (!isValidCode(userCode)) return;
 
-        tracker.setUserCode(userCode);
-
-        tracker.setStartTime(new Date().toISOString());
+        tracker.userCode = userCode;
+        tracker.startTime = new Date().toISOString();
 
         // Reset game state
         console.log("Resetting game state...");
