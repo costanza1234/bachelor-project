@@ -12,9 +12,8 @@ export default function DownloadButton() {
         }
 
         const data = tracker.exportData();
-        const blob = new Blob([ JSON.stringify(data, null, 2) ], { type: 'application/json' });
+        const blob = new Blob([ JSON.stringify(data) ], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
-
         const a = document.createElement('a');
         a.href = url;
         a.download = 'interaction-data.json';

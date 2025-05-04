@@ -110,7 +110,8 @@ const tracker = {
                     choiceForAnswer: island.islandData.choiceForAnswer,
                     numberOfQueryTermsPerQuery: island.islandData.numberOfQueryTermsPerQuery,
                     AIAnswers: island.islandData.AIAnswers,
-                    SERPAnswers: island.islandData.SERPAnswers,
+                    // Filter SERPAnswers to only include clicked ones
+                    SERPAnswers: island.islandData.SERPAnswers.filter(ans => ans.clicked),
                     userAnswer: island.islandData.userAnswer,
                 },
             })),
