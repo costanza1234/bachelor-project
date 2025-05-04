@@ -21,11 +21,8 @@ export default function Answer() {
         const submitTime = new Date().toISOString();
 
 
-        const island = tracker.islands.find(island => island.islandID === `island${idx}`);
-        if (!island) {
-            console.error(`Island ${idx} not found in tracker`);
-            return;
-        }
+        const island = tracker.islands.find(island => island.islandID === Number(questionId));
+
         // record the submit time
         island.islandData.submitTime = submitTime;
         // record the answer

@@ -13,7 +13,7 @@ export async function performSearch(query) {
     const apiKey = process.env.REACT_APP_API_KEY;
     const searchEngineId = process.env.REACT_APP_SEARCH_ENGINE_ID;
     const perPage = 10;               // max results per request
-    const totalResults = 30;               // how many you want overall
+    const totalResults = 20;               // how many you want overall
     const pages = Math.ceil(totalResults / perPage);
     const allItems = [];
 

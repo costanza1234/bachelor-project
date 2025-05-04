@@ -40,14 +40,18 @@ const tracker = {
             numberOfQueryTermsPerQuery: [],
             // AIAnswers is a list of answers given by the AI. The length of the array is equal to the number of prompts made by the user. This is handled in the QuestionPage component.
             AIAnswers: [],
-            SERPAnswers: [ {
-                title: null,
-                snippet: null,
-                position: null,
-                clicked: false,
-                clickOrder: null,
-                timeSpentOnPage: null,
-            } ],
+            // SERPAnswers is a list of answers given by Google. The length of the array is equal to the number of queries made by the user times 30, as for every query, we return 30 responses. This is handled in the QuestionPage component.
+            // an entry has the following structure:
+            /* {
+                title: String,
+                snippet: String,
+                position: Number,
+                clicked: Boolean,
+                clickOrder: Number,
+                timeSpentOnPage: Number milliseconds,
+            }  */
+
+            SERPAnswers: [],
             userAnswer: null,
         },
     } ],
@@ -67,14 +71,7 @@ const tracker = {
                     choiceForAnswer: [],
                     numberOfQueryTermsPerQuery: [],
                     AIAnswers: [],
-                    SERPAnswers: {
-                        title: null,
-                        snippet: null,
-                        position: null,
-                        clicked: false,
-                        clickOrder: null,
-                        timeSpentOnPage: null,
-                    },
+                    SERPAnswers: [],
                     userAnswer: null,
                 },
             };
@@ -103,22 +100,17 @@ const tracker = {
             finishTime: this.finishTime,
             sessionLength: this.sessionLength,
             score: this.score,
-            islands: this.islands.map((island) => ({
+            islands: this.islands.map(island => ({
                 islandID: island.islandID,
                 islandData: {
+                    question: island.islandData.question,
+                    sentiment: island.islandData.sentiment,
                     openTime: island.islandData.openTime,
                     submitTime: island.islandData.submitTime,
-                    numberOfQueries: island.islandData.numberOfQueries,
-                    queryTerms: island.islandData.queryTerms,
                     choiceForAnswer: island.islandData.choiceForAnswer,
-                    SERPAnswers: [ {
-                        title: island.islandData.SERPAnswers.title,
-                        snippet: island.islandData.SERPAnswers.snippet,
-                        position: island.islandData.SERPAnswers.position,
-                        clicked: island.islandData.SERPAnswers.clicked,
-                        clickOrder: island.islandData.SERPAnswers.clickOrder,
-                        timeSpentOnPage: island.islandData.SERPAnswers.timeSpentOnPage,
-                    } ],
+                    numberOfQueryTermsPerQuery: island.islandData.numberOfQueryTermsPerQuery,
+                    AIAnswers: island.islandData.AIAnswers,
+                    SERPAnswers: island.islandData.SERPAnswers,
                     userAnswer: island.islandData.userAnswer,
                 },
             })),

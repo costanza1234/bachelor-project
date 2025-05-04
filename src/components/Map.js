@@ -104,7 +104,7 @@ export default function Map() {
                                 top: point.y - islandSize / 2,
                                 width: islandSize,
                                 height: islandSize,
-                                cursor: 'pointer',
+                                cursor: isCompleted ? 'default' : 'pointer',
                                 transition: isCompleted ? 'none' : 'transform 0.2s ease',
                             }}
                             onMouseEnter={(e) => {

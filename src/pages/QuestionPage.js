@@ -41,16 +41,21 @@ export default function Question() {
         console.log("tracker updated:", tracker);
 
         const result = await newResultPromise;
+
         console.log('result:', result);
+
         if (isAI) {
             island.islandData.AIAnswers.push(result);
         }
         else {
-            // island.islandData.SERPAnswers.title = result.title;
-            // island.islandData.SERPAnswers.snippet = result.snippet;
-            // island.islandData.SERPAnswers.position = result.position;
-            // island.islandData.SERPAnswers.clicked = true;
-            // island.islandData.SERPAnswers.clickOrder = island.islandData.choiceForAnswer.length;
+            island.islandData.SERPAnswers = result.map((entry, index) => ({
+                title: entry.title,
+                snippet: entry.snippet || entry.htmlSnippet || '', // fallback if needed
+                position: index,
+                clicked: false,
+                clickOrder: null,
+                timeSpentOnPage: null,
+            }));
         }
 
         setResult(result);
