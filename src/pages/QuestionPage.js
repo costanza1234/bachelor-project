@@ -22,7 +22,7 @@ export default function Question() {
 
         console.log('isAI:', isAI, 'questionId:', questionId);
 
-        // find the island in tracker.islands based on the islandID. islands is an array of objects
+        // find the island in tracker.islands based on the islandID
         const island = tracker.islands.find(island => island.islandID === Number(questionId));
 
 
@@ -50,8 +50,8 @@ export default function Question() {
         else {
             island.islandData.SERPAnswers = result.map((entry, index) => ({
                 title: entry.title,
-                snippet: entry.snippet || entry.htmlSnippet || '', // fallback if needed
-                position: index,
+                snippet: entry.snippet || entry.htmlSnippet || '',
+                position: index + 1,
                 clicked: false,
                 clickOrder: null,
                 timeSpentOnPage: null,
@@ -90,9 +90,10 @@ export default function Question() {
                         }
                         isLoading={isLoading}
                     />
-
                 </div>
-                <Results isAI={isAI} result={result} />
+
+                <Results isAI={isAI} result={result} questionId={questionId} />
+
             </div>
             <div className='containerCard'>
                 <Answer />

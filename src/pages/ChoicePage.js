@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import QuestionLayout from '../components/QuestionLayout';
-import tracker from '../utils/tracker';
 
 export default function Choice() {
     const { questionId } = useParams();
