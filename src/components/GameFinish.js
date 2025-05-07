@@ -1,10 +1,10 @@
 import React from "react";
 import tracker from "../utils/tracker";
 
-export default function GameStart() {
+export default function GameFinish() {
 
     return (
-        <div className="landing">
+        <div className="landingFinish">
             {/* Add a a party winning icon  */}
             <img
                 src="/finish.gif"

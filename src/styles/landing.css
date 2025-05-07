@@ -8,6 +8,16 @@
   font-size: 1.5rem;
 }
 
+.landingFinish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 .startButton {
   color: white;
   background-color: rgba(90, 90, 90, 0.581);

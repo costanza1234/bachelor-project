@@ -11,8 +11,17 @@ export default function DownloadButton() {
             return;
         }
 
+        console.log('exporting data...');
         const data = tracker.exportData();
-        const blob = new Blob([ JSON.stringify(data) ], { type: 'application/json' });
+
+        console.log('data exported');
+        const jsonData = JSON.stringify(data);
+
+        console.log('making blob');
+        const blob = new Blob([ jsonData ], { type: 'application/json' });
+
+        console.log('blob size in MB:', blob.size / 1024 / 1024);
+
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
