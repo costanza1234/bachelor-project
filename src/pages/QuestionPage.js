@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
 import Results from '../components/Results';
 import QuestionLayout from '../components/QuestionLayout';
-import tracker from '../utils/tracker';
+import gameState from '../utils/gameState';
+import { saveGameState } from '../utils/helpers';
 
 export default function Question() {
     const { questionId, AI_flag } = useParams();
@@ -22,13 +23,14 @@ export default function Question() {
 
         console.log('isAI:', isAI, 'questionId:', questionId);
 
-        // find the island in tracker.islands based on the islandID
-        const island = tracker.islands.find(island => island.islandID === Number(questionId));
+        // find the island in gameState.islands based on the islandID
+        const island = gameState.islands.find(island => island.islandID === Number(questionId));
 
 
         const choice = isAI ? 1 : 0;
 
         island.islandData.choiceForAnswer.push(choice);
+        saveGameState();
 
         const query = {
             AI: isAI,
@@ -36,9 +38,10 @@ export default function Question() {
         }
 
         island.islandData.numberOfQueryTermsPerQuery.push(query);
+        saveGameState();
 
-        // tracker changed, log it
-        console.log("tracker updated:", tracker);
+        // gameState changed, log it
+        console.log("gameState updated:", gameState);
 
         const result = await newResultPromise;
 
@@ -46,6 +49,7 @@ export default function Question() {
 
         if (isAI) {
             island.islandData.AIAnswers.push(result);
+            saveGameState();
         }
         else {
             island.islandData.SERPAnswers = result.map((entry, index) => ({
@@ -56,9 +60,11 @@ export default function Question() {
                 clickOrder: null,
                 timeSpentOnPage: null,
             }));
+            saveGameState();
         }
 
         setResult(result);
+        saveGameState();
 
         setIsLoading(false);
     };

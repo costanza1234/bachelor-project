@@ -1,5 +1,4 @@
-import React from "react";
-import tracker from "../utils/tracker";
+import gameState from "../utils/gameState";
 
 export default function GameFinish() {
 
@@ -15,7 +14,7 @@ export default function GameFinish() {
             <p className="welcomeMessage">
                 Grazie per aver giocato! <br />
                 Questo è il tuo punteggio finale: <br />
-                <span className="score">{tracker.score}</span>
+                <span className="score">{gameState.score}</span>
             </p>
         </div>
     );

@@ -1,10 +1,11 @@
 import { ActionIcon } from '@mantine/core';
 import { IconDownload } from '@tabler/icons-react';
-import tracker from '../utils/tracker';
+import gameState from '../utils/gameState';
 
 export default function DownloadButton() {
+
     const handleDownload = () => {
-        const password = window.prompt('Enter password to download the data');
+        const password = window.prompt('Enter password to download the data. Once this is done, the game will be reset and no further changes will be saved. After you are done, go to the home page to start a new game. ');
 
         if (password !== 'log') {
             alert('Incorrect password');
@@ -12,7 +13,7 @@ export default function DownloadButton() {
         }
 
         console.log('exporting data...');
-        const data = tracker.exportData();
+        const data = gameState.exportData();
 
         console.log('data exported');
         const jsonData = JSON.stringify(data);
@@ -28,6 +29,9 @@ export default function DownloadButton() {
         a.download = 'interaction-data.json';
         a.click();
         URL.revokeObjectURL(url);
+
+        localStorage.removeItem('gameState');
+        console.log('gameState removed from localStorage');
     };
 
     return (

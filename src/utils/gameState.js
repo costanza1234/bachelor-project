@@ -1,6 +1,6 @@
 import questions from "../data/questions.js";
 
-const tracker = {
+const gameState = {
     // userCode is handled in the GameStart component
     userCode: null,
     // startTime is handled in the GameStart component
@@ -119,4 +119,4 @@ const tracker = {
     },
 };
 
-export default tracker;
+export default gameState;

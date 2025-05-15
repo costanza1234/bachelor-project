@@ -4,18 +4,18 @@ import './index.css';
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import App from './App';
-import { TrackerProvider } from './utils/TrackerContext';
+import { GameProvider } from './utils/GameContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
 root.render(
   <React.StrictMode>
-    <TrackerProvider>
+    <GameProvider>
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <App />
       </MantineProvider>
-    </TrackerProvider>
+    </GameProvider>
   </React.StrictMode>
 );
 

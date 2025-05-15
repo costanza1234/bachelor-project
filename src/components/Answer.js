@@ -3,7 +3,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button } from '@mantine/core';
 import { IslandContext } from '../utils/IslandContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import tracker from '../utils/tracker';
+import gameState from '../utils/gameState';
+import { saveGameState } from '../utils/helpers';
 
 
 export default function Answer() {
@@ -20,18 +21,20 @@ export default function Answer() {
 
         const submitTime = new Date().toISOString();
 
-
-        const island = tracker.islands.find(island => island.islandID === Number(questionId));
+        const island = gameState.islands.find(island => island.islandID === Number(questionId));
 
         // record the submit time
         island.islandData.submitTime = submitTime;
+        saveGameState();
         // record the answer
         island.islandData.userAnswer = text;
         completeIsland(idx);
-        tracker.incrementScore(10);
+        // increment the score
+        gameState.incrementScore(10);
+        saveGameState();
 
-        // log to check the tracker update
-        console.log("tracker updated:", tracker);
+        // log to check the gameState update
+        console.log("gameState updated:", gameState);
 
         navigate("/MapPage");
     }
@@ -39,9 +42,11 @@ export default function Answer() {
     useEffect(() => {
         if (completed.length === 6) {
 
-            tracker.finishTime = new Date().toISOString();
+            gameState.finishTime = new Date().toISOString();
+            saveGameState();
 
-            tracker.sessionLength = (new Date(tracker.finishTime) - new Date(tracker.startTime)) / 1000;
+            gameState.sessionLength = (new Date(gameState.finishTime) - new Date(gameState.startTime)) / 1000;
+            saveGameState();
 
             navigate("/FinishPage");
         }

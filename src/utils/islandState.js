@@ -1,6 +1,5 @@
 // src/utils/islandState.js
 import { shuffle } from "./helpers";
-import tracker from "./tracker";
 
 const ISLAND_STORAGE_KEY = "shuffledIslands";
 

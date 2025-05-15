@@ -1,6 +1,6 @@
-import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import tracker from '../utils/tracker';
+import gameState from '../utils/gameState';
+import { saveGameState } from '../utils/helpers';
 export default function Results({ isAI, result, questionId }) {
 
     if (!result || (Array.isArray(result) && result.length === 0)) {
@@ -9,7 +9,7 @@ export default function Results({ isAI, result, questionId }) {
 
     const handleClick = (index) => {
 
-        const island = tracker.islands.find(island => island.islandID === Number(questionId));
+        const island = gameState.islands.find(island => island.islandID === Number(questionId));
 
         const serpAnswer = island?.islandData?.SERPAnswers?.[ index ];
 
@@ -17,14 +17,15 @@ export default function Results({ isAI, result, questionId }) {
             console.log('Clicked on SERP answer:', serpAnswer);
             serpAnswer.clicked = true;
             serpAnswer.clickOrder = island.islandData.SERPAnswers.filter(ans => ans.clicked).length;
+            saveGameState();
 
             // Save timestamp when link is clicked
             const clickTime = Date.now();
 
-            // Optional: you could use visibility change or polling for robustness
             const unloadListener = () => {
                 const timeSpent = Date.now() - clickTime;
                 serpAnswer.timeSpentOnPage = timeSpent;
+                saveGameState();
                 window.removeEventListener('beforeunload', unloadListener);
                 document.removeEventListener('visibilitychange', visibilityHandler);
             };

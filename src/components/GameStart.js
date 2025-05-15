@@ -1,9 +1,11 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, TextInput, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { shuffleIslands } from "../utils/islandState";
-import tracker from "../utils/tracker";
+import gameState from "../utils/gameState";
+import { enableGameSaveOnUnload, saveGameState } from "../utils/helpers";
+
 
 export default function GameStart() {
     const navigate = useNavigate();
@@ -18,14 +20,14 @@ export default function GameStart() {
 
         if (!isValidCode(userCode)) return;
 
-        tracker.userCode = userCode;
-        tracker.startTime = new Date().toISOString();
+        gameState.userCode = userCode;
+        saveGameState();
+        gameState.startTime = new Date().toISOString();
+        saveGameState();
 
         // Reset game state
         console.log("Resetting game state...");
         localStorage.removeItem("shuffledIslands");
-        // localStorage.removeItem("activeIslandIdx");
-        // setActiveIdx(0);
 
         // Shuffle and store new order
         shuffleIslands();
@@ -35,10 +37,13 @@ export default function GameStart() {
             return match ? parseInt(match[ 0 ], 10) : null; // Parse to integer
         });
 
-        tracker.initializeIslands(islands);
+        gameState.initializeIslands(islands);
+        saveGameState();
 
-        // log to check the tracker update
-        console.log("tracker updated:", tracker);
+        enableGameSaveOnUnload();
+
+        // log to check the gameState update
+        console.log("gameState updated:", gameState);
 
         navigate("/MapPage");
     };

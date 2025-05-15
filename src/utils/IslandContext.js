@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react';
-import tracker from './tracker';
+import { createContext, useState, useEffect } from 'react';
+import gameState from './gameState';
+import { saveGameState } from './helpers';
 
 export const IslandContext = createContext({
     completed: [],
@@ -16,10 +17,11 @@ export function IslandProvider({ children }) {
     }
 
     useEffect(() => {
-        tracker.islandCompletionOrder = completed;
+        gameState.islandCompletionOrder = completed;
+        saveGameState();
 
-        // log to check the tracker update
-        console.log("island completed, tracker updated:", tracker);
+        // log to check the gameState update
+        console.log("island completed, gameState updated:", gameState);
 
     }, [ completed ]);
 

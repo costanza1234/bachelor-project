@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import MapPage from "./pages/MapPage";
@@ -8,30 +8,72 @@ import ChoicePage from "./pages/ChoicePage";
 import FinishPage from "./pages/FinishPage";
 import './index.css';
 import { IslandProvider } from "./utils/IslandContext";
-import tracker from "./utils/tracker";
+import gameState from "./utils/gameState";
+import { saveGameState } from "./utils/helpers";
 
 export default function App() {
+  // Restore game state
+  useEffect(() => {
+
+    const saved = localStorage.getItem('gameState');
+
+    if (saved) {
+      const data = JSON.parse(saved);
+      gameState.userCode = data.userCode;
+      gameState.startTime = data.startTime ? new Date(data.startTime) : null;
+      gameState.islandCompletionOrder = data.islandCompletionOrder;
+      gameState.islandClickOrder = data.islandClickOrder;
+      gameState.totalClicksInSession = data.totalClicksInSession;
+      gameState.timeBeforeFirstClickSeconds = data.timeBeforeFirstClickSeconds;
+      gameState.finishTime = data.finishTime;
+      gameState.sessionLength = data.sessionLength;
+      gameState.score = data.score;
+
+      // Restore islands
+      gameState.islands = data.islands.map(({ islandID, islandData }) => ({
+        islandID,
+        islandData: {
+          question: islandData.question,
+          sentiment: islandData.sentiment,
+          openTime: islandData.openTime,
+          submitTime: islandData.submitTime,
+          choiceForAnswer: islandData.choiceForAnswer,
+          numberOfQueryTermsPerQuery: islandData.numberOfQueryTermsPerQuery,
+          AIAnswers: islandData.AIAnswers,
+          SERPAnswers: islandData.SERPAnswers,
+          userAnswer: islandData.userAnswer,
+        },
+      }));
+    }
+  }, []);
+
 
   useEffect(() => {
+
     const handleClick = () => {
 
-      if (tracker.startTime) {
+      if (gameState.startTime) {
 
-        if (tracker.totalClicksInSession === 0) {
+        if (gameState.totalClicksInSession === 0) {
           const currentTime = new Date();
-          const timeBeforeFirstClick = Math.floor((currentTime - tracker.startTime) / 1000);
+          const timeBeforeFirstClick = Math.floor((currentTime - gameState.startTime) / 1000);
 
-          tracker.timeBeforeFirstClick = timeBeforeFirstClick;
+          gameState.timeBeforeFirstClick = timeBeforeFirstClick;
+          saveGameState();
+
         }
 
-        tracker.totalClicksInSession += 1;
+        gameState.totalClicksInSession += 1;
+        saveGameState();
       }
     };
 
     window.addEventListener('click', handleClick);
+    window.addEventListener('beforeunload', saveGameState());
 
     return () => {
       window.removeEventListener('click', handleClick);
+      window.removeEventListener('beforeunload', saveGameState());
     };
   }, []);
 
@@ -43,7 +85,6 @@ export default function App() {
         Your browser does not support the video tag.
       </video>
 
-      {/* 3 Provide activeIdx & setter to all pages */}
       <IslandProvider>
         <Router>
           <Routes>

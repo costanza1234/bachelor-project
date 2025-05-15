@@ -1,11 +1,12 @@
 import React, { useRef, useMemo, useState } from 'react';
 import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
 import { getIslands } from '../utils/islandState';
-import tracker from '../utils/tracker';
+import gameState from '../utils/gameState';
 import { IslandContext } from '../utils/IslandContext';
 import { useContext } from 'react';
 import { useNavigate, } from 'react-router-dom';
 import { Alert } from '@mantine/core';
+import { saveGameState } from '../utils/helpers';
 
 
 export default function Map() {
@@ -52,17 +53,20 @@ export default function Map() {
         const openTime = new Date().toISOString();
 
 
-        // find the island in tracker.islands based on the islandID. islands is an array of objects
-        const island = tracker.islands.find(island => island.islandID === Number(islandID));
+        // find the island in gameState.islands based on the islandID. islands is an array of objects
+        const island = gameState.islands.find(island => island.islandID === Number(islandID));
+        saveGameState();
 
         // set the open time for the island
         island.islandData.openTime = openTime;
+        saveGameState();
 
         // record the order of the island that are clicked
-        tracker.recordIslandClick(islandID, idx);
+        gameState.recordIslandClick(islandID, idx);
+        saveGameState();
 
-        // log to check the tracker update
-        console.log("tracker updated:", tracker);
+        // log to check the gameState update
+        console.log("gameState updated:", gameState);
 
         // navigate to the choice page
         navigate(`/MapPage/choice/${islandID}`);

@@ -1,10 +1,10 @@
 import React from 'react';
-import tracker from '../utils/tracker';
+import gameState from '../utils/gameState';
 
 export default function Points() {
     return (
         <p className="points">
-            Punteggio: {tracker.score}
+            Punteggio: {gameState.score}
         </p>
     );
 }

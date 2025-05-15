@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BackButton from './BackButton';
 import { Grid } from '@mantine/core';
