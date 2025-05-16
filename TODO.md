@@ -1,7 +1,5 @@
 # TODO List
 
-[ ] **The game does not restart if the web page is refreshed**
-
 [ ] **Make the language of the game dynamic** Currently, the game is only in Italian.
 
 [ ] **Clean up the code and comment everything**

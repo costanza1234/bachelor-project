@@ -1,28 +1,28 @@
-import React, { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
-import { getIslands } from '../utils/islandState';
-import gameState from '../utils/gameState';
-import { IslandContext } from '../utils/IslandContext';
-import { useContext } from 'react';
-import { useNavigate, } from 'react-router-dom';
+import { useGameState } from '../utils/GameStateContext';
+import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mantine/core';
-import { saveGameState } from '../utils/helpers';
-
 
 export default function Map() {
+
+    const {
+        gameState,
+        setOpenTime,
+        recordIslandClick,
+        getIslands
+    } = useGameState();
 
     const navigate = useNavigate();
     const islandNames = getIslands();
 
     const dimensions = useWindowDimensions();
-
     const mapContainerRef = useRef(null);
     const mapContentRef = useRef(null);
 
     const { width: containerWidth, height: containerHeight } = dimensions;
     const islandSize = 0.18 * containerWidth;
 
-    // Memoized island positions based on viewport
     const points = useMemo(() => [
         { x: 0.2 * containerWidth, y: 0.55 * containerHeight },
         { x: 0.5 * containerWidth, y: 0.55 * containerHeight },
@@ -30,47 +30,25 @@ export default function Map() {
         { x: 0.2 * containerWidth, y: 0.18 * containerHeight },
         { x: 0.5 * containerWidth, y: 0.18 * containerHeight },
         { x: 0.8 * containerWidth, y: 0.18 * containerHeight }
-    ],
-        [ containerWidth, containerHeight ]
-    );
+    ], [ containerWidth, containerHeight ]);
 
     const scale = useAutoScale(mapContainerRef, mapContentRef, [ dimensions, points ]);
 
-    // Get the completed islands from the context
-    const { completed } = useContext(IslandContext);
-
     const [ errorMessage, setErrorMessage ] = useState("");
 
-
     const handleClick = (idx, islandID, isCompleted) => {
-
         if (isCompleted) {
             setErrorMessage(`L'isola ${islandID} è già stata completata!`);
-            setTimeout(() => setErrorMessage(""), 2500); // Hide after 2.5s
+            setTimeout(() => setErrorMessage(""), 2500);
             return;
         }
 
-        const openTime = new Date().toISOString();
+        const islandIdNumber = Number(islandID);
+        setOpenTime(islandIdNumber, new Date());
+        recordIslandClick(islandIdNumber, idx);
 
-
-        // find the island in gameState.islands based on the islandID. islands is an array of objects
-        const island = gameState.islands.find(island => island.islandID === Number(islandID));
-        saveGameState();
-
-        // set the open time for the island
-        island.islandData.openTime = openTime;
-        saveGameState();
-
-        // record the order of the island that are clicked
-        gameState.recordIslandClick(islandID, idx);
-        saveGameState();
-
-        // log to check the gameState update
-        console.log("gameState updated:", gameState);
-
-        // navigate to the choice page
+        console.log("Island clicked:", { islandID, idx });
         navigate(`/MapPage/choice/${islandID}`);
-
     };
 
     return (
@@ -89,17 +67,14 @@ export default function Map() {
                 <svg width={containerWidth} height={containerHeight} className="mapSVG" />
 
                 {points.map((point, idx) => {
-
                     const islandName = islandNames[ idx ];
                     const islandNumber = islandName.match(/\d+/)[ 0 ];
-
-                    const isCompleted = completed.includes(parseInt(islandNumber, 10));
-
+                    const isCompleted = gameState.islandCompletionOrder.includes(parseInt(islandNumber, 10));
 
                     return (
                         <img
                             key={idx}
-                            src={`/${islandNames[ idx ]}`}
+                            src={`/${islandName}`}
                             alt={`Island ${idx}`}
                             className={`mapIsland ${isCompleted ? 'completed' : ''}`}
                             style={{
@@ -112,18 +87,13 @@ export default function Map() {
                                 transition: isCompleted ? 'none' : 'transform 0.2s ease',
                             }}
                             onMouseEnter={(e) => {
-                                if (!isCompleted) {
-                                    e.currentTarget.style.transform = 'scale(1.05)';
-                                }
+                                if (!isCompleted) e.currentTarget.style.transform = 'scale(1.05)';
                             }}
                             onMouseLeave={(e) => {
-                                if (!isCompleted) {
-                                    e.currentTarget.style.transform = 'scale(1)';
-                                }
+                                if (!isCompleted) e.currentTarget.style.transform = 'scale(1)';
                             }}
                             onClick={() => handleClick(idx, islandNumber, isCompleted)}
                         />
-
                     );
                 })}
             </div>

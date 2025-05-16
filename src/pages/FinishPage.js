@@ -1,4 +1,3 @@
-import React from "react";
 import GameFinish from "../components/GameFinish";
 import Layout from "../components/Layout"
 

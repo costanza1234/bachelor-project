@@ -1,6 +1,9 @@
-import gameState from "../utils/gameState";
+import { useGameState } from '../utils/GameStateContext';
 
 export default function GameFinish() {
+
+    const { gameState } = useGameState();
+    const score = gameState.score;
 
     return (
         <div className="landingFinish">
@@ -14,7 +17,7 @@ export default function GameFinish() {
             <p className="welcomeMessage">
                 Grazie per aver giocato! <br />
                 Questo è il tuo punteggio finale: <br />
-                <span className="score">{gameState.score}</span>
+                <span className="score">{score}</span>
             </p>
         </div>
     );

@@ -1,10 +1,14 @@
-import React from 'react';
-import gameState from '../utils/gameState';
+import { useGameState } from '../utils/GameStateContext';
+
 
 export default function Points() {
+    const { gameState } = useGameState();
+
+    const score = gameState.score;
+
     return (
         <p className="points">
-            Punteggio: {gameState.score}
+            Punteggio: {score}
         </p>
     );
 }

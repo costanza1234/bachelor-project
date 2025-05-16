@@ -1,56 +1,64 @@
 // src/components/Answer.js
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@mantine/core';
-import { IslandContext } from '../utils/IslandContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import gameState from '../utils/gameState';
-import { saveGameState } from '../utils/helpers';
-
+import { useGameState } from '../utils/GameStateContext';
 
 export default function Answer() {
-    const [ text, setText ] = useState("");
+    const [ text, setText ] = useState('');
     const navigate = useNavigate();
-    const { completed, completeIsland } = useContext(IslandContext);
-
-    // this param is the index in the shuffled array
     const { questionId } = useParams();
     const idx = parseInt(questionId, 10);
 
-    function handleSubmit() {
+    const {
+        gameState,
+        setSubmitTime,
+        setUserAnswer,
+        completeIsland,
+        incrementScore,
+        update
+    } = useGameState();
+
+    const handleSubmit = () => {
         if (!text) return;
 
-        const submitTime = new Date().toISOString();
+        const islandID = Number(questionId);
+        const now = new Date();
 
-        const island = gameState.islands.find(island => island.islandID === Number(questionId));
+        setSubmitTime(islandID, now);
 
-        // record the submit time
-        island.islandData.submitTime = submitTime;
-        saveGameState();
-        // record the answer
-        island.islandData.userAnswer = text;
+        setUserAnswer(islandID, text);
+
         completeIsland(idx);
-        // increment the score
-        gameState.incrementScore(10);
-        saveGameState();
 
-        // log to check the gameState update
-        console.log("gameState updated:", gameState);
+        incrementScore(10);
 
-        navigate("/MapPage");
-    }
+        console.log('Answer submitted:', {
+            islandID,
+            text,
+            time: now.toISOString()
+        });
+
+        navigate('/MapPage');
+    };
 
     useEffect(() => {
-        if (completed.length === 6) {
+        if (
+            gameState.islandCompletionOrder.length === 6 &&
+            !gameState.finishTime // prevent infinite loop
+        ) {
+            const finish = new Date();
+            const start = new Date(gameState.startTime);
+            const sessionLength = (finish - start) / 1000;
 
-            gameState.finishTime = new Date().toISOString();
-            saveGameState();
+            update({
+                finishTime: finish,
+                sessionLength,
+            });
 
-            gameState.sessionLength = (new Date(gameState.finishTime) - new Date(gameState.startTime)) / 1000;
-            saveGameState();
-
-            navigate("/FinishPage");
+            navigate('/FinishPage');
         }
-    }, [ completed, navigate ]);
+    }, [ gameState.islandCompletionOrder, gameState.finishTime, gameState.startTime, update, navigate ]);
 
 
     return (
@@ -61,7 +69,7 @@ export default function Answer() {
                 className="text-area"
                 placeholder="Scrivi qui la risposta alla domanda..."
                 value={text}
-                onChange={e => setText(e.target.value)}
+                onChange={(e) => setText(e.target.value)}
                 rows={4}
             />
             <Button

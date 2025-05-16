@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconSearch, IconArrowRight, IconArrowUp } from '@tabler/icons-react';
 
 import { performSearch, generateResponse } from '../utils/helpers';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function MapIsland({ key, src, alt, className, style, onClick }) {
     return (
         <img

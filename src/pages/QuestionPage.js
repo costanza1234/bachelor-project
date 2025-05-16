@@ -4,55 +4,47 @@ import { useParams } from 'react-router-dom';
 import Answer from '../components/Answer';
 import Results from '../components/Results';
 import QuestionLayout from '../components/QuestionLayout';
-import gameState from '../utils/gameState';
-import { saveGameState } from '../utils/helpers';
+import { useGameState } from '../utils/GameStateContext';
 
 export default function Question() {
     const { questionId, AI_flag } = useParams();
-
-    const isAI = AI_flag === 'true' ? true : false;
+    const isAI = AI_flag === 'true';
 
     const [ inputValue, setInputValue ] = useState('');
     const [ result, setResult ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(false);
 
+    const {
+        addChoiceForAnswer,
+        addQueryMeta,
+        addAIAnswer,
+        addSERPAnswers
+    } = useGameState();
 
     const handleSubmit = async (newResultPromise, isAI, questionId) => {
-
         setIsLoading(true);
+        const islandID = Number(questionId);
 
-        console.log('isAI:', isAI, 'questionId:', questionId);
+        console.log('isAI:', isAI, 'questionId:', islandID);
 
-        // find the island in gameState.islands based on the islandID
-        const island = gameState.islands.find(island => island.islandID === Number(questionId));
+        // Record the query source
+        addChoiceForAnswer(islandID, isAI ? 1 : 0);
 
-
-        const choice = isAI ? 1 : 0;
-
-        island.islandData.choiceForAnswer.push(choice);
-        saveGameState();
-
+        // Record query term metadata
         const query = {
             AI: isAI,
-            numberOfQueryTerms: inputValue.split(' ').length,
-        }
-
-        island.islandData.numberOfQueryTermsPerQuery.push(query);
-        saveGameState();
-
-        // gameState changed, log it
-        console.log("gameState updated:", gameState);
+            query: inputValue,
+            numberOfQueryTerms: inputValue.trim().split(/\s+/).length,
+        };
+        addQueryMeta(islandID, query);
 
         const result = await newResultPromise;
-
         console.log('result:', result);
 
         if (isAI) {
-            island.islandData.AIAnswers.push(result);
-            saveGameState();
-        }
-        else {
-            island.islandData.SERPAnswers = result.map((entry, index) => ({
+            addAIAnswer(islandID, result);
+        } else {
+            const formatted = result.map((entry, index) => ({
                 title: entry.title,
                 snippet: entry.snippet || entry.htmlSnippet || '',
                 position: index + 1,
@@ -60,12 +52,10 @@ export default function Question() {
                 clickOrder: null,
                 timeSpentOnPage: null,
             }));
-            saveGameState();
+            addSERPAnswers(islandID, formatted);
         }
 
         setResult(result);
-        saveGameState();
-
         setIsLoading(false);
     };
 
@@ -76,7 +66,6 @@ export default function Question() {
     return (
         <QuestionLayout>
             <div className='containerCard' id='resultsCard'>
-                {/* Logo based on isAI */}
                 <div className="logoWrapper">
                     <img
                         src={isAI ? '/gemini_logo.png' : '/google_logo.png'}
@@ -85,7 +74,6 @@ export default function Question() {
                     />
                 </div>
 
-                {/* Input and results */}
                 <div className='inputWrapper'>
                     <InputWithButton
                         isAI={isAI}
@@ -99,12 +87,11 @@ export default function Question() {
                 </div>
 
                 <Results isAI={isAI} result={result} questionId={questionId} />
-
             </div>
+
             <div className='containerCard'>
                 <Answer />
             </div>
         </QuestionLayout>
     );
-
 }

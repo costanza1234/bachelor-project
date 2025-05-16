@@ -2,55 +2,47 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, TextInput, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { shuffleIslands } from "../utils/islandState";
-import gameState from "../utils/gameState";
-import { enableGameSaveOnUnload, saveGameState } from "../utils/helpers";
-
+import { useGameState } from '../utils/GameStateContext';
 
 export default function GameStart() {
     const navigate = useNavigate();
     const [ userCode, setUserCode ] = useState("");
     const [ opened, { open, close } ] = useDisclosure(false);
 
+    const {
+        update,
+        setStartTime,
+        shuffleIslandImages,
+        getIslands,
+        initializeIslands,
+        resetGameState,
+    } = useGameState();
+
     const handleStart = () => {
         open();
     };
 
     const handleCodeSubmit = () => {
-
         if (!isValidCode(userCode)) return;
 
-        gameState.userCode = userCode;
-        saveGameState();
-        gameState.startTime = new Date().toISOString();
-        saveGameState();
+        resetGameState();
+        update({ userCode });
+        setStartTime(new Date());
 
-        // Reset game state
-        console.log("Resetting game state...");
-        localStorage.removeItem("shuffledIslands");
-
-        // Shuffle and store new order
-        shuffleIslands();
-
-        const islands = JSON.parse(localStorage.getItem("shuffledIslands")).map((name) => {
-            const match = name.match(/\d+/); // Extract the integer part
-            return match ? parseInt(match[ 0 ], 10) : null; // Parse to integer
+        // Shuffle and get islands using context methods
+        shuffleIslandImages();
+        const islands = getIslands().map((name) => {
+            const match = name.match(/\d+/);
+            return match ? parseInt(match[ 0 ], 10) : null;
         });
 
-        gameState.initializeIslands(islands);
-        saveGameState();
+        initializeIslands(islands);
 
-        enableGameSaveOnUnload();
-
-        // log to check the gameState update
-        console.log("gameState updated:", gameState);
-
+        console.log("Game state initialized and updated.");
         navigate("/MapPage");
     };
 
-    const isValidCode = (code) => {
-        return /^\d{3,}$/.test(code.trim()); // at least 3 digits
-    };
+    const isValidCode = (code) => /^\d{3,}$/.test(code.trim());
 
     return (
         <div className="landing">
@@ -87,11 +79,19 @@ export default function GameStart() {
                     value={userCode}
                     onChange={(e) => setUserCode(e.currentTarget.value)}
                     withAsterisk
-                    error={userCode && !isValidCode(userCode) ? "Attenzione: Il codice deve avere almeno 3 cifre" : null}
+                    error={
+                        userCode && !isValidCode(userCode)
+                            ? "Attenzione: Il codice deve avere almeno 3 cifre"
+                            : null
+                    }
                 />
 
                 <Group justify="center" mt="md">
-                    <Button onClick={handleCodeSubmit} disabled={!isValidCode(userCode)} color="rgb(71, 159, 203)">
+                    <Button
+                        onClick={handleCodeSubmit}
+                        disabled={!isValidCode(userCode)}
+                        color="rgb(71, 159, 203)"
+                    >
                         Gioca!
                     </Button>
                     <Button variant="default" onClick={close}>

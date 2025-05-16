@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import BackButton from './BackButton';
 import { Grid } from '@mantine/core';
 import DownloadButton from './DownloadButton';
+import RestartButton from './RestartButton';
 
 export default function Footer() {
     const location = useLocation();
@@ -11,7 +12,7 @@ export default function Footer() {
         <div className="footer">
             <Grid align="center">
                 <Grid.Col span={3}>
-                    {!isFinishPage && <BackButton />}
+                    {isFinishPage ? <RestartButton /> : <BackButton />}
                 </Grid.Col>
 
                 <Grid.Col span={8} />

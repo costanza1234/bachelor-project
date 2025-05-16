@@ -1,5 +1,3 @@
-// components/QuestionLayout.jsx
-import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import { useParams } from 'react-router-dom';

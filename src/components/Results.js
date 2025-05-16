@@ -1,31 +1,47 @@
 import ReactMarkdown from 'react-markdown';
-import gameState from '../utils/gameState';
-import { saveGameState } from '../utils/helpers';
+import { useGameState } from '../utils/GameStateContext';
+
 export default function Results({ isAI, result, questionId }) {
+    const { gameState, updateIslandData } = useGameState();
 
     if (!result || (Array.isArray(result) && result.length === 0)) {
         return null;
     }
 
     const handleClick = (index) => {
-
-        const island = gameState.islands.find(island => island.islandID === Number(questionId));
-
+        const islandID = Number(questionId);
+        const island = gameState.islands.find(island => island.islandID === islandID);
         const serpAnswer = island?.islandData?.SERPAnswers?.[ index ];
 
         if (serpAnswer && !serpAnswer.clicked) {
-            console.log('Clicked on SERP answer:', serpAnswer);
-            serpAnswer.clicked = true;
-            serpAnswer.clickOrder = island.islandData.SERPAnswers.filter(ans => ans.clicked).length;
-            saveGameState();
-
-            // Save timestamp when link is clicked
             const clickTime = Date.now();
 
+            // Mark answer as clicked and assign clickOrder immediately
+            updateIslandData(islandID, (data) => {
+                const clickedCount = data.SERPAnswers.filter(a => a.clicked).length;
+                const updatedSERPAnswers = data.SERPAnswers.map((ans, i) => {
+                    if (i === index) {
+                        return {
+                            ...ans,
+                            clicked: true,
+                            clickOrder: clickedCount + 1,
+                            timeSpentOnPage: null, // updated on unload
+                        };
+                    }
+                    return ans;
+                });
+                return { ...data, SERPAnswers: updatedSERPAnswers };
+            });
+
+            // Define event listeners to capture time spent
             const unloadListener = () => {
                 const timeSpent = Date.now() - clickTime;
-                serpAnswer.timeSpentOnPage = timeSpent;
-                saveGameState();
+                updateIslandData(islandID, (data) => {
+                    const updated = [ ...data.SERPAnswers ];
+                    const target = updated[ index ];
+                    if (target) target.timeSpentOnPage = timeSpent;
+                    return { ...data, SERPAnswers: updated };
+                });
                 window.removeEventListener('beforeunload', unloadListener);
                 document.removeEventListener('visibilitychange', visibilityHandler);
             };
@@ -36,14 +52,12 @@ export default function Results({ isAI, result, questionId }) {
                 }
             };
 
-            // Fallback for when tab is closed or navigated away
             window.addEventListener('beforeunload', unloadListener);
             document.addEventListener('visibilitychange', visibilityHandler);
 
-            console.log('finished handleClick');
+            console.log('Clicked on SERP answer:', serpAnswer);
         }
     };
-
 
     if (isAI) {
         return (

@@ -1,5 +1,4 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import gameState from '../utils/gameState';
 
 export function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -64,12 +63,4 @@ export async function generateResponse(prompt) {
     const generatedText = await response.text();
 
     return generatedText;
-}
-export function saveGameState() {
-    const data = gameState.exportData();
-    localStorage.setItem("gameState", JSON.stringify(data));
-}
-
-export function enableGameSaveOnUnload() {
-    window.addEventListener("beforeunload", saveGameState);
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import Points from './Points';
 import { useLocation } from 'react-router-dom';
 
