@@ -1,9 +1,13 @@
 import { useGameState } from '../utils/GameStateContext';
+import languages from '../data/languages';
 
 export default function GameFinish() {
 
     const { gameState } = useGameState();
     const score = gameState.score;
+    const { gameLanguage } = useGameState();
+    const gameText = languages[ gameLanguage ];
+
 
     return (
         <div className="landingFinish">
@@ -13,10 +17,9 @@ export default function GameFinish() {
                 alt="party"
                 className="partyIcon"
             />
-
             <p className="welcomeMessage">
-                Grazie per aver giocato! <br />
-                Questo è il tuo punteggio finale: <br />
+                {gameText.FinishMessage}
+                <br />
                 <span className="score">{score}</span>
             </p>
         </div>

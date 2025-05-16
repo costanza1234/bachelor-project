@@ -3,6 +3,7 @@ import { useWindowDimensions, useAutoScale } from '../utils/hooks/useMapHooks';
 import { useGameState } from '../utils/GameStateContext';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mantine/core';
+import languages from '../data/languages.js';
 
 export default function Map() {
 
@@ -12,6 +13,9 @@ export default function Map() {
         recordIslandClick,
         getIslands
     } = useGameState();
+
+    const gameLanguage = gameState.gameLanguage;
+    const gameText = languages[ gameLanguage ];
 
     const navigate = useNavigate();
     const islandNames = getIslands();
@@ -38,7 +42,7 @@ export default function Map() {
 
     const handleClick = (idx, islandID, isCompleted) => {
         if (isCompleted) {
-            setErrorMessage(`L'isola ${islandID} è già stata completata!`);
+            setErrorMessage(gameText.MapClickedError);
             setTimeout(() => setErrorMessage(""), 2500);
             return;
         }
@@ -47,7 +51,6 @@ export default function Map() {
         setOpenTime(islandIdNumber, new Date());
         recordIslandClick(islandIdNumber, idx);
 
-        console.log("Island clicked:", { islandID, idx });
         navigate(`/MapPage/choice/${islandID}`);
     };
 

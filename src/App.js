@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './HomePage';
+import GameStartPage from './pages/GameStartPage';
 import MapPage from './pages/MapPage';
 import QuestionPage from './pages/QuestionPage';
 import ChoicePage from './pages/ChoicePage';
 import FinishPage from './pages/FinishPage';
+import ChooseLanguagePage from './pages/ChooseLanguagePage';
 import './index.css';
 import { useGameState } from './utils/GameStateContext';
 
@@ -37,7 +38,8 @@ export default function App() {
 
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<ChooseLanguagePage />} />
+          <Route path="/GameStart" element={<GameStartPage />} />
           <Route path="/MapPage" element={<MapPage />} />
           <Route path="/MapPage/:questionId/:AI_flag" element={<QuestionPage />} />
           <Route path="/MapPage/choice/:questionId" element={<ChoicePage />} />

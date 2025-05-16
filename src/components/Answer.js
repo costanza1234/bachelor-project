@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGameState } from '../utils/GameStateContext';
+import languages from '../data/languages.js';
 
 export default function Answer() {
     const [ text, setText ] = useState('');
@@ -11,6 +12,7 @@ export default function Answer() {
     const idx = parseInt(questionId, 10);
 
     const {
+        gameLanguage,
         gameState,
         setSubmitTime,
         setUserAnswer,
@@ -18,6 +20,8 @@ export default function Answer() {
         incrementScore,
         update
     } = useGameState();
+
+    const gameText = languages[ gameLanguage ];
 
     const handleSubmit = () => {
         if (!text) return;
@@ -63,11 +67,11 @@ export default function Answer() {
 
     return (
         <div className="answer-wrapper">
-            <label htmlFor="answer-textarea"><h3>Risposta:</h3></label>
+            <label htmlFor="answer-textarea"><h3>{gameText.AnswerTextarea}</h3></label>
             <textarea
                 id="answer-textarea"
                 className="text-area"
-                placeholder="Scrivi qui la risposta alla domanda..."
+                placeholder={gameText.AnswerPlaceholder}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 rows={4}
@@ -78,7 +82,7 @@ export default function Answer() {
                 variant="filled"
                 color="rgb(71, 159, 203)"
             >
-                Invia
+                {gameText.AnswerButton}
             </Button>
         </div>
     );

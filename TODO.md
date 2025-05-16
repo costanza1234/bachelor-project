@@ -1,6 +1,6 @@
 # TODO List
 
-[ ] **Make the language of the game dynamic** Currently, the game is only in Italian.
+[ ] **Make the language of the game dynamic** choose language page
 
 [ ] **Clean up the code and comment everything**
 

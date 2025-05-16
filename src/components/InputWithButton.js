@@ -1,8 +1,12 @@
 import { IconSearch, IconArrowRight, IconArrowUp } from '@tabler/icons-react';
-
 import { performSearch, generateResponse } from '../utils/helpers';
+import languages from '../data/languages'
+import { useGameState } from '../utils/GameStateContext';
 
 export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) {
+
+  const { gameLanguage } = useGameState();
+  const gameText = languages[ gameLanguage ];
 
   const handleClick = () => {
     const resultPromise = isAI ? generateResponse(value) : performSearch(value);
@@ -15,7 +19,7 @@ export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) 
         <div className="loading-placeholder">
           <span className="loader" />
           <span className="loading-text">
-            {isAI ? "Sto generando una risposta..." : ""}
+            {isAI ? gameText.loadingTextPlaceholder : ""}
           </span>
         </div>
       ) : (
@@ -28,7 +32,7 @@ export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) 
           <input
             type="text"
             className="text-input"
-            placeholder={isAI ? "Come posso aiutarti?" : "Cerca con Google..."}
+            placeholder={isAI ? gameText.AIplaceholder : gameText.GooglePlaceholder}
             value={value}
             onChange={onChange}
             disabled={isLoading}

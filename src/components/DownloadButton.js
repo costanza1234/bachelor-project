@@ -1,7 +1,6 @@
 import { ActionIcon } from '@mantine/core';
 import { IconDownload } from '@tabler/icons-react';
 import { useGameState } from '../utils/GameStateContext';
-import { useNavigate } from 'react-router-dom';
 
 
 export default function DownloadButton() {

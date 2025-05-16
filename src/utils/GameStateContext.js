@@ -1,8 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import questions from '../data/questions';
+import languages from '../data/languages.js';
 import { shuffle } from "./helpers";
 
+const defLanguage = "english"; // Default language
+
 const defaultState = {
+    gameLanguage: defLanguage,
     // userCode is handled in the GameStart component
     userCode: null,
     // startTime is handled in the GameStart component
@@ -25,9 +28,13 @@ const defaultState = {
 };
 
 const GameStateContext = createContext();
+
+const questions = languages[ defLanguage ].questions;
+
 export const useGameState = () => useContext(GameStateContext);
 
 export function GameStateProvider({ children }) {
+
     const [ gameState, setGameState ] = useState(defaultState);
 
     // Load from localStorage on init
@@ -52,6 +59,8 @@ export function GameStateProvider({ children }) {
 
     // General helpers
     const update = (partial) => setGameState((prev) => ({ ...prev, ...partial }));
+
+    const setLanguage = (lang) => update({ gameLanguage: lang });
 
     const incrementScore = (points) => update({ score: gameState.score + points });
 
@@ -250,6 +259,7 @@ export function GameStateProvider({ children }) {
         <GameStateContext.Provider
             value={{
                 gameState,
+                setLanguage,
                 update,
                 incrementScore,
                 recordIslandClick,

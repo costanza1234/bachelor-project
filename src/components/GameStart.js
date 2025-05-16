@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Modal, TextInput, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useGameState } from '../utils/GameStateContext';
+import languages from '../data/languages.js';
 
 export default function GameStart() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function GameStart() {
     const [ opened, { open, close } ] = useDisclosure(false);
 
     const {
+        gameState,
         update,
         setStartTime,
         shuffleIslandImages,
@@ -17,6 +19,9 @@ export default function GameStart() {
         initializeIslands,
         resetGameState,
     } = useGameState();
+
+    const gameLanguage = gameState.gameLanguage;
+    const gameText = languages[ gameLanguage ];
 
     const handleStart = () => {
         open();
@@ -47,8 +52,7 @@ export default function GameStart() {
     return (
         <div className="landing">
             <p className="welcomeMessage">
-                Ciao! <br />
-                Aspetta che la maestra ti dica di iniziare prima di cliccare sul bottone 😉
+                {gameText.WelcomeMessage}
             </p>
 
             <Group justify="center">
@@ -60,28 +64,28 @@ export default function GameStart() {
                     color="#6f6f6f"
                     onClick={handleStart}
                 >
-                    INIZIA A GIOCARE
+                    {gameText.StartButton}
                 </Button>
             </Group>
 
             <Modal
                 opened={opened}
                 onClose={close}
-                title="Inserisci il tuo codice"
+                title={gameText.CodeInputTitle}
                 centered
                 size="sm"
                 radius="md"
                 overlayProps={{ blur: 4, backgroundOpacity: 0.55 }}
             >
                 <TextInput
-                    label="Codice"
-                    placeholder="Inserisci codice (minimo 3 cifre)"
+                    label={gameText.CodeInputLabel}
+                    placeholder={gameText.CodeInputPlaceholder}
                     value={userCode}
                     onChange={(e) => setUserCode(e.currentTarget.value)}
                     withAsterisk
                     error={
                         userCode && !isValidCode(userCode)
-                            ? "Attenzione: Il codice deve avere almeno 3 cifre"
+                            ? gameText.CodeInputError
                             : null
                     }
                 />
@@ -92,10 +96,10 @@ export default function GameStart() {
                         disabled={!isValidCode(userCode)}
                         color="rgb(71, 159, 203)"
                     >
-                        Gioca!
+                        {gameText.CodeInputButton}
                     </Button>
                     <Button variant="default" onClick={close}>
-                        Annulla
+                        {gameText.CodeInputClear}
                     </Button>
                 </Group>
             </Modal>
