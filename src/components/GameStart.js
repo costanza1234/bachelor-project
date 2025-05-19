@@ -59,11 +59,11 @@ export default function GameStart() {
 
             <Group justify="center">
                 <Button
-                    className="answer-submit-button"
+                    className="startButton"
                     radius="lg"
                     size="xl"
                     variant="filled"
-                    color="#6f6f6f"
+                    color="rgb(34, 194, 218)"
                     onClick={handleStart}
                 >
                     {gameText.StartButton}

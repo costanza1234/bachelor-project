@@ -6,7 +6,7 @@ import languages from '../data/languages';
 export default function Header() {
 
     const location = useLocation();
-    const isStartPage = location.pathname === '/';
+    const isStartPage = location.pathname === '/GameStart';
 
     const { gameState } = useGameState();
     const gameLanguage = gameState.gameLanguage;

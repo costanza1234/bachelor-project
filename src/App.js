@@ -9,6 +9,7 @@ import ChooseLanguagePage from './pages/ChooseLanguagePage';
 import './index.css';
 import { useGameState } from './utils/GameStateContext';
 
+
 export default function App() {
   const { gameState, update } = useGameState();
 

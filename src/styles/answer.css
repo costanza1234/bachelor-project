@@ -8,7 +8,6 @@
 .answer-label {
   margin-bottom: 1.2vh;
   font-size: 1rem;
-  font-family: 'Bungee', sans-serif;
   color: #1a1a1a;
 }
 
@@ -36,7 +35,6 @@
   outline: none;
   background: transparent;
   font-size: 16px;
-  font-family: 'Bungee', sans-serif;
   color: #1a1a1a;
   line-height: 1.4;
 }
@@ -47,7 +45,6 @@
   background-color: #6f6f6f;
   color: white;
   font-size: 1rem;
-  font-family: 'Bungee', sans-serif;
   padding: 10px 20px;
   border: none;
   border-radius: 20px;
