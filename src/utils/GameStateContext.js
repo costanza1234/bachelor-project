@@ -60,7 +60,10 @@ export function GameStateProvider({ children }) {
     // General helpers
     const update = (partial) => setGameState((prev) => ({ ...prev, ...partial }));
 
-    const setLanguage = (lang) => update({ gameLanguage: lang });
+    const setLanguage = (lang) => {
+        console.log("Setting game language to:", lang);
+        update({ gameLanguage: lang });
+    };
 
     const incrementScore = (points) => update({ score: gameState.score + points });
 

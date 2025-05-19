@@ -15,6 +15,7 @@
 }
 
 .containerCard {
+  display: grid;
   max-height: 60vh;
   overflow-y: auto;
   scroll-behavior: smooth;
@@ -26,7 +27,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   font-family: 'Bungee', sans-serif;
   color: #1a1a1a;
-  text-align: left;
+  text-align: center;
   border: 1px solid #ccc;
 
   width: 100%;
@@ -50,6 +51,16 @@
   flex-direction: row;
   gap: 1rem;
   background: transparent;
+}
+
+#langChoiceCard {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  background: transparent;
+}
+
+#langChoiceCard > *:hover {
+  transform: scale(1.05);
 }
 
 #logoCard {
@@ -103,6 +114,15 @@
   align-items: center;
   gap: 0.5rem;
   line-height: 1;
+}
+
+.languageChoicePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 2rem;
 }
 
 /* Responsive tweaks for smaller screens */

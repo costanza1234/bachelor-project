@@ -4,7 +4,7 @@ import { questions_ITA, questions_ENG } from './questions.js';
 
 const languages =
 {
-    "italian": {
+    "italiano": {
         "questions": questions_ITA,
         "AnswerTextarea": "Risposta:",
         "AnswerPlaceholder": "Scrivi qui la tua risposta...",

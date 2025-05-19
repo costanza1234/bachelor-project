@@ -11,6 +11,11 @@ export default function Header() {
     const { gameState } = useGameState();
     const gameLanguage = gameState.gameLanguage;
     const gameText = languages[ gameLanguage ];
+    // make sure gameText is not undefined
+    if (!gameText) {
+        console.error('Game text not found for language:', gameLanguage);
+        return null; // or some fallback UI
+    }
 
     return (
         <div>

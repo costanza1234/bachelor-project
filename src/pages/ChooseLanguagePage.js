@@ -8,21 +8,39 @@ export default function Choice() {
 
 
     const handleChoice = (choice) => {
-        setLanguage(choice);
-        navigate('/GameStart');
+        if (typeof choice === 'string') {
+            const lowerCaseChoice = choice.toLowerCase();
+            console.log('Language choice:', lowerCaseChoice);
+            setLanguage(lowerCaseChoice);
+            navigate('/GameStart');
+        } else {
+            console.error('Invalid choice type:', typeof choice);
+        }
     };
 
     return (
-        <div>
-            <div className='containerCard'>
-                <div className='containerCard' id='choiceCard'>
-                    <div className='containerCard' id='logoCard'>
-                        ENGLISH
-                    </div>
-                    <div className='containerCard' id='logoCard'>
-                        ITALIANO
-                    </div>
-                </div>
+        <div className='languageChoicePage'>
+            <h1 className='welcomeMessage'>
+                Choose your language
+            </h1>
+            <div className='containerCard' id='langChoiceCard'>
+
+                <button
+                    className='containerCard'
+                    id='logoCard'
+                    onClick={() => handleChoice('ENGLISH')}
+                >
+                    ENGLISH
+                </button>
+
+                <button
+                    className='containerCard'
+                    id='logoCard'
+                    onClick={() => handleChoice('ITALIANO')}
+                >
+                    ITALIANO
+                </button>
+
             </div>
         </div>
     );

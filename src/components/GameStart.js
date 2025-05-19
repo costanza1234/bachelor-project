@@ -22,6 +22,8 @@ export default function GameStart() {
 
     const gameLanguage = gameState.gameLanguage;
     const gameText = languages[ gameLanguage ];
+    console.log("Game language:", gameLanguage);
+    console.log("Game text:", gameText);
 
     const handleStart = () => {
         open();
