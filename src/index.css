@@ -38,6 +38,21 @@ html {
   z-index: -1;
   pointer-events: none;
 }
+#video-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(
+    0,
+    208,
+    255,
+    0.326
+  ); /* change this color and opacity as needed */
+  z-index: -1;
+  pointer-events: none;
+}
 
 /* Make sure content inside #root is above the overlay */
 #root > * {

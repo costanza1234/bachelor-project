@@ -1,11 +1,10 @@
-// src/components/Answer.js
 import { useState, useEffect } from 'react';
 import { Button } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGameState } from '../utils/GameStateContext';
+import { useGameState } from '../utils/GameStateContext.js';
 import languages from '../data/languages.js';
 
-export default function Answer() {
+export default function UserAnswer() {
     const [ text, setText ] = useState('');
     const navigate = useNavigate();
     const { questionId } = useParams();

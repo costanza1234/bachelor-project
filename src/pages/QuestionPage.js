@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { InputWithButton } from '../components/InputWithButton';
+import { useState } from 'react';
+import { QueryInput } from '../components/QueryInput';
 import { useParams } from 'react-router-dom';
-import Answer from '../components/Answer';
+import UserAnswer from '../components/UserAnswer';
 import Results from '../components/Results';
 import QuestionLayout from '../components/QuestionLayout';
 import { useGameState } from '../utils/GameStateContext';
@@ -75,7 +75,7 @@ export default function Question() {
                 </div>
 
                 <div className='inputWrapper'>
-                    <InputWithButton
+                    <QueryInput
                         isAI={isAI}
                         value={inputValue}
                         onChange={handleInputChange}
@@ -90,7 +90,7 @@ export default function Question() {
             </div>
 
             <div className='containerCard'>
-                <Answer />
+                <UserAnswer />
             </div>
         </QuestionLayout>
     );

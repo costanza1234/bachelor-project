@@ -3,7 +3,7 @@ import { performSearch, generateResponse } from '../utils/helpers';
 import languages from '../data/languages'
 import { useGameState } from '../utils/GameStateContext';
 
-export function InputWithButton({ isAI, value, onChange, onSubmit, isLoading }) {
+export function QueryInput({ isAI, value, onChange, onSubmit, isLoading }) {
 
   const { gameLanguage } = useGameState();
   const gameText = languages[ gameLanguage ];

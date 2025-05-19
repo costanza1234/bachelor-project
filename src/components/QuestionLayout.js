@@ -1,5 +1,4 @@
-import Header from './Header';
-import Footer from './Footer';
+import Layout from './Layout';
 import { useParams } from 'react-router-dom';
 import { useGameState } from '../utils/GameStateContext';
 import languages from '../data/languages.js';
@@ -16,8 +15,7 @@ export default function QuestionLayout({ children }) {
 
 
     return (
-        <div className='mainContainer'>
-            <Header />
+        <Layout>
             <div id='questionWrapper'>
                 <div className='containerCard' id='questionCard'>
                     <h3>{gameText.QuestionHeader}</h3>
@@ -25,7 +23,6 @@ export default function QuestionLayout({ children }) {
                 </div>
                 {children}
             </div>
-            <Footer />
-        </div>
+        </Layout>
     );
 }
