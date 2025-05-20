@@ -17,7 +17,6 @@ export default function GameStart() {
         shuffleIslandImages,
         getIslands,
         initializeIslands,
-        resetGameState,
     } = useGameState();
 
     const gameLanguage = gameState.gameLanguage;
@@ -32,7 +31,6 @@ export default function GameStart() {
     const handleCodeSubmit = () => {
         if (!isValidCode(userCode)) return;
 
-        resetGameState();
         update({ userCode });
         setStartTime(new Date());
 

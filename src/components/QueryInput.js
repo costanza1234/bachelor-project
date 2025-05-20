@@ -5,7 +5,8 @@ import { useGameState } from '../utils/GameStateContext';
 
 export function QueryInput({ isAI, value, onChange, onSubmit, isLoading }) {
 
-  const { gameLanguage } = useGameState();
+  const { gameState } = useGameState();
+  const { gameLanguage } = gameState;
   const gameText = languages[ gameLanguage ];
 
   const handleClick = () => {
@@ -32,7 +33,7 @@ export function QueryInput({ isAI, value, onChange, onSubmit, isLoading }) {
           <input
             type="text"
             className="text-input"
-            placeholder={isAI ? gameText.AIplaceholder : gameText.GooglePlaceholder}
+            placeholder={isAI ? gameText.AIPlaceholder : gameText.GooglePlaceholder}
             value={value}
             onChange={onChange}
             disabled={isLoading}

@@ -5,7 +5,7 @@ export default function GameFinish() {
 
     const { gameState } = useGameState();
     const score = gameState.score;
-    const { gameLanguage } = useGameState();
+    const { gameLanguage } = gameState;
     const gameText = languages[ gameLanguage ];
 
 

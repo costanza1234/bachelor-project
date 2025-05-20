@@ -11,7 +11,6 @@ export default function UserAnswer() {
     const idx = parseInt(questionId, 10);
 
     const {
-        gameLanguage,
         gameState,
         setSubmitTime,
         setUserAnswer,
@@ -20,6 +19,7 @@ export default function UserAnswer() {
         update
     } = useGameState();
 
+    const { gameLanguage } = gameState;
     const gameText = languages[ gameLanguage ];
 
     const handleSubmit = () => {

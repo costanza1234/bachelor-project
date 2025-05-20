@@ -4,13 +4,14 @@ import { useGameState } from '../utils/GameStateContext';
 export default function Choice() {
     const navigate = useNavigate();
 
-    const { setLanguage } = useGameState();
+    const { setLanguage, resetGameState } = useGameState();
 
 
     const handleChoice = (choice) => {
         if (typeof choice === 'string') {
             const lowerCaseChoice = choice.toLowerCase();
             console.log('Language choice:', lowerCaseChoice);
+            resetGameState();
             setLanguage(lowerCaseChoice);
             navigate('/GameStart');
         } else {

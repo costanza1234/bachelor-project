@@ -26,3 +26,21 @@ yarn-error.log*
 *.DS_Store
 
 .env
+
+# latex output files
+*.aux
+*.bbl
+*.blg
+*.cls
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.run.xml
+*.synctex
