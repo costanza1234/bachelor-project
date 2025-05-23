@@ -1,3 +1,16 @@
+/**
+ * An array of question objects in Italian, each containing:
+ * - id: {number} Unique identifier for the question.
+ * - text: {string} The question text in Italian.
+ * - sentiment: {('neutral'|'positive'|'negative')} The sentiment associated with the question.
+ *
+ * @type {Array<{
+ *   id: number,
+ *   text: string,
+ *   sentiment: 'neutral' | 'positive' | 'negative'
+ * }>}
+ */
+
 const questions_ITA = [
     {
         id: 1,

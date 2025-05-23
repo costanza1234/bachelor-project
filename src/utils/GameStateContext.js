@@ -2,46 +2,85 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import languages from '../data/languages.js';
 import { shuffle } from "./helpers";
 
-const defLanguage = "english"; // Default language
+// Set the default language
+const defLanguage = "english";
 
+// Define the default state of the game with various properties and their initial values
 const defaultState = {
-    gameLanguage: defLanguage,
-    // userCode is handled in the GameStart component
-    userCode: null,
-    // startTime is handled in the GameStart component
-    startTime: null,
-    // islandCompletionOrder is handled in the IslandContext and Answer component
-    islandCompletionOrder: [],
-    // island order of click {islandID, islandPositionInMap} is handled in the Map component
-    islandClickOrder: [],
-    // totalClicksInSession is handled in App.js
-    totalClicksInSession: 0,
-    // timeBeforeFirstClickSeconds is handled in App.js
-    timeBeforeFirstClickSeconds: null,
-    // finishTime is handled in the Answer component
-    finishTime: null,
-    // sessionLength is handled in the Answer component
-    sessionLength: null,
-    // score is handled in the Answer component
-    score: 0,
-    islands: [],
+    gameLanguage: defLanguage, // current selected language
+    userCode: null, // user provided code (handled in GameStart component)
+    startTime: null, // game start time (handled in GameStart component)
+    islandCompletionOrder: [], // order in which islands are completed (handled in IslandContext and Answer component)
+    islandClickOrder: [], // records each island click with islandID and islandPositionInMap (handled in Map component)
+    totalClicksInSession: 0, // total clicks in a session (handled in App.js)
+    timeBeforeFirstClick_seconds: null, // time before the first click (handled in App.js)
+    finishTime: null, // game finish time (handled in UserAnswer component)
+    sessionLength_seconds: null, // duration of the session (handled in UserAnswer component)
+    score: 0, // initial score
+    islands: [], // array to hold data for each island
 };
 
+// Create a React Context for managing game state globally
 const GameStateContext = createContext();
 
+// Extract questions for the default language from the imported languages data
 const questions = languages[ defLanguage ].questions;
 
+// Custom hook to access the game state from the context
 export const useGameState = () => useContext(GameStateContext);
 
+// React provider component to wrap application parts that need to access the game state
+/**
+ * Provides a game state context to nested components.
+ *
+ * This component initializes and manages the game state, including properties such as
+ * game language, score, island click orders, start/finish times, and detailed island data.
+ *
+ * It loads the saved game state from localStorage on mount, and automatically saves
+ * any changes to the game state back to localStorage. The provider exposes helper functions
+ * to update the state in various ways:
+ *
+ * - setLanguage(lang): Sets the current game language.
+ * - incrementScore(points): Increases the game score by given points.
+ * - recordIslandClick(islandID, islandPosition): Records an island click and tracks the click order.
+ * - setStartTime(date): Sets the start time of the game.
+ * - setFinishTime(date): Sets the finish time of the game.
+ * - setSessionLength(length): Sets the duration of the current game session.
+ * - completeIsland(idx): Marks an island as completed if not already done.
+ * - resetGameState(): Resets the game state back to its default values.
+ * - initializeIslands(ids): Initializes island data for each provided island ID.
+ * - updateIslandData(islandID, updaterFn): Updates specific island data using a provided updater function.
+ * - setSubmitTime(islandID, date): Sets the submission time for a specific island.
+ * - addAIAnswer(islandID, answer): Appends an AI generated answer to an island's data.
+ * - addQueryMeta(islandID, meta): Adds meta information regarding query terms for an island.
+ * - addChoiceForAnswer(islandID, source): Records the user's chosen answer source for an island.
+ * - addSERPAnswers(islandID, answers): Appends SERP answers (filtered on export) to an island's data.
+ * - setUserAnswer(islandID, answer): Stores the user's answer for a specific island.
+ * - setOpenTime(islandID, date): Sets the open time when an island is first clicked.
+ * - shuffleIslandImages(): Shuffles island images and stores the order in localStorage.
+ * - getIslands(): Retrieves the stored shuffled island images from localStorage.
+ * - exportData(): Exports a subset of the game data for external use.
+ *
+ * @component
+ * @param {object} props - Component properties.
+ * @param {React.ReactNode} props.children - Child components that require access to the game state.
+ * @returns {JSX.Element} A context provider wrapping the child components and exposing game state and helper functions.
+ */
 export function GameStateProvider({ children }) {
 
+    // Setup state with defaultState
     const [ gameState, setGameState ] = useState(defaultState);
 
-    // Load from localStorage on init
+    // useEffect to load game state from localStorage when component mounts
     useEffect(() => {
+
+        // Check if there is a saved game state in localStorage
         const saved = localStorage.getItem('gameState');
+
+        // If there is a saved state, parse it and update the game state
         if (saved) {
             const parsed = JSON.parse(saved);
+            // Merge saved state with parsed date objects if they exist
             setGameState((prev) => ({
                 ...prev,
                 ...parsed,
@@ -51,22 +90,25 @@ export function GameStateProvider({ children }) {
         }
     }, []);
 
-    // Auto-save on every change
+    // useEffect to save the current game state to localStorage whenever it changes
     useEffect(() => {
         localStorage.setItem('gameState', JSON.stringify(gameState));
         console.log("🔄 gameState updated:", gameState);
     }, [ gameState ]);
 
-    // General helpers
+    // Helper function to update game state by merging in partial state updates
     const update = (partial) => setGameState((prev) => ({ ...prev, ...partial }));
 
+    // Function to set the game language and update the state
     const setLanguage = (lang) => {
         console.log("Setting game language to:", lang);
         update({ gameLanguage: lang });
     };
 
+    // Function to increment the score by a given number of points
     const incrementScore = (points) => update({ score: gameState.score + points });
 
+    // Function to record a click on an island, updating the click order and total clicks
     const recordIslandClick = (islandID, islandPosition) => {
         update({
             islandClickOrder: [ ...gameState.islandClickOrder, { islandID, islandPosition } ],
@@ -74,12 +116,16 @@ export function GameStateProvider({ children }) {
         });
     };
 
+    // Function to set the start time of the game
     const setStartTime = (date) => update({ startTime: date });
 
+    // Function to set the finish time of the game
     const setFinishTime = (date) => update({ finishTime: date });
 
-    const setSessionLength = (length) => update({ sessionLength: length });
+    // Function to set the session length
+    const setSessionLength = (length) => update({ sessionLength_seconds: length });
 
+    // Function to mark an island as completed if it hasn't been completed before
     const completeIsland = (idx) => {
         if (!gameState.islandCompletionOrder.includes(idx)) {
             update({
@@ -88,12 +134,12 @@ export function GameStateProvider({ children }) {
         }
     };
 
-    // Reset game state
+    // Function to reset the game state back to the default state
     const resetGameState = () => {
         setGameState(defaultState);
     };
 
-
+    // Function to initialize islands with necessary data based on provided ids
     const initializeIslands = (ids) => {
         const islands = ids.map((islandID) => ({
             islandID,
@@ -131,7 +177,7 @@ export function GameStateProvider({ children }) {
                     position: Number,
                     clicked: Boolean,
                     clickOrder: Number,
-                    timeSpentOnPage: Number milliseconds,
+                    timeSpentOnPage_seconds: Number in milliseconds,
                 }  */
                 SERPAnswers: [],
                 userAnswer: null,
@@ -140,7 +186,7 @@ export function GameStateProvider({ children }) {
         update({ islands });
     };
 
-    // Island-specific update helper
+    // Function to update specific island data using an updater function
     const updateIslandData = (islandID, updaterFn) => {
         setGameState((prev) => {
             const islands = prev.islands.map((island) => {
@@ -154,12 +200,13 @@ export function GameStateProvider({ children }) {
         });
     };
 
-
+    // Function to set the submit time for a specific island
     const setSubmitTime = (islandID, date) => {
-        console.log('setting submit time for island:', islandID);
-        // get the islandData for the islandID
+
+        // Find the island that matches the given islandID
         const island = gameState.islands.find((island) => island.islandID === islandID);
-        // if the island is found, set the submit time
+
+        // If found, update its submit time
         if (island) {
             updateIslandData(islandID, (data) => ({
                 ...data,
@@ -170,6 +217,7 @@ export function GameStateProvider({ children }) {
         }
     };
 
+    // Function to add an AI generated answer to a specific island's data
     const addAIAnswer = (islandID, answer) => {
         updateIslandData(islandID, (data) => ({
             ...data,
@@ -177,6 +225,7 @@ export function GameStateProvider({ children }) {
         }));
     };
 
+    // Function to record meta data about a query for a specific island
     const addQueryMeta = (islandID, meta) => {
         updateIslandData(islandID, (data) => ({
             ...data,
@@ -184,6 +233,7 @@ export function GameStateProvider({ children }) {
         }));
     };
 
+    // Function to record the source choice for an answer for a specific island
     const addChoiceForAnswer = (islandID, source) => {
         updateIslandData(islandID, (data) => ({
             ...data,
@@ -191,6 +241,7 @@ export function GameStateProvider({ children }) {
         }));
     };
 
+    // Function to add SERP answers to a specific island's data
     const addSERPAnswers = (islandID, answers) => {
         updateIslandData(islandID, (data) => ({
             ...data,
@@ -198,6 +249,7 @@ export function GameStateProvider({ children }) {
         }));
     };
 
+    // Function to set the user answer for a specific island
     const setUserAnswer = (islandID, answer) => {
         console.log('setting user answer for island:', islandID);
         updateIslandData(islandID, (data) => ({
@@ -206,6 +258,7 @@ export function GameStateProvider({ children }) {
         }));
     };
 
+    // Function to set the open time for a specific island (when clicked)
     const setOpenTime = (islandID, date) => {
         updateIslandData(islandID, (data) => ({
             ...data,
@@ -213,6 +266,7 @@ export function GameStateProvider({ children }) {
         }));
     };
 
+    // Function to shuffle a list of island images and save the shuffled result to localStorage
     const shuffleIslandImages = () => {
         const shuffled = shuffle([
             "island1.png",
@@ -225,11 +279,13 @@ export function GameStateProvider({ children }) {
         localStorage.setItem("shuffledIslands", JSON.stringify(shuffled));
     };
 
+    // Function to retrieve shuffled islands from localStorage
     const getIslands = () => {
         const stored = localStorage.getItem("shuffledIslands");
         return stored ? JSON.parse(stored) : [];
     };
 
+    // Function to export selected game data for external use
     const exportData = () => {
         return {
             userCode: gameState.userCode,
@@ -237,9 +293,9 @@ export function GameStateProvider({ children }) {
             islandCompletionOrder: gameState.islandCompletionOrder,
             islandClickOrder: gameState.islandClickOrder,
             totalClicksInSession: gameState.totalClicksInSession,
-            timeBeforeFirstClickSeconds: gameState.timeBeforeFirstClickSeconds,
+            timeBeforeFirstClick_seconds: gameState.timeBeforeFirstClick_seconds,
             finishTime: gameState.finishTime,
-            sessionLength: gameState.sessionLength,
+            sessionLength_seconds: gameState.sessionLength_seconds,
             score: gameState.score,
             islands: gameState.islands.map((island) => ({
                 islandID: island.islandID,
@@ -258,6 +314,7 @@ export function GameStateProvider({ children }) {
         };
     };
 
+    // Provide state and helper functions to children components via Context
     return (
         <GameStateContext.Provider
             value={{
@@ -285,7 +342,7 @@ export function GameStateProvider({ children }) {
                 getIslands,
             }}
         >
-            {children}
+            {children} {/* Render nested components */}
         </GameStateContext.Provider>
     );
 }

@@ -1,6 +1,35 @@
-
 import { questions_ITA, questions_ENG } from './questions.js';
 
+/**
+ * An object containing language-specific configurations for the application.
+ *
+ * Each language key (e.g., "italiano", "english") maps to an object with the following properties:
+ * @typedef {Object} LanguageConfig
+ * @property {Array} questions - The set of questions for the language.
+ * @property {string} AnswerTextarea - Label for the answer textarea.
+ * @property {string} AnswerPlaceholder - Placeholder text for the answer textarea.
+ * @property {string} AnswerButton - Text for the answer submission button.
+ * @property {string} BackButton - Text for the back button.
+ * @property {string} FinishMessage - Message displayed at the end of the game with the final score.
+ * @property {string} WelcomeMessage - Welcome message shown at the start.
+ * @property {string} StartButton - Text for the start button.
+ * @property {string} CodeInputPlaceholder - Placeholder for the code input field.
+ * @property {string} CodeInputLabel - Label for the code input field.
+ * @property {string} CodeInputTitle - Title for the code input dialog.
+ * @property {string} CodeInputError - Error message for invalid code input.
+ * @property {string} CodeInputButton - Text for the code input submission button.
+ * @property {string} CodeInputClear - Text for the code input clear/cancel button.
+ * @property {string} Header - Main header/title of the application.
+ * @property {string} loadingTextPlaceholder - Placeholder text shown while loading/generating a response.
+ * @property {string} AIPlaceholder - Placeholder for AI assistant input.
+ * @property {string} GooglePlaceholder - Placeholder for Google search input.
+ * @property {string} MapClickedError - Error message when a completed island is clicked.
+ * @property {string} Score - Label for displaying the score.
+ * @property {string} QuestionChoice - Prompt for selecting how to answer a question.
+ * @property {string} QuestionHeader - Label for the question header.
+ *
+ * @type {Object.<string, LanguageConfig>}
+ */
 
 const languages =
 {
