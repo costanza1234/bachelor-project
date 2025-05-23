@@ -1,70 +1,187 @@
-# Getting Started with Create React App
+# Islands of Knowledge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A research tool and educational game to help researchers understand how children search for information online.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Getting Started
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
 
-### `npm test`
+1. **Clone the repository:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```sh
+   git clone https://github.com/yourusername/bachelor-project.git
+   cd bachelor-project
+   ```
 
-### `npm run build`
+2. **Install dependencies:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```sh
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **(Optional) Set up environment variables:**
+   - If you use APIs (e.g., Google Custom Search), create a `.env` file in the root directory:
+     ```
+     REACT_APP_API_KEY=your_api_key
+     REACT_APP_SEARCH_ENGINE_ID=your_search_engine_id
+     ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🏃‍♂️ Running the App
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Start the development server:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Open [http://localhost:3000](http://localhost:3000) in your browser.
+- The app will reload automatically when you make changes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🗂️ Project Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+src/
+│
+├── App.js                # Main app component and routing
+├── index.js              # Entry point
+├── index.css             # Global styles
+│
+├── components/           # Reusable UI components
+│   ├── BackButton.js
+│   ├── DownloadButton.js
+│   ├── Footer.js
+│   ├── GameFinish.js
+│   ├── GameStart.js
+│   ├── Header.js
+│   ├── HomeButton.js
+│   ├── Layout.js
+│   ├── Map.js
+│   ├── MapIsland.js
+│   ├── QueryInput.js
+│   ├── QuestionLayout.js
+│   ├── Results.js
+│   ├── Score.js
+│   └── UserAnswer.js
+│
+├── data/                 # Static data and language files
+│   ├── languages.js
+│   └── questions.js
+│
+├── pages/                # Page-level components for routing
+│   ├── ChoicePage.js
+│   ├── ChooseLanguagePage.js
+│   ├── FinishPage.js
+│   ├── GameStartPage.js
+│   ├── MapPage.js
+│   └── QuestionPage.js
+│
+├── styles/               # CSS modules for styling
+│   ├── answer.css
+│   ├── choiceButton.css
+│   ├── header.css
+│   ├── landing.css
+│   ├── layout.css
+│   ├── map.css
+│   ├── question.css
+│   ├── responsive.css
+│   └── results.css
+│
+├── utils/                # Utility functions and context
+│   ├── GameStateContext.js
+│   └── helpers.js
+│
+└── assets/               # Images, videos, and other static assets
+    └── bg.mp4            # Background video
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🧩 Key Concepts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Game State Management:**  
+  Uses React Context (`GameStateContext.js`) to manage game progress, user answers, and session data.
 
-### Analyzing the Bundle Size
+- **Language Support:**  
+  All user-facing text is managed in `data/languages.js` for easy localization.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Routing:**  
+  Uses React Router for navigation between pages (`src/pages/`).
 
-### Making a Progressive Web App
+- **UI Components:**  
+  Modular and reusable components in `src/components/` for a clean and maintainable codebase.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Styling:**  
+  CSS modules in `src/styles/` for scoped and organized styling.
 
-### Advanced Configuration
+- **Background Video:**  
+  The app features a looping background video (`public/bg.mp4`) with a color mask for visual effect.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## 📝 Customization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Add/Change Questions:**  
+  Edit `data/questions.js` and update `data/languages.js` to add or translate questions.
 
-### `npm run build` fails to minify
+- **Add More Languages:**  
+  Add a new language object in `data/languages.js` and update the language selection logic in `ChooseLanguagePage.js`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Change Background Video:**  
+  Replace `assets/bg.mp4` with your own video file.
+
+---
+
+## 🧪 Research & Data
+
+- **Download Data:**  
+  Use the download button in the footer to export user interaction data as JSON (password protected). The password is `log`.
+
+- **Session Tracking:**  
+  The app tracks user actions, query choices, and time spent for research analysis. More details on data collection can be found in the `utils/GameStateContext.js` file.
+
+---
+
+## ❓ Troubleshooting
+
+- **Cache/Build Errors:**  
+  If you see errors related to missing files in `.cache`, try:
+
+  ```sh
+  rm -rf node_modules/.cache
+  npm start
+  ```
+
+- **API Keys:**  
+  Make sure your `.env` file is set up if you use external APIs.
+
+---
+
+## 📄 License
+
+This project is for academic and research purposes.
+
+---
+
+## 👩‍💻 Author
+
+Costanza Rodriguez Gavazzi  
+Bachelor Project, Università della Svizzera Italiana
+
+---
+
+## 🙏 Acknowledgements
+
+- [Create React App](https://github.com/facebook/create-react-app)
+- [Mantine UI](https://mantine.dev/)
+- [React Router](https://reactrouter.com/)
