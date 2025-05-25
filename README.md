@@ -31,6 +31,7 @@ A research tool and educational game to help researchers understand how children
      ```
      REACT_APP_API_KEY=your_api_key
      REACT_APP_SEARCH_ENGINE_ID=your_search_engine_id
+     REACT_APP_GOOGLE_AI_STUDIO_API_KEY=your_google_ai_studio_api_key
      ```
 
 ---
@@ -51,58 +52,69 @@ npm start
 ## 🗂️ Project Structure
 
 ```
-src/
+
+bachelor-project/
+├── public/               # Public assets, i.e. Background video and islands images
 │
-├── App.js                # Main app component and routing
-├── index.js              # Entry point
-├── index.css             # Global styles
+├── report/               # Latex report files
 │
-├── components/           # Reusable UI components
-│   ├── BackButton.js
-│   ├── DownloadButton.js
-│   ├── Footer.js
-│   ├── GameFinish.js
-│   ├── GameStart.js
-│   ├── Header.js
-│   ├── HomeButton.js
-│   ├── Layout.js
-│   ├── Map.js
-│   ├── MapIsland.js
-│   ├── QueryInput.js
-│   ├── QuestionLayout.js
-│   ├── Results.js
-│   ├── Score.js
-│   └── UserAnswer.js
+├── src/                  # Code for the project
 │
-├── data/                 # Static data and language files
-│   ├── languages.js
-│   └── questions.js
+    ├── components/           # Reusable UI components
+    │   ├── BackButton.js
+    │   ├── DownloadButton.js
+    │   ├── Footer.js
+    │   ├── GameFinish.js
+    │   ├── GameStart.js
+    │   ├── Header.js
+    │   ├── HomeButton.js
+    │   ├── Layout.js
+    │   ├── Map.js
+    │   ├── MapIsland.js
+    │   ├── QueryInput.js
+    │   ├── QuestionLayout.js
+    │   ├── Results.js
+    │   ├── Score.js
+    │   └── UserAnswer.js
+    │
+    ├── data/                 # Static data and language files
+    │   ├── languages.js
+    │   └── questions.js
+    │
+    ├── pages/                # Page-level components for routing
+    │   ├── ChoicePage.js
+    │   ├── ChooseLanguagePage.js
+    │   ├── FinishPage.js
+    │   ├── GameStartPage.js
+    │   ├── MapPage.js
+    │   └── QuestionPage.js
+    │
+    ├── styles/               # CSS modules for styling
+    │   ├── answer.css
+    │   ├── choiceButton.css
+    │   ├── header.css
+    │   ├── landing.css
+    │   ├── layout.css
+    │   ├── map.css
+    │   ├── question.css
+    │   ├── responsive.css
+    │   └── results.css
+    │
+    ├── utils/              # Utility functions and context
+        ├── Hooks/          # Custom hooks for game logic
+            └── useMapHooks.js
+    │   ├── GameStateContext.js
+    │   └── helpers.js
+    │
+    ├── App.js                # Main app component and routing
+    ├── index.js              # Entry point
+    └── index.css             # Global styles
 │
-├── pages/                # Page-level components for routing
-│   ├── ChoicePage.js
-│   ├── ChooseLanguagePage.js
-│   ├── FinishPage.js
-│   ├── GameStartPage.js
-│   ├── MapPage.js
-│   └── QuestionPage.js
-│
-├── styles/               # CSS modules for styling
-│   ├── answer.css
-│   ├── choiceButton.css
-│   ├── header.css
-│   ├── landing.css
-│   ├── layout.css
-│   ├── map.css
-│   ├── question.css
-│   ├── responsive.css
-│   └── results.css
-│
-├── utils/                # Utility functions and context
-│   ├── GameStateContext.js
-│   └── helpers.js
-│
-└── assets/               # Images, videos, and other static assets
-    └── bg.mp4            # Background video
+├── .env                  # Environment variables (optional)
+├── .gitignore            # Git ignore file
+├── package-lock.json     # Lock file for npm dependencies
+├── package.json          # Project metadata and dependencies
+└── README.md             # Project documentation
 ```
 
 ---
@@ -110,7 +122,7 @@ src/
 ## 🧩 Key Concepts
 
 - **Game State Management:**  
-  Uses React Context (`GameStateContext.js`) to manage game progress, user answers, and session data.
+  Uses React Context (`GameStateContext.js`) to manage game progress, user answers, and session data. This allows for easy access to game state across components. This is also where the tracking of user actions and choices is implemented.
 
 - **Language Support:**  
   All user-facing text is managed in `data/languages.js` for easy localization.
@@ -119,10 +131,10 @@ src/
   Uses React Router for navigation between pages (`src/pages/`).
 
 - **UI Components:**  
-  Modular and reusable components in `src/components/` for a clean and maintainable codebase.
+  Modular and reusable components are in `src/components/`.
 
 - **Styling:**  
-  CSS modules in `src/styles/` for scoped and organized styling.
+  CSS modules in `src/styles/` for scoped styling.
 
 - **Background Video:**  
   The app features a looping background video (`public/bg.mp4`) with a color mask for visual effect.
