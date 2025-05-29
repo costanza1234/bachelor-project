@@ -14,116 +14,206 @@
 \versiondate{\today}
 
 \begin{committee}
-%With more than 1 advisor an error is raised...: only 1 advisor is allowed!
+
 \advisor[Universit\`a della Svizzera Italiana, Switzerland]{ }{Monica }{Landoni }
-%You can comment out  these lines if you don't have any assistant
+
 \coadvisor[Universit\`a della Svizzera Italiana, Switzerland]{ }{Diletta Micol}{Tobia}
 
 \end{committee}
 
 \abstract { Abstract goes here ...
 
-Context
-Problem
-Limitations in SOA
-Contribution and Findings
+Things to write: Context, Problem, Limitations in SOA, Contribution and Findings
+\vspace{0.5em}
 
-You may include up to six keywords or phrases. Keywords should be separated with semicolons. 
-\\
 \textbf{Keywords}:
+% You may include up to six keywords or phrases. Keywords should be separated with semicolons. 
 
 }
+
 \begin{document}
 \maketitle
-\tableofcontents\newpage
+\tableofcontents
 %\listoffigures\newpage
 
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Introduction}}
 
+Things to write in the introduction:
+Acknowledge seminal work in the area (very similar tool or research).
+In the last paragraph list all your contributions.
+Add a subsection titled “Report structure” where you briefly discuss the content of each following section (e.g., In section 2, we review previous studies in the context of ….).
 
-Acknowledge seminal work in the area (very similar tool or research)
-In the last paragraph list all your contributions
-Add a subsection titled “Report structure” where you briefly discuss
-the content of each following section (e.g., In section 2, we review
-previous studies in the context of ….).
+Context, Problem, Limitations in SOA, Contribution and Findings
 
-Context
-Problem
-Limitations in SOA
-Contribution and Findings
+\newpage
 
-
-Start writing your intro here. You can then use the following commands in your LaTeX document:
-\cite{label} To insert a citation where label is the label of a bibliographic entry in a .bib file. For instance:\cite{Hamari}\\
-
-
-
-
+%%%%%%%%%%%%%%%%%%%% BACKGROUND AND RELATED WORK %%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Background and Related Work}}
 
-\cite{Aliannejadi2021} \cite{Amin2022} \cite{Chen2022} \cite{Imazu2017} \cite{Landoni2020} \cite{Landoni2021} \cite{Landoni2021b} \cite{Landoni2021c} \cite{Rutter2019} \cite{Shiga2017}
-\cite{Tapola2022}
+Studying how children search for information online is a growing area that connects education, information retrieval (IR), and human-computer interaction (HCI). The goal of this project was to develop a research tool that could collect rich interaction data from children using both traditional search engines and large language models (LLMs). Unlike other projects focused mainly on improving user experience or visual design, this project was designed as a flexible platform to support various research questions on children's search behaviours. At the same time, the tool had to be engaging and appropriate for younger users.
 
+\subsection{Foundation}
 
+The starting point for this project was the bachelor thesis by Savoia \cite{Savoia2025}. In her work, she proposed an interactive game designed to observe how children search for information. The interface was structured around a group of six islands, where each island represented a question framed with a specific emotional tone (positive, neutral, or negative). Children were allowed to choose how they wanted to answer the question, either using a familiar web search interface (Google) or a chatbot-style LLM. Her work demonstrated that this narrative approach could encourage natural interactions and meaningful behaviours from children.
 
+While her prototype successfully demonstrated the idea, it was not built with reuse or extensibility in mind, but as a proof of concept. This project rebuilt the system from scratch to make it modular, maintainable, and suitable for future research experiments. Still, it kept the core gameplay idea of using emotionally charged questions and tool choice flexibility to support varied search strategies.
 
+\subsection{Motivation}
 
-\subsection{\textbf{subsections}}
-Explain all acronyms and abbreviations. For example, the first time an acronym is used, write it out in full and place the acronym in
-parentheses. When using the Graphical User Interface (GUI) version, the use may...
+A review of the literature highlighted the need for a research tool tailored to children’s needs. Children are frequent users of search engines, especially in school settings, but they often struggle to find relevant information efficiently \cite{Aliannejadi2021}. Most commercial tools like Google or Bing are designed for adults \cite{Aliannejadi2021, Landoni2021}, and there is no single search interface that fits all users, especially young ones with different cognitive and emotional needs \cite{Landoni2021}.
 
+There is a clear call in the IR research community for child-friendly systems that are more suitable in educational contexts \cite{Landoni2020}. However, building such systems is challenging. Designing for children means accounting for their specific abilities: cognitive, technical, emotional, and motor \cite{Chen2022}. In many cases, children say they want one thing, but their actual behaviour shows something else. This is why relying only on interviews or post-task questionnaires can be misleading \cite{Aliannejadi2021}.
 
+Unfortunately, children are often left out of mainstream IR research, and there is a lack of reliable data on how they really use search tools \cite{Savoia2025}. Researchers have pointed out the need for dedicated datasets, experimental tools, and evaluation methods designed for children \cite{Landoni2021c}.
 
-\section{\textbf{Requirements}}
-\subsection{\textbf{The main idea}}
-Some of the various techniques are listed below:
+By observing how children search and interact with systems, we can gather important insights that help improve the design of future tools \cite{Savoia2025}. These insights can also guide the development of features that help children, for example, by offering visual cues to highlight relevance or reduce confusion \cite{Landoni2021}. Data from such tools can support many different research directions, including how emotions impact search performance, how children respond to positive or negative task framing, or how task complexity affects engagement \cite{Landoni2020, Landoni2021c}.
 
-\begin{itemize}
-    \item tech 1
-    \item tech 2
-\end{itemize}
+It is also interesting to consider how negative emotions are handled. Some research suggests that tracking negative user emotions could support better filtering, while others warn that hiding negative content might limit learning opportunities \cite{Landoni2020}.
 
-\noindent You may write the formulas as follows:
-
-\begin{equation}
-    \phi(n) = (p-1) \cdot (q-1)\\
-\end{equation}
-
-
-
-
-To insert a figure use the following command:
-
-\begin{figure}[h!]
-    \center{\includegraphics[scale=0.03 ]
-        {figures/flower.jpg}}
-    \caption{The caption of my figure}\label{fig:flower}
-\end{figure}
-
-
-
-
-\section{\textbf{System Design}}
-\subsection{\textbf{}}
-
-\footnote{https://www.usi.ch}. \\
-
-
-
-
-
+A game-based tool, like the one built in this project, can collect structured data such as query logs, number of queries, time spent, and user clicks \cite{Aliannejadi2021}. It can also capture richer information about how children switch between tools or how many queries / prompts they need before answering. This kind of data would be difficult to gather with traditional observational methods or surveys.
 
 
 \newpage
-\section{\textbf{Usage Scenarios and Future Work}}
 
-\section{\textbf{Summary}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REQUIREMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\textbf{Requirements}}
+
+This project did not begin with a fixed specification. Instead, requirements emerged iteratively through exploration of the research domain, analysis of related literature, and discussions with the advisors. The system was designed to be general enough to support a wide variety of research questions in information retrieval (IR) and human-computer interaction (HCI), while also being engaging and usable for children.
+
+The main objective was to implement a fully functional, reusable prototype capable of collecting detailed data about how children use both traditional search engines and large language models (LLMs). The project builds upon and extends Savoia’s prototype \cite{Savoia2025}, which demonstrated the potential of a game-based framework to study children's search behavior but did not actually integrate the data collection aspect of it. \\
+\linebreak
+To structure the design, the following questions guided the requirements definition process:
+\begin{itemize}
+    \item What kind of data do researchers want to collect?
+    \item Can a game-based interface be used to gather this data effectively?
+    \item What kind of game design is both engaging and suitable for structured data collection?
+    \item How can the tool remain usable and appealing for children?
+    \item How can the system be modular, extensible, and maintainable for future research?
+    \item How can it adapt to different experimental setups or research contexts?
+\end{itemize}
+
+These reflections acted as a guide to explore the literature, which then led to a concrete list of functional and non-functional requirements, discussed below.
+
+\subsection{Data for Research Use}
+
+Exploring the literature revealed that researchers need a wide range of data to understand children's search behaviors. This includes both quantitative metrics and qualitative observations. The following types of data were identified as relevant for this project:
+
+\begin{itemize}
+    \item \textbf{Query Logs:} Query text, number of queries, and tool usage data \cite{Aliannejadi2021, Savoia2025}.
+    \item \textbf{Performance Indicators:} Session length, query term counts, click counts, and rank depth \cite{Landoni2021c}.
+    \item \textbf{Task Outcome Data:} Final answers, with the idea that scoring based on teacher rubrics or predefined relevance criteria could be done later, when analysing the gathered data \cite{Landoni2021c}.
+    \item \textbf{Tool Preference:} Children’s selection patterns between search engine and LLM \cite{Savoia2025}.
+    \item \textbf{Timing Data:} Time spent on each question, delays before interaction, etc. \cite{Savoia2025}.
+\end{itemize}
+
+
+\subsection{UI Insights from the Literature}
+
+Key research informed the requirements:
+
+\begin{itemize}
+    \item There is no one-size-fits-all SERP interface suitable for children \cite{Landoni2021}.
+    \item Children prefer tools that are playful and engaging, and emotional design improves product recognition and user satisfaction \cite{Chen2022, Amin2022}.
+    \item Humanized design elements like avatars, animations, and storytelling are particularly effective for younger users \cite{Amin2022, Chen2022}.
+    \item There is a need for tools that can capture structured data such as query logs, tool preferences, click behavior, on top of qualitative engagement metrics \cite{Savoia2025, Landoni2021c}.
+    \item Participatory design methods show that children prefer familiar, usable UI elements but appreciate fun, cartoonish visuals \cite{Tapola2022, Landoni2021b}.
+    \item Based on their age and cognitive abilities, children require different levels of scaffolding and support in search tasks \cite{Chen2022, Tapola2022, Amin2022}. In particular:
+
+          \begin{itemize}
+
+              \item \textbf{Ages 6 to 8:} Children in this group begin to mature and expand their vocabulary. Interfaces should use familiar, simple words, and reward systems are effective for maintaining engagement. Bright colours are still encouraged.
+
+              \item \textbf{Ages 9 to 12:} These users value autonomy and prefer interfaces that offer control rather than instructions. Feedback should be informative rather than directive. Colours can be more subdued, such as greens, greys, and navy tones. They are generally more skilled at navigating websites and handling smaller UI elements.
+          \end{itemize}
+
+\end{itemize}
+
+\subsection{Functional Requirements}
+
+\begin{itemize}
+    \item \textbf{Language and Initialization}
+          \begin{itemize}
+              \item The game language must be modular and easily changeable.
+              \item A landing page must appear before the game starts to allow teachers or researchers to explain the rules.
+              \item The game must reset when a new language is selected.
+          \end{itemize}
+
+    \item \textbf{Session Management}
+          \begin{itemize}
+              \item Each session must be identified by a unique user code, provided by the teacher.
+              \item The game must start only after the user inputs a valid code.
+              \item The game must persist its state on page refresh using local storage.
+              \item Researchers must be able to download session data at any point, even if the game is incomplete.
+              \item When downloading data, the system must request a password to protect the export.
+          \end{itemize}
+
+    \item \textbf{Gameplay Logic}
+          \begin{itemize}
+              \item The game must include six clickable islands, presented in a randomized order per session.
+              \item Islands can be clicked in any order.
+              \item Each island represents a question with a specific emotional framing: positive, neutral, or negative.
+              \item Once answered, an island becomes inactive and cannot be clicked again.
+              \item Inactive islands must show a different cursor, remove hover effects, and a message shoud appear when trying to click them.
+              \item Each completed island increases the score by 10 points (maximum 60).
+              \item The current score must be shown at the top right of the screen.
+          \end{itemize}
+
+    \item \textbf{Search Tool Interfaces}
+          \begin{itemize}
+              \item Clicking an island must open a question page where the user chooses between Google or Gemini (LLM).
+              \item Users must be allowed to switch between the two tools freely before submitting an answer.
+              \item The Google interface must visually mimic a real search engine and display the top 10 results.
+              \item The Gemini interface must mimic a chat interface like ChatGPT.
+              \item Clicking on a Google result must open the link in a new browser tab.
+          \end{itemize}
+
+    \item \textbf{User Interaction Tracking}
+          \begin{itemize}
+              \item The system must record per-island data:
+                    \begin{itemize}
+                        \item \texttt{question}, \texttt{sentiment}, \texttt{openTime}, \texttt{submitTime}
+                        \item \texttt{choiceForAnswer}: sequence of tool switches
+                        \item \texttt{Queries}, with tool used
+                        \item \texttt{AIAnswers}: Gemini responses
+                        \item \texttt{SERPAnswers}: clicked results with title, snippet, rank, click time, and order
+                        \item \texttt{userAnswer}: the final answer
+                    \end{itemize}
+              \item The system must record per-session data:
+                    \begin{itemize}
+                        \item \texttt{gameLanguage}, \texttt{userCode}, \texttt{startTime}, \texttt{finishTime}, \texttt{sessionLength}
+                        \item \texttt{islandCompletionOrder}, \texttt{islandClickOrder}
+                        \item \texttt{totalClicksInSession}, \texttt{timeBeforeFirstClick}, \texttt{score}
+                    \end{itemize}
+          \end{itemize}
+
+    \item \textbf{User Experience and Engagement}
+          \begin{itemize}
+              \item The game must allow revisiting islands before submission.
+              \item Emotional framing must be visually represented with colors or icons.
+              \item The UI must balance playful and realistic design to reflect real-world behavior.
+              \item Upon completion, a thank-you page must show the user's final score.
+              \item The background must include animations to enhance engagement.
+          \end{itemize}
+\end{itemize}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% SYSTEM DESIGN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\textbf{System Design}}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\textbf{Conclusions}}
+
+\subsection{\textbf{Usage Scenarios}}
+\subsection{\textbf{Future Work}}
 Future works goes here.
-
-
-
-
-
 
 \newpage
 

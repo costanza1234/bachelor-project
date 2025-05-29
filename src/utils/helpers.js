@@ -40,7 +40,7 @@ export async function performSearch(query) {
     const perPage = 10;
 
     // Total number of results desired overall
-    const totalResults = 20;
+    const totalResults = 10;
 
     // Calculate the number of pages needed based on results per page
     const pages = Math.ceil(totalResults / perPage);

@@ -1,3 +1,10 @@
-esplorazione proof of concept, toy prototype, riusciamo a raccogliere dati con un gioco? che tipo di gioco? cosa vuole la comunita di ricerca? come lo rendiamo utilizzabile dai bambini?
+exploration of the domain,
+proof of concept,
+toy prototype,
+what kind of data do the reasearchers want?
+can we collect data with a game?
+what kind of game?
+what does the research community want?
+how do we make it usable by children?
 
 expert evaluation / heuristic evaluation degli esperti del gioco metodo walkthrough

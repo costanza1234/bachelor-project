@@ -51,10 +51,8 @@ export const useGameState = () => useContext(GameStateContext);
  * - initializeIslands(ids): Initializes island data for each provided island ID.
  * - updateIslandData(islandID, updaterFn): Updates specific island data using a provided updater function.
  * - setSubmitTime(islandID, date): Sets the submission time for a specific island.
- * - addAIAnswer(islandID, answer): Appends an AI generated answer to an island's data.
- * - addQueryMeta(islandID, meta): Adds meta information regarding query terms for an island.
+ * - addQuery(islandID, queryData): Adds a query performed by the user, storing either AI answers or SERP results.
  * - addChoiceForAnswer(islandID, source): Records the user's chosen answer source for an island.
- * - addSERPAnswers(islandID, answers): Appends SERP answers (filtered on export) to an island's data.
  * - setUserAnswer(islandID, answer): Stores the user's answer for a specific island.
  * - setOpenTime(islandID, date): Sets the open time when an island is first clicked.
  * - shuffleIslandImages(): Shuffles island images and stores the order in localStorage.
@@ -158,19 +156,15 @@ export function GameStateProvider({ children }) {
                 submitTime: null,
 
                 // choiceForAnswer is a list of 0 or 1. 
-                // If the user performs a search using Google, a 0 is pushed in the array, similarly a 1 is pushed when the user prompts AI. 
-                // The length of the array is equal to the number of queries / prompts made by the user.
-                // The array is used to understand if the user has used AI or Google to or both and how many times they performes the switch in order to answer the given question.
+                // If the user selects Google, a 0 is pushed in the array, similarly a 1 is pushed when the user selects Gemini. 
+                // The length of the array is equal to the number of choices made by the user, independently of the number of queries/prompts made by the user.
+                // The array is used to understand if the user tends to choose AI or Google, this can be cross examined with the Queries arra.
+                // choiceForAnswer is handled in the ChoicePage component.
                 choiceForAnswer: [],
 
-                //  [{AI: 0 or 1, numberOfQueryTerms: numberOfQueryTerms}, ...], this means that the length of the array is equal to the number of queries made by the user, the flag AI is 0 if the user used Google and 1 if the user used AI. The numberOfQueryTerms is the number of terms used in the query/prompt. This is handled in the QuestionPage component.
-                numberOfQueryTermsPerQuery: [],
-
-                // AIAnswers is a list of answers given by the AI. The length of the array is equal to the number of prompts made by the user. This is handled in the QuestionPage component.
-                AIAnswers: [],
-
-                // SERPAnswers is a list of answers given by Google. The length of the array is equal to the number of queries made by the user times 30, as for every query, we return 30 responses. This is handled in the QuestionPage component.
-                // an entry has the following structure:
+                //  [{AI: 0 or 1, query: queryText, numberOfQueryTerms: numberOfQueryTerms, Answer: answer}, ...], this means that the length of the array is equal to the number of queries made by the user, the flag AI is 0 if the user used Google and 1 if the user used AI. The numberOfQueryTerms is the number of terms used in the query/prompt. 
+                // Answer can either be a string (if the user used AI) or an array of SERP results (if the user used Google).
+                // A SERP result is an object with the following structure:
                 /* {
                     title: String,
                     snippet: String,
@@ -179,7 +173,10 @@ export function GameStateProvider({ children }) {
                     clickOrder: Number,
                     timeSpentOnPage_seconds: Number in milliseconds,
                 }  */
-                SERPAnswers: [],
+
+                // This is handled in the QuestionPage component.
+                Queries: [],
+
                 userAnswer: null,
             },
         }));
@@ -217,21 +214,34 @@ export function GameStateProvider({ children }) {
         }
     };
 
-    // Function to add an AI generated answer to a specific island's data
-    const addAIAnswer = (islandID, answer) => {
+    // Function to add a query performed by the user, if it's an AI query, it will store the AI's answer, otherwise it will store the SERP results
+    // Example usage: 
+    /* addQuery(3, {
+        AI: 1,
+        query: "What is photosynthesis?",
+        numberOfQueryTerms: 3,
+        answer: "Photosynthesis is the process by which green plants..."
+        });
+    */
+    /* 
+    addQuery(3, {
+    AI: 0,
+    query: "photosynthesis meaning",
+    numberOfQueryTerms: 2,
+    answer: [
+        { title: "What is photosynthesis?", snippet: "...", position: 1, clicked: true, clickOrder: 1,  timeSpentOnPage_seconds: 4.5 },
+        // ...
+        ] 
+    });
+     */
+
+    const addQuery = (islandID, { AI, query, numberOfQueryTerms, answer }) => {
         updateIslandData(islandID, (data) => ({
             ...data,
-            AIAnswers: [ ...data.AIAnswers, answer ],
+            Queries: [ ...data.Queries, { AI, query, numberOfQueryTerms, answer } ],
         }));
     };
 
-    // Function to record meta data about a query for a specific island
-    const addQueryMeta = (islandID, meta) => {
-        updateIslandData(islandID, (data) => ({
-            ...data,
-            numberOfQueryTermsPerQuery: [ ...data.numberOfQueryTermsPerQuery, meta ],
-        }));
-    };
 
     // Function to record the source choice for an answer for a specific island
     const addChoiceForAnswer = (islandID, source) => {
@@ -241,13 +251,6 @@ export function GameStateProvider({ children }) {
         }));
     };
 
-    // Function to add SERP answers to a specific island's data
-    const addSERPAnswers = (islandID, answers) => {
-        updateIslandData(islandID, (data) => ({
-            ...data,
-            SERPAnswers: [ ...data.SERPAnswers, ...answers ],
-        }));
-    };
 
     // Function to set the user answer for a specific island
     const setUserAnswer = (islandID, answer) => {
@@ -305,9 +308,7 @@ export function GameStateProvider({ children }) {
                     openTime: island.islandData.openTime,
                     submitTime: island.islandData.submitTime,
                     choiceForAnswer: island.islandData.choiceForAnswer,
-                    numberOfQueryTermsPerQuery: island.islandData.numberOfQueryTermsPerQuery,
-                    AIAnswers: island.islandData.AIAnswers,
-                    SERPAnswers: island.islandData.SERPAnswers.filter((ans) => ans.clicked),
+                    Queries: island.islandData.Queries,
                     userAnswer: island.islandData.userAnswer,
                 },
             })),
@@ -330,10 +331,8 @@ export function GameStateProvider({ children }) {
                 completeIsland,
                 initializeIslands,
                 updateIslandData,
-                addAIAnswer,
-                addQueryMeta,
+                addQuery,
                 addChoiceForAnswer,
-                addSERPAnswers,
                 setUserAnswer,
                 setOpenTime,
                 setSubmitTime,

@@ -16,6 +16,8 @@ import { useGameState } from '../utils/GameStateContext';
  */
 export default function ChoicePage() {
 
+    const { addChoiceForAnswer } = useGameState(); // Function to record user choice
+
     // Get the questionId parameter from the URL
     const { questionId } = useParams();
 
@@ -33,7 +35,14 @@ export default function ChoicePage() {
 
     // Handle user choice by navigating to the appropriate path
     const handleChoice = (path) => {
+
+        // Determine if the choice is for AI or search engine
+        const isAI = path.includes('true');
+
+        // Record the choide (AI or search engine)
+        addChoiceForAnswer(questionId, isAI ? 1 : 0);
         navigate(path);
+
     };
 
     return (
