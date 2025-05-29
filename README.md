@@ -26,7 +26,7 @@ A research tool and educational game to help researchers understand how children
    npm install
    ```
 
-3. **(Optional) Set up environment variables:**
+3. **Set up environment variables:**
    - If you use APIs (e.g., Google Custom Search), create a `.env` file in the root directory:
      ```
      REACT_APP_API_KEY=your_api_key
