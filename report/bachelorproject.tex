@@ -395,9 +395,48 @@ To end the session, a password-protected download prompt is shown (Fig.~\ref{fig
 
 
 
-\subsection{\textbf{Experts' Feedback}}
-
 \subsection{\textbf{Future Work}}
+
+While the current prototype is functional and already suitable for small-scale research studies, further improvements can be made in future iterations to better usability, data collection, and scalability.
+
+\subsubsection*{\textbf{User Interface and Usability Testing}}
+The current interface was designed based on literature insights and internal feedback, but because the design interface could have been a whole project on its own, it can be enhanced. Furthermore, it has not yet been tested with children in real-life settings. One key area for future work is conducting formal usability testing sessions with children of different age groups. These sessions would help identify which parts of the UI are intuitive and which are confusing or too complex. For example, visual feedback (e.g., hover animations, tool choices, iconography) might need to be adjusted based on children’s preferences and cognitive abilities. Working with experts in child-computer interaction and UX/UI could also help refine the design to better suit the target audience.
+
+\subsubsection*{\textbf{Extending Data Collection}}
+
+The current version of the system already collects a wide set of interaction data, including query logs, tool switches, time spent, and answers submitted. However, there is room for improvement and expansion. Future versions could include additional behavioral signals such as:
+\begin{itemize}
+    \item Mouse movement and hover times to infer hesitation or curiosity.
+    \item Scroll depth within the SERP.
+    \item Optional feedback prompts for children to self-report satisfaction or perceived difficulty.
+\end{itemize}
+
+
+\subsubsection*{\textbf{Improving Efficiency and Scalability}}
+
+At the moment, data is stored locally on the user’s machine and exported manually at the end of the session. While this approach is fine for small studies, it limits scalability and real-time monitoring. In future versions, it could be beneficial to migrate toward a centralized or hybrid data architecture, where encrypted session data is streamed to a secure server or research dashboard. This would make it easier to:
+\begin{itemize}
+    \item Monitor experiments as they happen across different devices or classrooms.
+    \item Aggregate and analyze data from multiple sessions automatically.
+    \item Reduce the need for manual downloads and password prompts.
+\end{itemize}
+
+Such an improvement would also open the door to large-scale studies involving hundreds of children across different schools or even countries, while preserving ethical and privacy constraints.
+
+\subsubsection*{\textbf{Task Personalization and Adaptive Feedback}}
+
+Another future direction is to introduce adaptive logic that adjusts the difficulty or type of questions based on the child’s behavior in earlier islands. For example, children who struggle with tool selection might be given additional hints or scaffolded tasks, while more confident users could be challenged with more open-ended prompts. Personalized support could help maintain engagement, reduce frustration, and provide more targeted data for researchers.
+
+
+
+\subsubsection*{\textbf{Experts' Feedback}}
+The tool was presented to two experts, teachers with experience in working with children and technology. They provided valuable feedback on the design and usability of the tool.
+
+HERE COMMENTS FROM TEACHERS
+
+
+
+
 
 
 \newpage
