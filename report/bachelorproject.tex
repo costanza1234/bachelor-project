@@ -165,7 +165,7 @@ Key research informed the requirements:
               \item Clicking on an island must open a question page where the user chooses between Google or Gemini (LLM).
               \item Users must be allowed to switch between the two tools freely before submitting an answer.
               \item The Google interface must visually mimic a real search engine and display the top 10 results.
-              \item The Gemini interface must mimic a chat interface like ChatGPT.
+              \item The Gemini interface must mimic a realistic chat interface.
               \item Clicking on a Google result must open the link in a new browser tab.
           \end{itemize}
 
@@ -210,8 +210,195 @@ Key research informed the requirements:
 \section{\textbf{Conclusions}}
 
 \subsection{\textbf{Usage Scenarios}}
+
+This section illustrates how reaserchers or teachers can set up the game and dowload the data, and how a child interacts with it during a typical session.
+
+\subsubsection*{\textbf{Step 1: Language Selection}}
+
+The game begins with the language choice screen (Fig.~\ref{fig:language-choice}). The researcher or teacher selects their preferred language before continuing, setting up the game for the child. A hover effect provides visual feedback (Fig.~\ref{fig:language-hover}).
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/language-choice.png}
+        \caption{Language choice screen.}
+        \label{fig:language-choice}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/language-hover.png}
+        \caption{Hover effect on language choice.}
+        \label{fig:language-hover}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 2: Session Start}}
+
+The child sees the game start screen (Fig.~\ref{fig:start-page}), with a hover animation guiding them to begin (Fig.~\ref{fig:start-hover}).
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/start-page.png}
+        \caption{Game start screen.}
+        \label{fig:start-page}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/start-hover.png}
+        \caption{Hover effect on start button.}
+        \label{fig:start-hover}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 3: Entering a Code}}
+
+The system requires the child to enter the session code they received prior to the start of the session (Fig.~\ref{fig:code-check}), which is validated (Fig.~\ref{fig:code-ok}). This ensures all data is associated with a specific session.
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/code-check.png}
+        \caption{Session code entry screen.}
+        \label{fig:code-check}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/code-ok.png}
+        \caption{Successful code validation.}
+        \label{fig:code-ok}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 4: The Island Map}}
+
+The core game component corresponds to the map page (Fig.~\ref{fig:map}). Each of the six clickable islands represents a unique search task. Hover feedback (Fig.~\ref{fig:map-hover}) helps guide children’s attention.
+
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/map.png}
+        \caption{Island map with clickable islands.}
+        \label{fig:map}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/map-hover.png}
+        \caption{Hover effect on islands.}
+        \label{fig:map-hover}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 5: Tool Choice}}
+
+After selecting an island, the child reaches a tool selection page (Fig.~\ref{fig:choice-page}) where they choose between a traditional search engine (Google) and a large language model (Gemini).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/choice-page.png}
+    \caption{Tool choice screen.}
+    \label{fig:choice-page}
+\end{figure}
+
+\subsubsection*{\textbf{Step 6: Using Google}}
+
+If the child selects Google, they are presented with a simulated SERP (Fig.~\ref{fig:google}). Clicking on links (which open in a new tab) mimics realistic search behavior (Fig.~\ref{fig:serp}). Links are opened in a new tab.
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/serp.png}
+        \caption{Google search results with clickable links.}
+        \label{fig:serp}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/google.png}
+        \caption{Simulated Google SERP.}
+        \label{fig:google}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 7: Using Gemini}}
+
+Alternatively, children can choose Gemini, where a chat-like interface appears (Fig.~\ref{fig:gemini}). A waiting screen mimics LLM response delay after they submit a prompt (Fig.~\ref{fig:gemini-waiting}), followed by result output (Fig.~\ref{fig:gemini-results}).
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/gemini.png}
+        \caption{Gemini chat interface.}
+        \label{fig:gemini}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/gemini-waiting.png}
+        \caption{Waiting screen for Gemini response.}
+        \label{fig:gemini-waiting}
+    \end{minipage}
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/gemini-results.png}
+        \caption{Gemini response output.}
+        \label{fig:gemini-results}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 8: Submitting an Answer}}
+
+After exploring results, the child can type a final answer (Fig.~\ref{fig:answer}). Once submitted, the island becomes inactive. If the child attempts to revisit a completed island, a warning is shown (Fig.~\ref{fig:warning}).
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/answer.png}
+        \caption{Final answer submission screen.}
+        \label{fig:answer}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/warning.png}
+        \caption{Can't click on a completed island.}
+        \label{fig:warning}
+    \end{minipage}
+\end{figure}
+
+\subsubsection*{\textbf{Step 9: Final Page and Data Export}}
+
+After completing all six islands, the child sees their final score (Fig.~\ref{fig:final-score}). Each island completed contributes 10 points, with a maximum of 60.
+
+To end the session, a password-protected download prompt is shown (Fig.~\ref{fig:download}), allowing the teacher or researcher to save all session data locally. It was a design choice to use the brower's prompt functionality instead of a custom modal, to discourage children from trying to tamper with the data export.
+
+\begin{figure}[H]
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/final-score.png}
+        \caption{Final score screen after completing all islands.}
+        \label{fig:final-score}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/download.png}
+        \caption{Password-protected data download prompt.}
+        \label{fig:download}
+    \end{minipage}
+\end{figure}
+
+
+
+\subsection{\textbf{Experts' Feedback}}
+
 \subsection{\textbf{Future Work}}
-Future works goes here.
+
 
 \newpage
 
