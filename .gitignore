@@ -40,6 +40,7 @@ yarn-error.log*
 *.out
 *.toc
 *.synctex.gz
+*.synctex*
 *.fdb_latexmk
 *.fls
 *.run.xml
