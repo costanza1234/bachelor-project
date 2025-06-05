@@ -40,7 +40,22 @@ Things to write: Context, Problem, Limitations in SOA, Contribution and Findings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Introduction}}
 
+In recent years, children's interactions with search technologies have become a topic of interest in both Information Retrieval (IR) and Human-Computer Interaction (HCI). With the increasing use of the internet in schools and at home, children are becoming independent searchers, but their needs and behaviors are different from those of adults. Unfortunately, commercial search engines like Google and Bing are not designed with children in mind, and current tools often fail to take into account their cognitive and emotional development.
 
+Previous research has shown that children struggle to evaluate search results effectively, particularly when results are presented in dense or complex formats. Moreover, their perception of what is relevant often differs from adult expectations and may be influenced by emotion, position in the list, or visual elements~\cite{Landoni2021c,Landoni2021b}.
+
+This project builds on Savoia's 2025 thesis~\cite{Savoia2025}, which proposed a game to observe children's search behavior using both a traditional search engine and a chatbot-like Large Language Model (LLM) interface. Because the original prototype was a proof of concept, it did not implement a data collection feature. This thesis rebuilds that tool with the goal of creating a functioning and reusable prototype that can be used in real research scenarios and contribute to the development of child-friendly search tools.
+
+To do this, the tool was designed as an interactive web-based game where children answer questions with a neutral, positive or negative emotioan tone by choosing between two search tools. Their choices, search behavior, and answers are logged to generate structured data with reaserch purposes. This allows to later analyze aspects such as tool preference, emotional influences, and performance across tasks.
+
+This report is structured as follows:
+\begin{itemize}
+    \item Section 2 reviews background research and related work, providing a motivation for the project.
+    \item Section 3 explains how the requirements were defined and lists them.
+    \item Section 4 describes the technical architecture of the system.
+    \item Section 5 shows typical usage scenarios.
+    \item Section 6 concludes the report with a discussion on results and outlines directions for future work.
+\end{itemize}
 
 \newpage
 
