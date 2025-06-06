@@ -40,7 +40,7 @@ Things to write: Context, Problem, Limitations in SOA, Contribution and Findings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Introduction}}
 
-In recent years, children's interactions with search technologies have become a topic of interest in both Information Retrieval (IR) and Human-Computer Interaction (HCI). With the increasing use of the internet in schools and at home, children are becoming independent searchers, but their needs and behaviors are different from those of adults. Unfortunately, commercial search engines like Google and Bing are not designed with children in mind, and current tools often fail to take into account their cognitive and emotional development.
+In recent years, children's interactions with search technologies have become a topic of interest in both Information Retrieval (IR) and Human-Computer Interaction (HCI). With the increasing use of the Internet in schools and at home, children are becoming independent searchers, but their needs and behaviors are different from those of adults. Unfortunately, commercial search engines such as Google and Bing are not designed with children in mind, and current tools often do not take into account their cognitive and emotional development.
 
 Previous research has shown that children struggle to evaluate search results effectively, particularly when results are presented in dense or complex formats. Moreover, their perception of what is relevant often differs from adult expectations and may be influenced by emotion, position in the list, or visual elements~\cite{Landoni2021c,Landoni2021b}.
 
@@ -78,7 +78,7 @@ Besides, children are often left out of mainstream IR research and there is a la
 
 Observing how children search and interact with systems, we can gather important insights that help improve the design of future tools \cite{Savoia2025}. These insights can also guide the development of features that help children, for example, by offering visual cues to highlight relevance or reduce confusion \cite{Landoni2021}. Data from child search behavior can also support many different research directions, including how emotions impact search performance, how children respond to positive or negative task formulation, or how task complexity affects engagement \cite{Landoni2020, Landoni2021c}. In particular, it is also interesting to consider how negative emotions are handled. Some research suggests that tracking negative user emotions could support better filtering, while others warn that hiding negative content could limit learning opportunities \cite{Landoni2020}.
 
-A game-based tool, like the one built in this project, can collect structured data such as query logs, number of queries, time spent, and user clicks \cite{Aliannejadi2021}. It can also capture richer information about how children switch between tools or how many queries they need before answering. This kind of data would be difficult to gather with traditional observational methods or surveys, as children are reported to be unreliable sources when it comes to describing their own search behavior and preferences \cite{Aliannejadi2021}.
+A game-based tool, like the one built in this project, can collect structured data such as query logs, number of queries, time spent, and user clicks \cite{Aliannejadi2021}. It can also capture richer information on how children switch between tools or how many queries they need before answering. This kind of data would be difficult to gather with traditional observational methods or surveys, as children are reported to be unreliable sources when it comes to describing their own search behavior and preferences \cite{Aliannejadi2021}.
 
 The strength of this approach comes from the benefits of game-based learning, which helps keep children engaged and motivated \cite{Alotaibi2024}. When children play a game, they tend to act more naturally and stay focused, making it easier to collect useful data on their behavior \cite{Alotaibi2024}. Compared to traditional learning environments, which can feel serious or stressful, games create a more relaxed space where children feel free to explore \cite{Alotaibi2024}.
 
@@ -251,7 +251,7 @@ This section illustrates how researchers or teachers (stakeholders) can set up t
 
 \subsubsection*{\textbf{Step 1: Language Selection}}
 
-The game begins with the language choice screen (Fig.~\ref{fig:language-choice}). The stakeholders selects their preferred language before continuing, setting up the game for the child. A hover effect provides visual feedback (Fig.~\ref{fig:language-hover}).
+The game begins with the language choice screen (Fig.~\ref{fig:language-choice}). The stakeholders select their preferred language before continuing, setting up the game for the child. A hover effect provides visual feedback (Fig.~\ref{fig:language-hover}).
 
 \begin{figure}[H]
     \begin{minipage}[b]{0.5\textwidth}
@@ -411,7 +411,7 @@ After exploring the results, the child can type the final answer (Fig.~\ref{fig:
 
 After completion of all six islands, the child sees their final score (Fig.~\ref{fig:final-score}). Each completed island contributes 10 points, with a maximum of 60.
 
-To end the session, a password-protected download prompt is shown (Fig.~\ref{fig:download}), allowing the teacher or researcher to save all session data locally. It was a design choice to use the brower's prompt functionality instead of a custom modal, to discourage children from trying to tamper with the data export.
+To end the session, a password-protected download prompt is shown (Fig.~\ref{fig:download}), allowing the teacher or researcher to save all session data locally. It was a design choice to use the browser's prompt functionality instead of a custom modal, to discourage children from trying to tamper with the data export.
 
 \begin{figure}[H]
     \begin{minipage}[b]{0.5\textwidth}
@@ -431,30 +431,29 @@ To end the session, a password-protected download prompt is shown (Fig.~\ref{fig
 
 \subsection{\textbf{Experts' Feedback}}
 
-The tool was presented to two teachers with experience in working with children and technology. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be consideres as inputs to be discussed and further analyzed, rather than as definitive requirements to be implemented.
+The tool was presented to two teachers with experience working with children and technology. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be considered as input to be discussed and further analyzed, rather than as definitive requirements to be implemented.
 
 \begin{enumerate}
 
-    \item The overall visual design was considered slightly outdated and overly childlike—more appropriate for younger pupils (third or fourth grade). Both experts suggested a more modern and polished look to better suit the target age group.
+    \item The overall visual design was considered slightly outdated and overly childlike, more appropriate for younger students (third or fourth grade). Both experts suggested a more modern and polished look to better suit the target age group.
     \item Regarding the first screen, the introductory message was described as too long. Since children tend to click instinctively, they might skip important instructions. To address this, two alternative solutions were proposed:
-
           \begin{enumerate}
-              \item Splitting the prompt into two screens—one with a warning to wait for the teacher's instruction, and a second screen with a clickable button.
+              \item Split the prompt into two screens, one with a warning to wait for the teacher's instruction, and a second screen with a clickable button.
               \item Using a larger font and shortening the text (e.g., “\textit{WAIT! When you hear 'ok', click}”).
           \end{enumerate}
 
-    \item The screen featuring clickable islands was deemed not intuitive. The experts noted that it did not encourage interaction and that some children might not realize the elements were clickable. Additionally, the use of happy and sad face icons was discouraged, as they could lead children to assign emotional meaning or personify the interface unnecessarily.
-    \item For the question screen, both font size and type were mentioned. They believed that text should be larger and use a highly readable font such as Arial or fonts certified for dyslexia. Furthermore, the question area was suggested to be visually highlighted (e.g., with a colored background) to make it stand out from the rest of the interface.
-    \item The use of commercial logos was also criticized. This was flagged both for ethical reasons and for inconsistency: although a Google-like logo was shown, the following screen was considered not an accurate replica the Google or Gemini interface. As a workaround, it was recommended to label the search interface simply as “\textit{Search Engine}” while mimicking the Google look through color and font style.
-    \item The score system also drew mixed feedback. It was suggested to give teachers the option to enable or disable the display of points. For children with lower self-esteem, visible scores could be discouraging. In contrast, group dynamics could benefit from visible scoring as a form of motivation. If scores are shown, they should be designed with engaging, attention-grabbing visuals.
-    \item The simulated Google interface needed refinement. The space for displaying the question was  as hard to notice, and the answer input field was not clearly interactive. Improving layout cues would help clarify the expected user action.
+    \item The screen featuring clickable islands was deemed not intuitive. The experts noted that it did not encourage interaction and that some children might not realize that the elements were clickable. Additionally, the use of happy and sad face icons was discouraged, as they could lead children to assign emotional meaning or personify the interface unnecessarily.
+    \item For the question screen, both font size and type were mentioned. They believed that the text should be larger and use a highly readable font such as Arial or certified dyslexia fonts. Furthermore, the question area was suggested to be visually highlighted (e.g., with a colored background) to make it stand out from the rest of the interface.
+    \item The use of commercial logos was also criticized. This was flagged both for ethical reasons and for inconsistency: although a Google-like logo was shown, the following screen was considered not an accurate replica of the Google or Gemini interface. As a workaround, it was recommended to label the search interface simply as “\textit{Search Engine}” while mimicking the Google look through color and font style.
+    \item The score system also received mixed feedback. It was suggested to give teachers the option to enable or disable the display of points. For children with lower self-esteem, visible scores could be discouraging. In contrast, group dynamics could benefit from visible scoring as a form of motivation. If scores are shown, they should be designed with engaging, attention-grabbing visuals.
+    \item The simulated Google interface needed refinement. The space for displaying the question was perceived as difficult to notice, and the answer input field was not clearly interactive. Improving layout cues would help clarify the expected user action.
     \item The final screen's thank-you message was considered too long. A concise alternative such as “\textit{Great job! You earned X points!}” was recommended, particularly if the scoring feature remains active.
 
 \end{enumerate}
 
 
 
-These insights are essential for improving both the usability and the accessibility of the tool in future versions.
+These insights are essential to improve both the usability and accessibility of the tool in future versions.
 
 
 \newpage
