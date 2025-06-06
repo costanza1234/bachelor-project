@@ -57,8 +57,6 @@ This report is structured as follows:
     \item Section 6 concludes the report with a discussion on the directions for future work.
 \end{itemize}
 
-\newpage
-
 %%%%%%%%%%%%%%%%%%%% BACKGROUND AND RELATED WORK %%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Background and Related Work}}
 
@@ -120,7 +118,7 @@ To do this, we identified the following types of data as relevant.
     \item \textbf{Query Logs:} Query text, number of queries, and query term counts \cite{Aliannejadi2021, Savoia2025}.
     \item \textbf{Performance Indicators:} Session length, click counts, and rank depth \cite{Landoni2021c}.
     \item \textbf{Task Outcome Data:} Final user responses, with the idea that scoring based on teacher rubrics or predefined relevance criteria could be done later when analyzing the gathered data \cite{Landoni2021c}.
-    \item \textbf{Tool Preference:} Children’s selection patterns between search engine and LLM \cite{Savoia2025}.
+    \item \textbf{Tool Preference:} Children's selection patterns between search engine and LLM \cite{Savoia2025}.
     \item \textbf{Timing Data:} Time spent on each question, delays before interaction, and time spent on web pages \cite{Savoia2025}.
 \end{itemize}
 
@@ -432,9 +430,32 @@ To end the session, a password-protected download prompt is shown (Fig.~\ref{fig
 \end{figure}
 
 \subsection{\textbf{Experts' Feedback}}
-The tool was presented to two experts, teachers with experience in working with children and technology. They provided valuable feedback on the design and usability of the tool.
 
-HERE COMMENTS FROM TEACHERS
+The tool was presented to two teachers with experience in working with children and technology. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be consideres as inputs to be discussed and further analyzed, rather than as definitive requirements to be implemented.
+
+\begin{enumerate}
+
+    \item The overall visual design was considered slightly outdated and overly childlike—more appropriate for younger pupils (third or fourth grade). Both experts suggested a more modern and polished look to better suit the target age group.
+    \item Regarding the first screen, the introductory message was described as too long. Since children tend to click instinctively, they might skip important instructions. To address this, two alternative solutions were proposed:
+
+          \begin{enumerate}
+              \item Splitting the prompt into two screens—one with a warning to wait for the teacher's instruction, and a second screen with a clickable button.
+              \item Using a larger font and shortening the text (e.g., “\textit{WAIT! When you hear 'ok', click}”).
+          \end{enumerate}
+
+    \item The screen featuring clickable islands was deemed not intuitive. The experts noted that it did not encourage interaction and that some children might not realize the elements were clickable. Additionally, the use of happy and sad face icons was discouraged, as they could lead children to assign emotional meaning or personify the interface unnecessarily.
+    \item For the question screen, both font size and type were mentioned. They believed that text should be larger and use a highly readable font such as Arial or fonts certified for dyslexia. Furthermore, the question area was suggested to be visually highlighted (e.g., with a colored background) to make it stand out from the rest of the interface.
+    \item The use of commercial logos was also criticized. This was flagged both for ethical reasons and for inconsistency: although a Google-like logo was shown, the following screen was considered not an accurate replica the Google or Gemini interface. As a workaround, it was recommended to label the search interface simply as “\textit{Search Engine}” while mimicking the Google look through color and font style.
+    \item The score system also drew mixed feedback. It was suggested to give teachers the option to enable or disable the display of points. For children with lower self-esteem, visible scores could be discouraging. In contrast, group dynamics could benefit from visible scoring as a form of motivation. If scores are shown, they should be designed with engaging, attention-grabbing visuals.
+    \item The simulated Google interface needed refinement. The space for displaying the question was  as hard to notice, and the answer input field was not clearly interactive. Improving layout cues would help clarify the expected user action.
+    \item The final screen's thank-you message was considered too long. A concise alternative such as “\textit{Great job! You earned X points!}” was recommended, particularly if the scoring feature remains active.
+
+\end{enumerate}
+
+
+
+These insights are essential for improving both the usability and the accessibility of the tool in future versions.
+
 
 \newpage
 
@@ -442,12 +463,26 @@ HERE COMMENTS FROM TEACHERS
 
 \section{\textbf{Conclusions}}
 
+This project was the design and development of a research tool aimed at studying how children interact with different information retrieval systems. The tool, built as an interactive web-based game, allows children to choose between a traditional search engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, enabling the collection of data to support research.
+
+The work originated from the limitations identified in Savoia's thesis \cite{Savoia2025}, particularly the need for data collection features. While her work laid the foundation for a possible approach to studying search behavior, it did not provide a usable or extensible tool for research purposes. This project rebuilt the system with the aforementioned goals in mind.
+
+Several contributions were achieved:
+\begin{itemize}
+    \item A fully functional prototype was implemented.
+    \item A data model was developed to log user interactions in detail, capturing a variety of metrics relevant to IR and HCI research.
+    \item The user interface was designed to balance child-friendly visuals with realistic representations of search interfaces, aligning with guidelines from the literature.
+    \item Feedback from experts in education and child-computer interaction was gathered to inform future improvements and highlight potential issues in usability.
+\end{itemize}
+
+The project provides a functional addition to current state of the art in the IR and HCI research domains, particularly in the context of studying children's search behavior. The tool is designed to be modular and extensible, allowing for future adaptations to different research contexts or experimental setups.
+
 \subsection{\textbf{Future Work}}
 
 Although the current prototype is functional and is already suitable for small-scale research studies, further improvements can be made in future iterations to improve usability, data collection, and scalability.
 
 \subsubsection*{\textbf{User Interface and Usability Testing}}
-The current interface was designed based on the insights of the literature and internal feedback, but because the design interface could have been a whole project on its own, it can be improved. Furthermore, it has not yet been tested with children in real-life settings. One key area for future work is to conduct formal usability testing sessions with children of different age groups. These sessions would help identify which parts of the UI are intuitive, which are appealing, and which are confusing or too complex. For example, visual feedback (for example hover animations, tool choices, iconography) may need to be adjusted based on children’s preferences and cognitive abilities. Additionally, working with experts in child-computer interaction and UX/UI could help refine the design to better suit the target audience.
+The current interface was designed based on the insights of the literature and internal feedback, but because the design interface could have been a whole project on its own, it can be improved. Furthermore, it has not yet been tested with children in real-life settings. One key area for future work is to conduct formal usability testing sessions with children of different age groups. These sessions would help identify which parts of the UI are intuitive, which are appealing, and which are confusing or too complex. For example, visual feedback (for example hover animations, tool choices, iconography) may need to be adjusted based on children's preferences and cognitive abilities. Additionally, working with experts in child-computer interaction and UX/UI could help refine the design to better suit the target audience.
 
 \subsubsection*{\textbf{Extending Data Collection}}
 
@@ -471,6 +506,9 @@ A possible solution could be to integrate a back-end infrastructure that stores 
     \item Automatically collect and aggregate data without manual intervention.
     \item Minimize the risk of data loss due to user error or technical problems.
 \end{itemize}
+
+\subsubsection*{\textbf{Experts' Feedback}}
+The feedback from the experts highlighted several areas for improvement, particularly in the UI design and usability aspects. Future work should focus on discussing the feedback to enhance the overall user experience. This includes refining the visual design to be more modern and polished, simplifying instructions, improving the intuitiveness of clickable elements, and ensuring that the interface is accessible to children with different cognitive abilities.
 
 
 
