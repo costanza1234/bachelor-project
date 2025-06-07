@@ -240,6 +240,42 @@ The system must also record \textbf{per-session data}:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% SYSTEM DESIGN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{System Design}}
 
+\subsection{Overview}
+
+The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the user interface is a reusable block. Because the logic is not too complex, it is implemented into each relevant component.
+
+There is no backend server: all game logic and interactions run in the browser. When needed, the app communicates with external APIs to retrieve information from either a search engine or a language model.
+The system can be visualized as:
+
+% \begin{center}
+%     \includegraphics[width=0.9\textwidth]{architecture-diagram.png}
+% \end{center}
+
+\subsection{Components}
+
+TODO
+
+\subsection{APIs}
+
+The game uses two external APIs, selected based on the player's choice:
+
+\begin{itemize}
+    \item \textbf{Google Search API} \\
+          Performs a Google search and retrieves the top 10 results for a given query. This is used when the user select the \textit{Google} option in the \texttt{ChoicePage} component.
+
+    \item \textbf{Gemini API} \\
+          Sends a prompt to the Gemini API and retrieves the response. This is used when the user selects the \textit{Gemini} option in the \texttt{ChoicePage} component.
+\end{itemize}
+
+\subsection{Technologies Used}
+
+TODO
+
+The main technologies used in this project are
+
+\subsection{Research Data Collection}
+
+TODO
 
 \newpage
 
