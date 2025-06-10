@@ -23,7 +23,11 @@
 
 \abstract { Abstract goes here ...
 
-Things to write: Context, Problem, Limitations in SOA, Contribution and Findings
+As children become more active users of the web both at home and in school, understanding how they search for information has become increasingly important in both Information Retrieval (IR) and Human-Computer Interaction (HCI). However, most search tools are designed for adults and do not consider the cognitive and emotional needs of younger users.
+Researchers highlight the need of tools that allow them to collect structured interaction data, in order to gather more quantitative data on children's behaviors when searching for information online.
+This thesis presents an interactive web-based game designed as a tool to study how children search using either a traditional search engine or a Large Language Model (LLM). The game is built to be engaging for children and practical for researchers. It collects detailed data such as queries, tool preference, session length, and user responses while allowing easy export of anonymized session logs.
+The project rebuilds and extends an earlier prototype by making the system modular, reusable, and ready for real-world testing. Initial feedback from education experts confirms its potential as a research tool and highlights areas for further UI improvement. This tool provides a foundation for future studies on children's information-seeking behavior.
+
 \vspace{0.5em}
 
 \textbf{Keywords}: Information Retrieval; Human-Computer Interaction; User Interfare; Search Engine; LLM; Children;
@@ -521,6 +525,8 @@ The tool was presented to three teachers with experience working with children a
     \item The score system also received mixed feedback. It was suggested to give teachers the option to enable or disable the display of points. For children with lower self-esteem, visible scores could be discouraging. In contrast, group dynamics could benefit from visible scoring as a form of motivation. If scores are shown, they should be designed with engaging, attention-grabbing visuals.
     \item The simulated Google interface needed refinement. The space for displaying the question was perceived as difficult to notice, and the answer input field was not clearly interactive. Improving layout cues would help clarify the expected user action.
     \item The final screen's thank-you message was considered too long. A concise alternative such as “\textit{Great job! You earned X points!}” was recommended, particularly if the scoring feature remains active.
+    \item One teacher raised a concern about the lack of scaffolding during the research phase of the game as younger students may require structured support to conduct meaningful searches. It was suggested to provide curated websites alongside guiding questions, ensuring students are able to find suitable information independently without being overwhelmed.
+    \item AUDIO WHATSAPP TODO
 
 \end{enumerate}
 
@@ -586,8 +592,8 @@ The current codebase is functional but there is always room for improvement. Fut
 \subsubsection*{\textbf{Experts' Feedback}}
 The feedback from the experts highlighted several areas for improvement, particularly in the UI design and usability aspects. Future work should focus on discussing the feedback to enhance the overall user experience. This includes refining the visual design to be more modern and polished, simplifying instructions, improving the intuitiveness of clickable elements, and ensuring that the interface is accessible to children with different cognitive abilities.
 
-
 \newpage
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
@@ -635,7 +641,6 @@ The following is an example of the data structure exported by the system at the 
 }
 \end{verbatim}
 \newpage
-
 
 %%%%% BIBLIOGRAPHY %%%%%
 \bibliographystyle{abbrv}
