@@ -26,9 +26,7 @@
 Things to write: Context, Problem, Limitations in SOA, Contribution and Findings
 \vspace{0.5em}
 
-\textbf{Keywords}:
-% You may include up to six keywords or phrases. Keywords should be separated with semicolons. 
-
+\textbf{Keywords}: Information Retrieval; Human-Computer Interaction; User Interfare; Search Engine; LLM; Children;
 }
 
 \begin{document}
@@ -242,44 +240,80 @@ The system must also record \textbf{per-session data}:
 
 \subsection{Overview}
 
-The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the user interface is a reusable block. Because the logic is not too complex, it is implemented in each relevant component.
+The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the user interface is a block, potentially reusable. All logic, including game progression, timing, data collection, and API communication, is embedded directly in the relevant components or custom hooks.
 
-There is no back-end: all game logic and interactions run in the browser. When needed, the app communicates with external APIs to retrieve information from a SE or a LLM.
-The system can be visualized as:
+There is no back-end: the entire game runs in the user's browser. State is managed using React's Context API and saved to \texttt{localStorage} to support persistence across sessions. When needed, the app communicates with external APIs to retrieve results from a search engine (Google) or a large language model (Gemini).
 
 
 \subsection{Structure}
 
-TODO
+The main components of the application represent the major stages of the game and are shown in Fig.~\ref{fig:architecture}. The flow begins at \texttt{ChooseLanguagePage} and proceeds through \texttt{GameStartPage}, \texttt{MapPage}, \texttt{ChoicePage}, and \texttt{QuestionPage}, concluding at \texttt{FinishPage}.
+
+While some transitions are one-way (e.g., from start to map), the design supports two-way navigation between \texttt{MapPage}, \texttt{ChoicePage}, and \texttt{QuestionPage}, allowing users to explore and revisit islands freely. The state and data collected during navigation are tracked using a centralized context. The \texttt{QuestionPage} triggers asynchronous calls to either the Google Search API or the GoogleGenerativeAI API, based on the user's choice.
+
 
 \begin{center}
-    \includegraphics[width=0.9\textwidth]{report/figures/architecture.png}
+    \includegraphics[width=0.9\textwidth]{figures/architecture.png}
+    \captionof{figure}{Structure of the application.}
+    \label{fig:architecture}
 \end{center}
-
 
 
 
 \subsection{APIs}
 
-The game uses two external APIs, selected based on the player's choice:
+The game uses two external services in order to retrieve the information from the user's prompts, selected based on the player's choice:
 
 \begin{itemize}
     \item \textbf{Google Search API} \\
-          Performs a Google search and retrieves the top 10 results for a given query. This is used when the user select the \textit{Google} option in the \texttt{ChoicePage} component.
+          Executes a custom Google search and retrieves the top 10 results for a given query. When users select the \textit{Google} option in \texttt{ChoicePage}, this API returns search engine results, each including metadata such as title, snippet, rank, whether it was clicked, click order, and time spent on the result.
 
-    \item \textbf{Gemini API} \\
-          Sends a prompt to the Gemini API and retrieves the response. This is used when the user selects the \textit{Gemini} option in the \texttt{ChoicePage} component.
+    \item \textbf{GoogleGenerativeAI API (Gemini)} \\
+          Sends the user's prompt to the Gemini LLM and returns a generated answer. This is selected when the player chooses the \textit{Gemini} option. Responses are stored in the local state alongside metadata such as prompt length and timestamp.
 \end{itemize}
+
 
 \subsection{Technologies Used}
 
-TODO
+The application is built using the \textit{Create React App} boilerplate, which provides a pre-configured setup for React applications. The main technologies used are:
 
-The main technologies used in this project are
+\begin{itemize}
+    \item \textbf{React}: Core framework for building the single-page application with reusable components and hooks.
+    \item \textbf{JavaScript}: Used for writing all the game logic and component logic.
+    \item \textbf{Mantine UI}: A React component library.
+    \item \textbf{Plain CSS}: Used for styling components, organized in modular files like \texttt{map.css}, \texttt{question.css}, and more.
+    \item \textbf{Google Custom Search API}: Used to perform keyword-based queries when users choose the “Google” source.
+    \item \textbf{GoogleGenerativeAI API (Gemini)}: Provides LLM-based responses to user prompts when the “Gemini” option is selected.
+    \item \textbf{React Context + Hooks}: For managing shared state (e.g., game data, API responses).
+    \item \textbf{Browser LocalStorage}: Saves session data, including game state and interaction logs.
+    \item \textbf{Environment Variables (.env)}: API keys are stored in a private .env file and accessed at runtime.
+\end{itemize}
+
+Custom utility hooks such as \texttt{useWindowDimensions} and \texttt{useAutoScale} dynamically adapt the UI layout. Global game state is managed with React's Context API in the \texttt{GameStateContext} component.
+
 
 \subsection{Research Data Collection}
 
-TODO
+The game collects structured data to support research on how users interact with different information sources (search engine vs. large language model). All data is stored locally and can be exported at the end of the session.
+
+\begin{itemize}
+    \item \textbf{Session Metadata}:
+          \begin{itemize}
+              \item \texttt{userCode}, \texttt{startTime}, \texttt{finishTime}, \texttt{sessionLength\_seconds}
+              \item \texttt{totalClicksInSession}, \texttt{islandClickOrder}, \texttt{islandCompletionOrder}
+          \end{itemize}
+    \item \textbf{Per-Island Data}:
+          \begin{itemize}
+              \item \texttt{question}, \texttt{sentiment}, \texttt{userAnswer}
+              \item \texttt{choiceForAnswer}: Logs whether the user chose Google (0) or Gemini (1)
+              \item \texttt{Queries}: Contains detailed records of each query:
+                    \begin{itemize}
+                        \item \texttt{query}: Text of the input, \texttt{AI}: Flag (0 for Google, 1 for Gemini), \texttt{numberOfQueryTerms}, \texttt{answer}: Either a plain string (for Gemini) or a list of search results (for Google), each entry made of title, snippet, position, click status, click order, time spent on result
+                    \end{itemize}
+          \end{itemize}
+\end{itemize}
+
+All of this information can be exported via the \texttt{exportData()} function and analyzed to study user behavior, preference trends, and differences between information retrieval strategies. An example of the exported data is shown in Appendix~\ref{app:exported-data}.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% USAGE SCENARIOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -501,7 +535,7 @@ These insights are essential to improve both the usability and accessibility of 
 
 \section{\textbf{Conclusions}}
 
-This project have focused on the design and development of a research tool aimed at collecting data to support researchers in the study of how children interact with different information retrieval systems. The tool, designed in collaboration with researchers and teachers and built as an interactive web-based game, allows children to choose between a traditional search engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, enabling the collection of data to support research.
+This project focused on the design and development of a tool to support researchers collecting user data to study how children interact with different information retrieval systems. The tool, designed in collaboration with researchers and teachers and built as an interactive web-based game, allows children to choose between a traditional search engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, enabling the collection of data to support research.
 
 The work originated from the limitations identified in Savoia's thesis \cite{Savoia2025}, particularly the need for data collection features. While her work laid the foundation for a possible approach to studying search behavior, it did not provide a usable or extensible tool for research purposes. This project rebuilt the system with the aforementioned goals in mind.
 
@@ -553,12 +587,55 @@ The current codebase is functional but there is always room for improvement. Fut
 The feedback from the experts highlighted several areas for improvement, particularly in the UI design and usability aspects. Future work should focus on discussing the feedback to enhance the overall user experience. This includes refining the visual design to be more modern and polished, simplifying instructions, improving the intuitiveness of clickable elements, and ensuring that the interface is accessible to children with different cognitive abilities.
 
 
-
-
-
-
-
 \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\section{Exported Data Example}
+\label{app:exported-data}
+The following is an example of the data structure exported by the system at the end of a session. The data is structured in JSON format, which allows for easy parsing and analysis.
+\begin{verbatim}
+{
+    "sessionMetadata": {
+        "userCode": "12345",
+        "startTime": "2023-10-01T10:00:00Z",
+        "finishTime": "2023-10-01T10:15:00Z",
+        "sessionLength_seconds": 900,
+        "totalClicksInSession": 30,
+        "islandClickOrder": [0, 1, 2, 5, 3, 4, 1, 2, 5],
+        "islandCompletionOrder": [0, 3, 4, 1, 2, 5]
+    },
+    "islandsData": [
+        {
+            "question": "What is the capital of France?",
+            "sentiment": "neutral",
+            "userAnswer": "Paris",
+            "choiceForAnswer": 0,
+            "queries": [
+                {
+                    "query": "capital of France",
+                    "AI": 0,
+                    "numberOfQueryTerms": 3,
+                    "answer": [
+                        {
+                            "title": "Paris - Wikipedia",
+                            "snippet": "Paris is the capital city of France.",
+                            "position": 1,
+                            "clicked": true,
+                            "clickOrder": 1,
+                            "timeSpentOnResult_seconds": 30
+                        },
+                        // More results...
+                    ]
+                }
+            ]
+        },
+        // More islands...
+    ]
+}
+\end{verbatim}
+\newpage
+
 
 %%%%% BIBLIOGRAPHY %%%%%
 \bibliographystyle{abbrv}
