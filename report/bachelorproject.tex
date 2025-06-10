@@ -91,7 +91,7 @@ By designing the tool as a digital game, we also benefit from interactive elemen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% REQUIREMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Requirements}}
 
-This project did not begin with a fixed list of specifications. Instead, requirements emerged iteratively through exploration of the research domain, analysis of related literature, and discussions with advisors. The work builds on Savoia's thesis \cite{Savoia2025}, which included an initial prototype of the game that was tested in a pilot session with children. From that experience, the feedback from the advisors and what we found in the literature,a new version of the game came to life, one that is more functional, scalable, and better suited to support different research questions in IR and HCI, while also being engaging and usable for children.
+This project did not begin with a fixed list of specifications. Instead, requirements emerged iteratively through exploration of the research domain, analysis of related literature, and discussions with advisors, both researchers in IR and therefore stakeholders in this design space. The work builds on Savoia's thesis \cite{Savoia2025}, which included an initial prototype of the game that was tested in a pilot session with children. From that experience, the feedback from the advisors and what we found in the literature,a new version of the game came to life, one that is more functional, scalable, and better suited to support different research questions in IR and HCI, while also being engaging and usable for children.
 
 The main objective was to implement a fully functional and reusable prototype that could collect detailed data on how children use traditional SE and LLM, while also being engaging and usable for children. The project extends Savoia's prototype \cite{Savoia2025}, which demonstrated the potential of a game-based framework to study children's search behavior, but did not actually integrate the aspect of user data collection.
 To structure the design, this dual purpose of the tool was fundamental: relevance for researchers aiming to study search behavior, and a pleasurable and engaging experience for children. From this core duality, the following questions guided the requirements definition process:
@@ -242,18 +242,22 @@ The system must also record \textbf{per-session data}:
 
 \subsection{Overview}
 
-The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the user interface is a reusable block. Because the logic is not too complex, it is implemented into each relevant component.
+The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the user interface is a reusable block. Because the logic is not too complex, it is implemented in each relevant component.
 
-There is no backend server: all game logic and interactions run in the browser. When needed, the app communicates with external APIs to retrieve information from either a search engine or a language model.
+There is no back-end: all game logic and interactions run in the browser. When needed, the app communicates with external APIs to retrieve information from a SE or a LLM.
 The system can be visualized as:
 
-% \begin{center}
-%     \includegraphics[width=0.9\textwidth]{architecture-diagram.png}
-% \end{center}
 
-\subsection{Components}
+\subsection{Structure}
 
 TODO
+
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{report/figures/architecture.png}
+\end{center}
+
+
+
 
 \subsection{APIs}
 
@@ -278,7 +282,6 @@ The main technologies used in this project are
 TODO
 
 \newpage
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% USAGE SCENARIOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{\textbf{Usage Scenarios}}
@@ -467,7 +470,7 @@ To end the session, a password-protected download prompt is shown (Fig.~\ref{fig
 
 \subsection{\textbf{Experts' Feedback}}
 
-The tool was presented to two teachers with experience working with children and technology. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be considered as input to be discussed and further analyzed, rather than as definitive requirements to be implemented.
+The tool was presented to three teachers with experience working with children and technology. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be considered as input to be discussed and further analyzed, rather than as definitive requirements to be implemented.
 
 \begin{enumerate}
 
@@ -498,7 +501,7 @@ These insights are essential to improve both the usability and accessibility of 
 
 \section{\textbf{Conclusions}}
 
-This project was the design and development of a research tool aimed at studying how children interact with different information retrieval systems. The tool, built as an interactive web-based game, allows children to choose between a traditional search engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, enabling the collection of data to support research.
+This project have focused on the design and development of a research tool aimed at collecting data to support researchers in the study of how children interact with different information retrieval systems. The tool, designed in collaboration with researchers and teachers and built as an interactive web-based game, allows children to choose between a traditional search engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, enabling the collection of data to support research.
 
 The work originated from the limitations identified in Savoia's thesis \cite{Savoia2025}, particularly the need for data collection features. While her work laid the foundation for a possible approach to studying search behavior, it did not provide a usable or extensible tool for research purposes. This project rebuilt the system with the aforementioned goals in mind.
 
@@ -541,6 +544,10 @@ A possible solution could be to integrate a back-end infrastructure that stores 
     \item Automatically collect and aggregate data without manual intervention.
     \item Minimize the risk of data loss due to user error or technical problems.
 \end{itemize}
+
+\subsubsection*{\textbf{Architecture and Code Quality}}
+The current codebase is functional but there is always room for improvement. Future work could focus on separating the logic from the UI components, implementing a separate layer for game functionality, and using a more modular architecture. Ths refactoring would further improve maintainability and scalability.
+
 
 \subsubsection*{\textbf{Experts' Feedback}}
 The feedback from the experts highlighted several areas for improvement, particularly in the UI design and usability aspects. Future work should focus on discussing the feedback to enhance the overall user experience. This includes refining the visual design to be more modern and polished, simplifying instructions, improving the intuitiveness of clickable elements, and ensuring that the interface is accessible to children with different cognitive abilities.
