@@ -24,9 +24,9 @@
 \abstract {
 
 As children increasingly engage in web searching activities both at home and in educational settings, understanding how they search for information has become a key topic in both Information Retrieval (IR) and Human-Computer Interaction (HCI). However, most search interfaces are designed for adults and fail to address the cognitive and emotional needs of younger users.
-This thesis presents an interactive, web-based game designed to investigate how children search for information using either a traditional search engine or a Large Language Model (LLM). The game aims to be both engaging for children and practical for researchers. It logs structured interaction data, such as queries, tool preferences, session length, and user responses, and offers easy export of session logs for later analysis.
+This thesis presents an interactive, web-based game designed to investigate how children search for information using either a traditional Search Engine or a Large Language Model (LLM). The game aims to be both engaging for children and practical for researchers. It logs structured interaction data, such as queries, tool preferences, session length, and user responses, and offers easy export of session logs for later analysis.
 
-The project builds upon a previous prototype, making the system more modular, reusable, and suitable for real-world studies. Initial feedback from education professionals suggests the tool is promising as a research instrument, but still has room for improvement with respect to the user interface. This work provides a foundation for future iterations of the tool and supports the research community’s need for structured, quantitative data on children’s online information-seeking behavior.
+The project builds upon a previous prototype, making the system more modular, reusable, and suitable for real-world studies. Initial feedback from education professionals suggests the tool is promising as a research instrument, but still has room for improvement with respect to the User Interface (UI). This work provides a foundation for future iterations of the tool and supports the research community’s need for structured, quantitative data on children’s online information-seeking behavior.
 
 \vspace{0.5em}
 
@@ -42,15 +42,16 @@ The project builds upon a previous prototype, making the system more modular, re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Introduction}}
 
-In recent years, children's interactions with search technologies have attracted growing attention in both Information Retrieval (IR) and Human-Computer Interaction (HCI). As the Internet becomes more common in schools and homes, children are learning to search for information on their own. However, their needs and behaviors are different from those of adults. Commercial search engines like Google and Bing are not built with children in mind, and they often overlook key aspects of children's cognitive and emotional development.
+In recent years, children's interactions with search technologies have attracted growing attention in both Information Retrieval (IR) and Human-Computer Interaction (HCI). As the Internet becomes more common in schools and homes, children are learning to search for information on their own. However, their needs and behaviors are different from those of adults. Commercial Search Engines like Google and Bing are not built with children in mind, and they often overlook key aspects of children's cognitive and emotional development.
 
-At the same time, large language models (LLMs) like ChatGPT\footnote{\url{https://openai.com/chatgpt}} and Gemini\footnote{\url{https://gemini.google.com}} have become increasingly popular among everyday users. While these models were not originally designed to replace search engines, many people now use them to look up information they would otherwise search for online. The single, focused response offered by an LLM is often seen as more convenient than going through a list of search results. Because of this, LLMs and search engines are now often viewed as interchangeable, even though they work very differently. These tools are also quickly evolving. Many models are now being developed with web browsing capabilities, allowing them to access real-time information. These systems combine LLMs with live web access to provide up-to-date answers, further closing the gap between conversational assistants and traditional search engines.
+At the same time, Large Language Models (LLMs) like Chat-GPT\footnote{\url{https://openai.com/chatgpt}} and Gemini\footnote{\url{https://gemini.google.com}} have become increasingly popular among the general population. Although these models were not originally designed to replace Search Engines, many people now use them to look up information they would otherwise search for online \cite{Mendel2024Laypeople’s, Divekar2024Choosing, Fernández-Pichel2024Evaluating}. The single response offered by an LLM is sometimes seen as more convenient than browsing a list of search results \cite{Stadler2024Cognitive, Caramancion2024Large, Worledge2024The}. Because of this, LLMs and Search Engines are often perceived as interchangeable, even though they work very differently \cite{Caramancion2024Large, Lindemann2023Sealed, Worledge2024The, Xiong2024When}. Such tools are also quickly evolving: new models include web browsing capabilities, allowing them to access real-time information. These systems combine LLMs with live web access\footnote{\url{https://openai.com/index/introducing-chatgpt-search/}} to provide up-to-date answers, further closing the gap between conversational assistants and traditional Search Engines \cite{Xiong2024When, Shi2024Know, Venkit2024Search, Fernández-Pichel2024Evaluating}.
 
-Previous research has shown that children struggle to evaluate search results effectively, particularly when results are presented in dense or complex formats. Moreover, their perception of what is relevant often differs from adult expectations and may be influenced by emotion, position in the list, or visual elements~\cite{Landoni2021c,Landoni2021b}.
+Previous research has shown that children struggle to evaluate search results effectively, particularly when results are presented in dense or complex formats. Moreover, their perception of what is relevant often differs from adult expectations and may be influenced by emotion, position in the list, or visual elements~\cite{Landoni2021c,Landoni2021b}. \\
 
-This project builds on Savoia's 2025 thesis~\cite{Savoia2025}, which proposed a game to observe children's search behavior using both a traditional search engine and a chatbot-like Large Language Model (LLM) interface. Because the original prototype was a proof of concept, it did not implement a data collection feature. This thesis rebuilds that tool with the goal of creating a functioning and reusable prototype that can be used in real research scenarios and contribute to the development of child-friendly search tools.
+This project builds on Savoia's 2025 thesis~\cite{Savoia2025}, which proposed a game to observe children's search behavior using both a traditional Search Engine and a chatbot-like LLM interface. Because the original prototype was a proof of concept, it did not implement a data collection feature. This thesis rebuilds that tool with the goal of creating a functioning and reusable prototype that can be used in real research scenarios and contribute to the development of child-friendly search tools.
 
-To do this, the tool was designed as an interactive web-based game in which children answer questions framed in a neutral, positive, or negative emotional tone by choosing between two search tools. Their choices, search behavior, and answers are logged to generate structured data for research purposes. This allows to later analyze aspects such as tool preference, emotional influences, and performance across tasks.
+To do this, the tool was designed as an interactive web-based game in which children answer questions framed in a neutral, positive, or negative emotional tone by choosing between two search tools. Their choices, search behavior, and answers are logged to generate structured data for research purposes. This allows to later analyze aspects such as tool preference, emotional influences, and performance across tasks. \\
+\newline
 
 This report is structured as follows:
 \begin{itemize}
@@ -58,7 +59,7 @@ This report is structured as follows:
     \item Section 3 explains how the requirements were defined and lists them.
     \item Section 4 describes the technical architecture of the system.
     \item Section 5 shows typical usage scenarios.
-    \item Section 6 concludes the report with a discussion on the directions for future work.
+    \item Section 6 concludes the report with a discussion of the directions for future work.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%% BACKGROUND AND RELATED WORK %%%%%%%%%%%%%%%%%%%%%
@@ -70,11 +71,11 @@ The study of how children search for information online is a growing area that c
 
 The starting point for this project was the bachelor's thesis by Savoia \cite{Savoia2025}. In her work, she proposed an interactive game designed to observe how children search for information. The interface was structured around a group of six islands, where each island represented a question framed with a specific emotional tone (positive, neutral, or negative). The children were allowed to choose how they wanted to answer the question, using a familiar web search interface or a chatbot-style LLM. Her work demonstrated that this narrative approach could encourage natural interactions and meaningful behavior from children.
 
-Although her prototype successfully demonstrated the idea, it was not built with the core feature of data extrapolation, nor with reuse or extensibility in mind, but as a proof of concept. This project rebuilt the system from scratch to make it modular, maintainable, and suitable for future research experiments. Still, it kept the core idea of gameplay, the use of emotionally charged questions, and flexibility in tool choice to support various search strategies.
+Although her prototype successfully demonstrated the idea, it was not built with the core feature of data extrapolation, nor with reuse or extensibility in mind, but rather as a proof of concept. This project rebuilt the system from scratch to make it modular, maintainable, and suitable for future research experiments. Still, it kept the core idea of game play, the use of emotionally charged questions, and flexibility in tool choice to support various search strategies.
 
 \subsection{Motivation}
 
-A review of the literature highlighted the need for a research tool tailored to children's needs. Children are frequent users of Search Engines, especially in school settings, but often struggle to find relevant information efficiently \cite{Aliannejadi2021}. Most commercial tools like Google or Bing are designed for adults \cite{Aliannejadi2021, Landoni2021}, and there is no single search interface that fits all users, especially young people with different cognitive and emotional needs \cite{Landoni2021}.
+A review of the literature highlighted the need for a research tool tailored to children's needs. Children are frequent users of SE, especially in school settings, but often struggle to find relevant information efficiently \cite{Aliannejadi2021}. Most commercial tools like Google or Bing are designed for adults \cite{Aliannejadi2021, Landoni2021}, and there is no single search interface that fits all users, especially young people with different cognitive and emotional needs \cite{Landoni2021}.
 
 In the IR research community, there is a clear call for child-friendly systems that are more suitable in educational contexts \cite{Landoni2020}. However, building such systems is challenging. Designing for children means taking into account their specific abilities: cognitive, technical, and emotional \cite{Chen2022}. In many cases, children say they want one thing, but their actual behavior shows something else. This is why relying only on interviews or post-task questionnaires can be misleading \cite{Aliannejadi2021}.
 
@@ -95,10 +96,10 @@ By designing the tool as a digital game, we also benefit from interactive elemen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% REQUIREMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\textbf{Requirements}}
 
-This project did not begin with a fixed list of specifications. Instead, requirements emerged iteratively through exploration of the research domain, analysis of related literature, and discussions with advisors, both researchers in IR and therefore stakeholders in this design space. The work builds on Savoia's thesis \cite{Savoia2025}, which included an initial prototype of the game that was tested in a pilot session with children. From that experience, the feedback from the advisors and what we found in the literature,a new version of the game came to life, one that is more functional, scalable, and better suited to support different research questions in IR and HCI, while also being engaging and usable for children.
+This project did not begin with a fixed list of specifications. Instead, requirements emerged iteratively through exploration of the research domain, analysis of related literature, and discussions with advisors, both researchers in IR and therefore stakeholders in this design space. The work builds on Savoia's thesis \cite{Savoia2025}, which included an initial prototype of the game that was tested in a pilot session with children. From that experience, the feedback from the advisors and what we found in the literature, a new version of the game came to life, one that is more functional, scalable, and better suited to support different research questions in IR and HCI, while also being engaging and usable for children.
 
 The main objective was to implement a fully functional and reusable prototype that could collect detailed data on how children use traditional SE and LLM, while also being engaging and usable for children. The project extends Savoia's prototype \cite{Savoia2025}, which demonstrated the potential of a game-based framework to study children's search behavior, but did not actually integrate the aspect of user data collection.
-To structure the design, this dual purpose of the tool was fundamental: relevance for researchers aiming to study search behavior, and a pleasurable and engaging experience for children. From this core duality, the following questions guided the requirements definition process:
+To structure the design, the dual purpose of the tool was fundamental: relevance for researchers aiming to study search behavior, and a pleasurable and engaging experience for children. From this core duality, the following questions guided the requirements definition process:
 To structure the design, the following questions guided the requirement definition process.
 \begin{itemize}
     \item What kind of data do researchers want to collect?
@@ -116,13 +117,13 @@ Research has shown that a variety of data is needed to understand children's sea
 This includes both quantitative metrics and qualitative observations. Although qualitative observations can offer several advantages in designing for children, this project's main focus was on quantitative metrics to enable the identification of patterns or relationships among behaviors. Analysis of these patterns can help researchers identify the potential roles of searchers among children \cite{Imazu2017}. Understanding these distinct roles that children play when searching is a key element in characterizing their behavior. Previous research \cite{Foss2012} defined seven roles for children searching in a home setting, based on qualitative data such as interviews and observations. More recent research \cite{Landoni2021c} aimed to understand the search roles of children, specifically in the classroom, and to see if they could be inferred using a quantitative approach based on performance indicators from search logs and teacher evaluations. By analyzing quantitative data such as click accuracy, session length, and grades, researchers were able to identify patterns that corresponded to several of the original roles \cite{Landoni2021c}. These findings highlight that both qualitative and quantitative data are fundamental to understanding children's search behavior.
 
 
-To do this, we identified the following types of data as relevant.
+Inspired by the approach of \citet{Landoni2021c}, we extended the analysis by identifying the following types of data as relevant.
 
 \begin{itemize}
     \item \textbf{Query Logs:} Query text, number of queries, and query term counts \cite{Aliannejadi2021, Savoia2025}.
     \item \textbf{Performance Indicators:} Session length, click counts, and rank depth \cite{Landoni2021c}.
     \item \textbf{Task Outcome Data:} Final user responses, with the idea that scoring based on teacher rubrics or predefined relevance criteria could be done later when analyzing the gathered data \cite{Landoni2021c}.
-    \item \textbf{Tool Preference:} Children's selection patterns between search engine and LLM \cite{Savoia2025}.
+    \item \textbf{Tool Preference:} Children's selection patterns between Search Engine and LLM \cite{Savoia2025}.
     \item \textbf{Timing Data:} Time spent on each question, delays before interaction, and time spent on web pages \cite{Savoia2025}.
 \end{itemize}
 
@@ -134,19 +135,18 @@ Designing a UI involves understanding how users interact with a digital system t
 Considering the dual purpose of the tool, the following insights from the literature informed the UI design:
 
 \begin{itemize}
-    \item There is no one-size-fits-all SERP interface suitable for children \cite{Landoni2021}.
+    \item There is no one-size-fits-all SERP (Search Engine Results Page)  interface suitable for children \cite{Landoni2021}.
     \item Children prefer playful and engaging tools, and emotional design improves product recognition and user satisfaction \cite{Chen2022, Amin2022}.
     \item Humanized design elements such as avatars, animations, and storytelling are particularly effective for younger users \cite{Amin2022, Chen2022}.
     \item Participatory design methods show that children prefer familiar, usable UI elements but appreciate fun, cartoonish visuals \cite{Tapola2022, Landoni2021b}.
-    \item Children prefer to interact with a tool they perceive to be similar to the real thing, instead of a simplified version \cite{Aliannejadi2021}.
-    \item Based on their age and cognitive abilities, children require different levels of scaffolding \footnote{Scaffolding refers to a form of support provided in design, particularly for children \cite{Chen2022, Landoni2021c}. In app design, providing scaffolding involves conveying the goals of the app to children in an understandable way (i.e. interactive prompts, visual cues) \cite{Chen2022, Landoni2021c}} and support in search tasks \cite{Chen2022, Tapola2022, Amin2022}. In particular:
+    \item Children prefer to interact with a tool that they perceive to be similar to the real thing, rather than a simplified version \cite{Aliannejadi2021}.
+    \item Based on their age and cognitive abilities, children require different levels of scaffolding \footnote{Scaffolding refers to a form of support provided in design, particularly for children \cite{Chen2022, Landoni2021c}. In app design, providing scaffolding involves conveying the objectives of the app to children in an understandable way (e.g., interactive prompts, visual cues) \cite{Chen2022, Landoni2021c}} and support in search tasks \cite{Chen2022, Tapola2022, Amin2022}. In particular:
 
           \begin{itemize}
 
               \item \textbf{Ages 6 to 8:} Interfaces should use simple, familiar words, and reward systems are effective in maintaining engagement. Bright colors are still encouraged \cite{Amin2022}.
 
-              \item \textbf{Ages 9 to 12:} These users value autonomy and prefer interfaces that offer control rather than instructions. Feedback should be informative rather than directive. Colors can be more subdued, such as green, grey, and navy tones. They are generally more skilled at navigating websites and handling smaller UI elements \cite{Amin2022}.
-              \item
+              \item \textbf{Ages 9 to 12:} These users value autonomy and prefer interfaces that offer control rather than instructions. Feedback should be informative rather than directive. Colors can be more subdued, such as green, gray, and navy tones. They are generally more skilled at navigating websites and handling smaller UI elements \cite{Amin2022}.
           \end{itemize}
 
 \end{itemize}
@@ -170,7 +170,7 @@ Based on the insights from the literature and discussions with the advisors, the
     \item When downloading data, the system must request a password to protect the export and prevent children from tampering with it.
 \end{itemize}
 
-\subsubsection*{\textbf{Gameplay Logic}}
+\subsubsection*{\textbf{Game-play Logic}}
 \begin{itemize}
     \item The game must include six clickable islands, presented in a randomized order per session.
     \item Islands can be clicked in any order.
@@ -185,7 +185,7 @@ Based on the insights from the literature and discussions with the advisors, the
 \begin{itemize}
     \item Clicking on an island must open a question page where the user chooses between two different search tools: Google or Gemini (LLM).
     \item Users must be allowed to switch between the two tools freely before submitting an answer.
-    \item The Google interface must visually mimic a real search engine and display the top 10 results.
+    \item The Google interface must visually mimic a real Search Engine and display the top 10 results.
     \item The Gemini interface must mimic a realistic chatbot interface.
     \item Clicking on a Google result must open the link in a new browser tab.
 \end{itemize}
@@ -248,14 +248,14 @@ The system must also record \textbf{per-session data}:
 
 The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the user interface is a block, potentially reusable. All logic, including game progression, timing, data collection, and API communication, is embedded directly in the relevant components or custom hooks.
 
-There is no back-end: the entire game runs in the user's browser. State is managed using React's Context API and saved to \texttt{localStorage} to support persistence across sessions. When needed, the app communicates with external APIs to retrieve results from a search engine (Google) or a large language model (Gemini).
+There is no back-end: the entire game runs in the user's browser. State is managed using React's Context API and saved to \texttt{localStorage} to support persistence across sessions. When needed, the app communicates with external APIs to retrieve results from a Search Engine (Google) or a Large Language Model (Gemini).
 
 
 \subsection{Structure}
 
-The main components of the application represent the major stages of the game and are shown in Fig.~\ref{fig:architecture}. The flow begins at \texttt{ChooseLanguagePage} and proceeds through \texttt{GameStartPage}, \texttt{MapPage}, \texttt{ChoicePage}, and \texttt{QuestionPage}, concluding at \texttt{FinishPage}.
+The main components of the application represent the main stages of the game and are shown in Fig.~\ref{fig:architecture}. The flow begins at \texttt{ChooseLanguagePage} and proceeds through \texttt{GameStartPage}, \texttt{MapPage}, \texttt{ChoicePage}, and \texttt{QuestionPage}, concluding at \texttt{FinishPage}.
 
-While some transitions are one-way (e.g., from start to map), the design supports two-way navigation between \texttt{MapPage}, \texttt{ChoicePage}, and \texttt{QuestionPage}, allowing users to explore and revisit islands freely. The state and data collected during navigation are tracked using a centralized context. The \texttt{QuestionPage} triggers asynchronous calls to either the Google Search API or the GoogleGenerativeAI API, based on the user's choice.
+Although some transitions are one-way (for example, from start to map), the design supports two-way navigation between \texttt{MapPage}, \texttt{ChoicePage} and \texttt{QuestionPage}, allowing users to explore and revisit islands freely. The state and data collected during navigation are tracked using a centralized context. The \texttt{QuestionPage} triggers asynchronous calls to either the Google Search API or the GoogleGenerativeAI API, based on the user's choice.
 
 
 \begin{center}
@@ -271,36 +271,34 @@ While some transitions are one-way (e.g., from start to map), the design support
 The game uses two external services in order to retrieve the information from the user's prompts, selected based on the player's choice:
 
 \begin{itemize}
-    \item \textbf{Google Search API} \\
-          Executes a custom Google search and retrieves the top 10 results for a given query. When users select the \textit{Google} option in \texttt{ChoicePage}, this API returns search engine results, each including metadata such as title, snippet, rank, whether it was clicked, click order, and time spent on the result.
+    \item \textbf{Google Search API} Performs a custom Google search and retrieves the top 10 results for a given query. When users select the \textit{Google} option in \texttt{ChoicePage}, this API returns Search Engine results, each including metadata such as title, snippet, rank, whether it was clicked, click order, and time spent on the result.
 
-    \item \textbf{GoogleGenerativeAI API (Gemini)} \\
-          Sends the user's prompt to the Gemini LLM and returns a generated answer. This is selected when the player chooses the \textit{Gemini} option. Responses are stored in the local state alongside metadata such as prompt length and timestamp.
+    \item \textbf{GoogleGenerativeAI API (Gemini)} Sends the user's prompt to the Gemini LLM and returns a generated answer. This is selected when the player chooses the \textit{Gemini} option. Responses are stored in the local state alongside metadata such as prompt length and timestamp.
 \end{itemize}
 
 
 \subsection{Technologies Used}
 
-The application is built using the \textit{Create React App} boilerplate, which provides a pre-configured setup for React applications. The main technologies used are:
+The application is built using the \textit{Create React App} boilerplate, which provides a preconfigured setup for React applications. The main technologies used are as follows:
 
 \begin{itemize}
     \item \textbf{React}: Core framework for building the single-page application with reusable components and hooks.
     \item \textbf{JavaScript}: Used for writing all the game logic and component logic.
     \item \textbf{Mantine UI}: A React component library.
     \item \textbf{Plain CSS}: Used for styling components, organized in modular files like \texttt{map.css}, \texttt{question.css}, and more.
-    \item \textbf{Google Custom Search API}: Used to perform keyword-based queries when users choose the “Google” source.
+    \item \textbf{Google Custom Search API}: Used to perform keyword-based queries when users choose the source 'Google'.
     \item \textbf{GoogleGenerativeAI API (Gemini)}: Provides LLM-based responses to user prompts when the “Gemini” option is selected.
     \item \textbf{React Context + Hooks}: For managing shared state (e.g., game data, API responses).
-    \item \textbf{Browser LocalStorage}: Saves session data, including game state and interaction logs.
-    \item \textbf{Environment Variables (.env)}: API keys are stored in a private .env file and accessed at runtime.
+    \item \textbf{Browser LocalStorage}: Save session data, including game state and interaction logs.
+    \item \textbf{Environment Variables (.env)}: API keys are stored in a private \texttt{.env} file and are accessed at runtime.
 \end{itemize}
 
-Custom utility hooks such as \texttt{useWindowDimensions} and \texttt{useAutoScale} dynamically adapt the UI layout. Global game state is managed with React's Context API in the \texttt{GameStateContext} component.
+Custom utility hooks such as \texttt{useWindowDimensions} and \texttt{useAutoScale} dynamically adapt the UI layout. The global game state is managed with React's Context API in the \texttt{GameStateContext} component.
 
 
 \subsection{Research Data Collection}
 
-The game collects structured data to support research on how users interact with different information sources (search engine vs. large language model). All data is stored locally and can be exported at the end of the session.
+The game collects structured data to support research on how users interact with different information sources (Search Engine vs. Large Language Model). All data is stored locally and can be exported at the end of the session.
 
 \begin{itemize}
     \item \textbf{Session Metadata}:
@@ -315,11 +313,11 @@ The game collects structured data to support research on how users interact with
               \item \texttt{Queries}: Contains detailed records of each query:
                     \begin{itemize}
                         \item \texttt{query}: Text of the input, \texttt{AI}: Flag (0 for Google, 1 for Gemini), \texttt{numberOfQueryTerms}, \texttt{answer}: Either a plain string (for Gemini) or a list of search results (for Google), each entry made of title, snippet, position, click status, click order, time spent on result
-                    \end{itemize}
+                    \end{itemize}.
           \end{itemize}
 \end{itemize}
 
-All of this information can be exported via the \texttt{exportData()} function and analyzed to study user behavior, preference trends, and differences between information retrieval strategies. An example of the exported data is shown in Appendix~\ref{app:exported-data}.
+All of this information can be exported through the \texttt{exportData()} function and analyzed to study user behavior, preference trends, and differences between information retrieval strategies. An example of exported data is shown in Appendix~\ref{app:exported-data}.
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% USAGE SCENARIOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -411,7 +409,7 @@ The core component of the game corresponds to the map page (Fig.~\ref{fig:map}).
 
 \subsubsection*{\textbf{Step 5: Tool Choice}}
 
-After selecting an island, the child reaches a tool selection page (Fig.~\ref{fig:choice-page}) where they choose between a traditional search engine (Google) and a large language model (Gemini).
+After selecting an island, the child reaches a tool selection page (Fig.~\ref{fig:choice-page}) where they choose between a traditional Search Engine (Google) and a Large Language Model (Gemini).
 
 \begin{figure}[H]
     \centering
@@ -510,27 +508,25 @@ To end the session, a password-protected download prompt is shown (Fig.~\ref{fig
 
 \subsection{\textbf{Experts' Feedback}}
 
-The tool was presented to three teachers with experience working with children and technology. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be considered as input to be discussed and further analyzed, rather than as definitive requirements to be implemented.
+The tool was presented to three primary school teachers with experience working with children and technology. In particular, they run computer-related lectures in classroom settings in Ticino. Here, children typically begin using Google in third grade under close guidance. At this stage, experts report children's struggle with navigating the SERP, switching between tabs, and identifying which results to click on. They provided valuable feedback on the design and usability of the tool, which should be discussed during future iterations of development. Please note that the feedback should be considered as input to be discussed and further analyzed, rather than as definitive requirements to be implemented.
 
 \begin{enumerate}
 
-    \item The overall visual design was considered slightly outdated and overly childlike, more appropriate for younger students (third or fourth grade). Both experts suggested a more modern and polished look to better suit the target age group.
+    \item The overall visual design was considered slightly outdated and overly childlike, more appropriate for younger students (third or fourth grade). Two experts suggested a more modern and polished look to better suit the target age group.
     \item Regarding the first screen, the introductory message was described as too long. Since children tend to click instinctively, they might skip important instructions. To address this, two alternative solutions were proposed:
           \begin{enumerate}
               \item Split the prompt into two screens, one with a warning to wait for the teacher's instruction, and a second screen with a clickable button.
               \item Using a larger font and shortening the text (e.g., “\textit{WAIT! When you hear 'ok', click}”).
           \end{enumerate}
 
-    \item Although appreciated in terms of idea and icons used, the screen featuring clickable islands was deemed not intuitive. The experts noted that it did not encourage interaction and that some children might not realize that the elements were clickable. Additionally, the use of happy and sad face icons was discouraged, as they could lead children to assign emotional meaning or personify the interface unnecessarily.
+    \item Although appreciated in terms of idea and icons used\footnote{One expert recalled a similar island-based activity on the plaftorm \url{www.kotable.com}}, the screen featuring clickable islands was deemed not intuitive. The experts noted that it did not encourage interaction and that some children might not realize that the elements were clickable. Additionally, the use of happy and sad face icons was discouraged, as they could lead children to assign emotional meaning or personify the interface unnecessarily.
     \item For the question screen, both font size and type were mentioned. They believed that the text should be larger and use a highly readable font such as Arial or certified dyslexia fonts. Furthermore, the question area was suggested to be visually highlighted (e.g., with a colored background) to make it stand out from the rest of the interface.
     \item The use of commercial logos was also criticized. This was flagged both for ethical reasons and for inconsistency: although a Google-like logo was shown, the following screen was considered not an accurate replica of the Google or Gemini interface. As a workaround, it was recommended to label the search interface simply as “\textit{Search Engine}” while mimicking the Google look through color and font style.
-    \item The score system also received mixed feedback. It was suggested to give teachers the option to enable or disable the display of points. For children with lower self-esteem, visible scores could be discouraging. In contrast, group dynamics could benefit from visible scoring as a form of motivation. One teacher explicitly reported that scores fascinate and stimulate children, appreciating it. If scores are shown, they should be designed with engaging, attention-grabbing visuals.
+    \item The score system also received mixed feedback. It was suggested to give teachers the option to enable or disable the display of points. For children with lower self-esteem, visible scores could be discouraging. In contrast, group dynamics could benefit from visible scoring as a form of motivation. A teacher explicitly reported that scores fascinate and stimulate children, who appreciated them. If scores are shown, they should be designed with engaging, attention-grabbing visuals.
     \item The simulated Google interface needed refinement. The space for displaying the question was perceived as difficult to notice, and the answer input field was not clearly interactive. Improving layout cues would help clarify the expected user action.
     \item The final screen's thank-you message was considered too long. A concise alternative such as “\textit{Great job! You earned X points!}” was recommended, particularly if the scoring feature remains active.
-    \item One teacher raised a concern about the lack of scaffolding during the research phase of the game as younger students may require structured support to conduct meaningful searches. It was suggested to provide curated websites alongside guiding questions, ensuring students are able to find suitable information independently without being overwhelmed.
-    \item In classroom settings in Ticino, where the experts work, children typically begin using Google in third grade under close guidance. At this stage, they struggle with navigating the SERP (Search Engine Results Page), switching between tabs, and identifying which results to click on.
+    \item One teacher raised concern about the lack of scaffolding during the research phase of the game, as younger students may require structured support to conduct meaningful searches. It was suggested to provide curated websites alongside the guiding questions, ensuring that students are able to find suitable information independently without being overwhelmed.
     \item The choice page was appreciated by the experts and considered a good idea for encouraging decision-making during the activity.
-
 \end{enumerate}
 
 
@@ -544,26 +540,26 @@ These insights are essential to improve both the usability and accessibility of 
 
 \section{\textbf{Conclusions}}
 
-This project focused on the design and development of a tool to support researchers collecting user data to study how children interact with different information retrieval systems. The tool, designed in collaboration with researchers and teachers and built as an interactive web-based game, allows children to choose between a traditional search engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, enabling the collection of data to support research.
+This project focused on the design and development of a tool to support researchers collecting user data to study how children interact with different information retrieval systems. The tool, designed in collaboration with researchers and teachers and built as an interactive web-based game, allows children to choose between a traditional Search Engine and a chatbot-style LLM to answer emotionally framed questions. All interactions are logged in a structured way, allowing the collection of data to support research.
 
-The work originated from the limitations identified in Savoia's thesis \cite{Savoia2025}, particularly the need for data collection features. While her work laid the foundation for a possible approach to studying search behavior, it did not provide a usable or extensible tool for research purposes. This project rebuilt the system with the aforementioned goals in mind.
+The work originated from the limitations identified in Savoia's thesis \cite{Savoia2025}, particularly the need for data collection features. Although her work laid the foundation for a possible approach to studying search behavior, it did not provide a usable or extensible tool for research purposes. This project rebuilt the system with the goals mentioned above in mind.
 
 Several contributions were achieved:
 \begin{itemize}
     \item A fully functional prototype was implemented.
     \item A data model was developed to log user interactions in detail, capturing a variety of metrics relevant to IR and HCI research.
     \item The user interface was designed to balance child-friendly visuals with realistic representations of search interfaces, aligning with guidelines from the literature.
-    \item Feedback from experts in education and child-computer interaction was gathered to inform future improvements and highlight potential issues in usability.
+    \item Feedback from experts in education and child-computer interaction was gathered to inform future improvements and highlight potential usability issues.
 \end{itemize}
 
-The project provides a functional addition to current state of the art in the IR and HCI research domains, particularly in the context of studying children's search behavior. The tool is designed to be modular and extensible, allowing for future adaptations to different research contexts or experimental setups.
+The project provides a functional addition to the current state-of-the-art in the IR and HCI research domains, particularly in the context of studying children's search behavior. The tool is designed to be modular and extensible, allowing future adaptations to different research contexts or experimental setups.
 
 \subsection{\textbf{Future Work}}
 
 Although the current prototype is functional and is already suitable for small-scale research studies, further improvements can be made in future iterations to improve usability, data collection, and scalability.
 
 \subsubsection*{\textbf{User Interface and Usability Testing}}
-The current interface was designed based on the insights of the literature and internal feedback, but because the design interface could have been a whole project on its own, it can be improved. Furthermore, it has not yet been tested with children in real-life settings. One key area for future work is to conduct formal usability testing sessions with children of different age groups. These sessions would help identify which parts of the UI are intuitive, which are appealing, and which are confusing or too complex. For example, visual feedback (for example hover animations, tool choices, iconography) may need to be adjusted based on children's preferences and cognitive abilities. Additionally, working with experts in child-computer interaction and UX/UI could help refine the design to better suit the target audience.
+The current interface was designed based on the insights of the literature and internal feedback, but because the design interface could have been a whole project on its own, it can be improved. Furthermore, it has not yet been tested with children in real-life settings. One key area for future work is to conduct formal usability testing sessions with children of different age groups. These sessions would help identify which parts of the UI are intuitive, which are appealing, and which are confusing or too complex. For example, visual feedback, such as hover animations, tool choices, or iconography, may need to be adjusted based on children's preferences and cognitive abilities. Additionally, working with experts in child-computer interaction and UX/UI could help refine the design to better suit the target audience.
 
 \subsubsection*{\textbf{Extending Data Collection}}
 
@@ -579,7 +575,7 @@ The current version of the system already collects a wide set of interaction dat
 
 In the current version of the system, all interaction data is stored locally in the browser and must be manually exported at the end of each session. Although this solution is suitable for small-scale studies or pilot experiments, it introduces several limitations when conducting larger studies.
 
-Managing data from multiple devices becomes time-consuming and there is a risk of losing session data if a participant closes the browser before exporting. Relying on browser-based password prompts also provides only minimal protection and may not be ideal in more formal research contexts.
+Managing data from multiple devices becomes time-consuming, and there is a risk of losing session data if a participant closes the browser before exporting. Relying on browser-based password prompts also provides only minimal protection and may not be ideal in more formal research contexts.
 
 A possible solution could be to integrate a back-end infrastructure that stores the data in a centralized manner, allowing researchers to:
 \begin{itemize}
@@ -589,7 +585,7 @@ A possible solution could be to integrate a back-end infrastructure that stores 
 \end{itemize}
 
 \subsubsection*{\textbf{Architecture and Code Quality}}
-The current codebase is functional but there is always room for improvement. Future work could focus on separating the logic from the UI components, implementing a separate layer for game functionality, and using a more modular architecture. Ths refactoring would further improve maintainability and scalability.
+The current codebase is functional but there is always room for improvement. Future work could focus on separating the logic from the UI components, implementing a separate layer for game functionality, and using a more modular architecture. This refactoring would further improve maintainability and scalability.
 
 
 \subsubsection*{\textbf{Experts' Feedback}}
