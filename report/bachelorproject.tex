@@ -26,7 +26,7 @@
 As children increasingly engage in web searching activities both at home and in educational settings, understanding how they search for information has become a key topic in both Information Retrieval (IR) and Human-Computer Interaction (HCI). However, most search interfaces are designed for adults and fail to address the cognitive and emotional needs of younger users.
 This thesis presents an interactive, web-based game designed to investigate how children search for information using either a traditional Search Engine (SE) or a Large Language Model (LLM). The game aims to be both engaging for children and practical for researchers. It logs structured interaction data, such as queries, tool preferences, session length, and user responses, and offers easy export of session logs for later analysis.
 
-The project builds upon a previous prototype, making the system more modular, reusable, and suitable for real-world studies. Initial feedback from education professionals suggests the tool is promising as a research instrument, but still has room for improvement with respect to the User Interface (UI). This work provides a foundation for future iterations of the tool and supports the research community’s need for structured, quantitative data on children’s online information-seeking behavior.
+The project builds upon a previous prototype, making the system more modular, reusable, and suitable for real-world studies. Initial feedback from education professionals suggests the tool is promising as a research instrument, but still has room for improvement with respect to the User Interface (UI). This work provides a foundation for future iterations of the tool and supports the research community's need for structured, quantitative data on children's online information-seeking behavior.
 
 \vspace{0.5em}
 
@@ -95,12 +95,14 @@ By designing the tool as a digital game, we also benefit from interactive elemen
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% REQUIREMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{\textbf{Requirements}}
-INTRO GIOCO
+
+The tool is a web-based game in which children are presented with six different islands, each representing a search task framed with a specific emotional tone (positive, neutral, or negative). For each island, the child must choose one of two search tools, either a traditional SE interface (Google) or an LLM (Gemini), to look for information and then submit their answer. All actions are recorded, including queries, tool choices, time spent, and final responses. The goal is to collect detailed data on how children use these tools, how emotions influence their choices, and how they approach different types of information-seeking tasks. \\
 
 This project did not begin with a fixed list of specifications. Instead, requirements emerged iteratively through exploration of the research domain, analysis of related literature, and discussions with advisors, both researchers in IR and, therefore, stakeholders in this design space. The work builds on Savoia's thesis \cite{Savoia2025}, which included an initial prototype of the game that was tested in a pilot session with children. From that experience, the feedback from the advisors and what we found in the literature, a new version of the game came to life, one that is more functional, scalable, and better suited to support different research questions in IR and HCI, while also being engaging and usable for children.
 
-The main objective was to implement a fully functional and reusable prototype that could collect detailed data on how children use traditional SE and LLM, while also being engaging and usable for children. The project extends Savoia's prototype \cite{Savoia2025}, which demonstrated the potential of a game-based framework to study children's search behavior, but did not actually integrate the aspect of user data collection.
+The main objective was to implement a fully functional and reusable and extensible prototype that could collect detailed data on how children use traditional SE and LLM, while also being engaging and usable for children. The project extends Savoia's prototype \cite{Savoia2025}, which demonstrated the potential of a game-based framework to study children's search behavior, but did not actually integrate the aspect of user data collection.
 To structure the design, the dual purpose of the tool was fundamental: relevance for researchers aiming to study search behavior, and a pleasurable and engaging experience for children. From this core duality, the following questions guided the requirements definition process:
 To structure the design, the following questions guided the requirement definition process.
 \begin{itemize}
@@ -248,7 +250,7 @@ The system must also record \textbf{per-session data}:
 
 \subsection{Overview}
 
-The game is implemented as a single-page web application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the UI is a block, potentially reusable. All logic, including game progression, timing, data collection, and API communication, is embedded directly in the relevant components or custom hooks.
+The game is implemented as a single-page application developed using React, a JavaScript framework. The architecture follows a standard component-based design, where each part of the UI is a block, potentially reusable. All logic, including game progression, timing, data collection, and API communication, is embedded directly in the relevant components or custom hooks.
 
 There is no back-end: the entire game runs in the user's browser. State is managed using React's Context API and saved to \texttt{localStorage} to support persistence across sessions. When needed, the app communicates with external APIs to retrieve results from a SE (Google) or a LLM (Gemini).
 
